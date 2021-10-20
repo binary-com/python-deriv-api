@@ -1,0 +1,18 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+websockets = "==9.1"
+asyncio = ">=3.4.3"
+rx = "==3.1.1"
+
+[dev-packages]
+pytest = "*"
+pytest-runner = "*"
+pytest-mock = "*"
+pytest-asyncio = "*"
+
+[requires]
+python_version = "3.9.6"
