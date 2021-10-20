@@ -1,2 +1,15 @@
 # python-deriv-api
-Python bindings for deriv.com websocket API
+A python implementation of deriv api library
+
+
+# Run test
+
+```
+python setup.py pytest
+```
+
+or
+
+```
+pytest
+```
