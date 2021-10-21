@@ -9,6 +9,7 @@ _S = TypeVar("_S")
 
 
 class CustomFuture(Future):
+    """A class that extend asyncio Future class and has some more convenient methods"""
     def __init__(self, *, loop: Optional[asyncio.AbstractEventLoop] = None, label: Optional[str] = None) -> None:
         super().__init__(loop=loop)
         if not label:

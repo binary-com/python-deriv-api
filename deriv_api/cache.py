@@ -1,8 +1,12 @@
 from __future__ import annotations
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from deriv_api.deriv_api import DerivAPI
+from typing import Union
 from deriv_api.deriv_api_calls import DerivAPICalls
 from deriv_api.errors import ConstructionError
 from deriv_api.utils import dict_to_cache_key
-from typing import Union
 from deriv_api.in_memory import InMemory
 
 __pdoc__ = {
@@ -37,7 +41,7 @@ class Cache(DerivAPICalls):
             storage : Object
                 A storage instance to use for caching
         """
-    def __init__(self, api: Union[object, Cache], storage: Union[InMemory, Cache]) -> None:
+    def __init__(self, api: Union[DerivAPI, Cache], storage: Union[InMemory, Cache]) -> None:
         if not api:
             raise ConstructionError('Cache object needs an API to work')
 

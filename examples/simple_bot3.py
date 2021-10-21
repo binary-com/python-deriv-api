@@ -1,14 +1,12 @@
 # run it like PYTHONPATH=. python3 examples/simple_bot1.py
-import sys
 import asyncio
-import os
-from deriv_api import deriv_api
+from deriv_api import DerivAPI
 from rx import Observable
 app_id = 1089
 
 
 async def sample_calls():
-    api = deriv_api.DerivAPI(app_id=app_id)
+    api = DerivAPI(app_id=app_id)
     wait_tick = api.expect_response('tick')
     last_data = {}
     source_tick_50: Observable  = await api.subscribe({'ticks': 'R_50'})

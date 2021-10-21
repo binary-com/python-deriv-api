@@ -2,7 +2,7 @@ import sys
 sys.path.append('.')
 import asyncio
 import os
-from deriv_api import deriv_api
+from deriv_api import DerivAPI
 import websockets
 
 
@@ -21,7 +21,7 @@ async def connect():
 async def sample_calls():
     # create your own websocket connection and pass it as argument to DerivAPI
     connection = await connect()
-    api = deriv_api.DerivAPI(connection=connection)
+    api = DerivAPI(connection=connection)
 
     response = await api.ping({'ping':1})
     if response['ping']:
