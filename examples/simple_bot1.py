@@ -2,8 +2,8 @@
 import sys
 import asyncio
 import os
-from deriv_api import deriv_api
-from deriv_api.errors import APIError
+from deriv_api import DerivAPI
+from deriv_api import APIError
 
 app_id = 1089
 api_token = os.getenv('DERIV_TOKEN', '')
@@ -13,7 +13,7 @@ if len(api_token) == 0:
 
 
 async def sample_calls():
-    api = deriv_api.DerivAPI(app_id=app_id)
+    api = DerivAPI(app_id=app_id)
 
     response = await api.ping({'ping': 1})
     if response['ping']:
