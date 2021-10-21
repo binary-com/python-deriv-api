@@ -1,5 +1,3 @@
-import asyncio
-
 from deriv_api.utils import dict_to_cache_key
 from deriv_api.errors import APIError
 from rx import operators as op
@@ -16,19 +14,19 @@ streams_list = ['balance', 'candles', 'p2p_advertiser', 'p2p_order', 'proposal',
                 'website_status', 'buy']
 
 __pdoc__ = {
-    'deriv_api.subscription_manager.SubscriptionManager.complete_subs_by_ids' : False,
-    'deriv_api.subscription_manager.SubscriptionManager.complete_subs_by_key' : False,
+    'deriv_api.subscription_manager.SubscriptionManager.complete_subs_by_ids': False,
+    'deriv_api.subscription_manager.SubscriptionManager.complete_subs_by_key': False,
     'deriv_api.subscription_manager.SubscriptionManager.create_new_source': False,
     'deriv_api.subscription_manager.SubscriptionManager.get_source': False,
     'deriv_api.subscription_manager.SubscriptionManager.remove_key_on_error': False,
     'deriv_api.subscription_manager.SubscriptionManager.save_subs_id': False,
     'deriv_api.subscription_manager.SubscriptionManager.save_subs_per_msg_type': False,
-    'deriv_api.subscription_manager.SubscriptionManager.create_new_sourcesource_exists': False,
     'deriv_api.subscription_manager.SubscriptionManager.source_exists': False,
     'deriv_api.subscription_manager.SubscriptionManager.forget': False,
     'deriv_api.subscription_manager.SubscriptionManager.forget_all': False,
     'deriv_api.subscription_manager.get_msg_type': False
 }
+
 
 class SubscriptionManager:
     """
@@ -69,14 +67,14 @@ class SubscriptionManager:
         self.buy_key_to_contract_id: dict = {}
         self.subs_per_msg_type: dict = {}
 
-    async def subscribe(self, request: dict) -> Subject:
+    async def subscribe(self, request: dict) -> Observable:
         """
         Subscribe to a given request, returns a stream of new responses,
         Errors should be handled by the user of the stream
 
         Example
         -------
-        >>> ticks = api.subscribe({ 'ticks': 'R_100' });
+        >>> ticks = api.subscribe({ 'ticks': 'R_100' })
         >>> ticks.subscribe(call_back_function)
 
         Parameter
@@ -100,7 +98,7 @@ class SubscriptionManager:
         return await self.create_new_source(new_request)
 
     def get_source(self, request: dict) -> Optional[Subject]:
-        key: str = dict_to_cache_key(request)
+        key: bytes = dict_to_cache_key(request)
         if key in self.sources:
             return self.sources[key]
 
@@ -114,9 +112,10 @@ class SubscriptionManager:
     def source_exists(self, request: dict):
         return self.get_source(request)
 
-    async def create_new_source(self, request: dict) -> Subject:
-        key: str = dict_to_cache_key(request)
-        def forget_old_source():
+    async def create_new_source(self, request: dict) -> Observable:
+        key: bytes = dict_to_cache_key(request)
+
+        def forget_old_source() -> None:
             if key not in self.key_to_subs_id:
                 return
             # noinspection PyBroadException
@@ -133,7 +132,8 @@ class SubscriptionManager:
         )
         self.sources[key] = source
         self.save_subs_per_msg_type(request, key)
-        async def process_response():
+
+        async def process_response() -> None:
             # noinspection PyBroadException
             try:
                 response = await source.pipe(op.first(), op.to_future())
@@ -143,7 +143,7 @@ class SubscriptionManager:
                         'buy_key': key
                     }
                 self.save_subs_id(key, response['subscription'])
-            except Exception as err:
+            except Exception:
                 self.remove_key_on_error(key)
 
         self.api.add_task(process_response(), 'subs manager: process_response')
@@ -201,7 +201,7 @@ class SubscriptionManager:
 
         try:
             # Delete the subs id if exist
-            if(key in self.key_to_subs_id):
+            if key in self.key_to_subs_id:
                 subs_id = self.key_to_subs_id[key]
                 del self.subs_id_to_key[subs_id]
                 # Delete the key
