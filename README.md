@@ -52,7 +52,7 @@ pytest
 
 #### Generate documentations
 
-pdoc deriv_api --force --html -o docs/html --template-dir docs/templates
+make doc
 
 #### Run examples
 
