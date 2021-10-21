@@ -3,3 +3,6 @@ __pdoc__ = {
     'deriv_api.utils' : False,
     'deriv_api.custom_future': False
 }
+
+from .deriv_api import DerivAPI
+from .errors import *
