@@ -9,7 +9,8 @@ _S = TypeVar("_S")
 
 
 class CustomFuture(Future):
-    """A class that extend asyncio Future class and has some more convenient methods"""
+    """A class that extend asyncio Future class and has some more convenient methods
+    Just like Promise in JS or Future in Perl"""
     def __init__(self, *, loop: Optional[asyncio.AbstractEventLoop] = None, label: Optional[str] = None) -> None:
         super().__init__(loop=loop)
         if not label:
@@ -18,6 +19,7 @@ class CustomFuture(Future):
 
     @classmethod
     def wrap(cls, future: Future) -> CustomFuture:
+        """Wrap an Asyncio Future to a CustomFuture"""
         if isinstance(future, cls):
             return future
 
@@ -37,23 +39,29 @@ class CustomFuture(Future):
         return custom_future
 
     def resolve(self, *args: Any) -> CustomFuture:
+        """Set result on the future"""
         super().set_result(*args)
         return self
 
     def reject(self, *args: Union[type, BaseException]) -> CustomFuture:
+        """Set exception on the future"""
         super().set_exception(*args)
         return self
 
     def is_pending(self) -> bool:
+        """Check if the future is pending (not done)"""
         return not self.done()
 
     def is_resolved(self) -> bool:
+        """check if the future is resolved (result set)"""
         return self.done() and not self.cancelled() and not self.exception()
 
     def is_rejected(self) -> bool:
+        """check if the future is rejected (excetion set)"""
         return self.done() and not self.cancelled() and self.exception()
 
     def is_cancelled(self) -> bool:
+        """check if the future is cancelled"""
         return self.cancelled()
 
     def cascade(self, future: Future) -> CustomFuture:
@@ -74,6 +82,15 @@ class CustomFuture(Future):
         return self
 
     def then(self, then_callback: Union[Callable[[Any], Any], None], else_callback: Union[Callable[[Any], Any], None] = None) -> CustomFuture:
+        """Simulate Perl Future's 'then' function.
+        Parameters:
+        then_callback: the cb function that will be called when the original Future is resolved
+        else_callback: the cb function that will be called when the original Future is rejected,
+            can be None
+
+        Both cb function should return a Future. The Future returned by the function 'then'
+        will have same result of cb returned Future.
+        """
         new_future = CustomFuture(loop=self.get_loop())
 
         def done_callback(myself: CustomFuture) -> None:
@@ -100,4 +117,5 @@ class CustomFuture(Future):
         return new_future
 
     def catch(self, else_callback: Callable[[_S], Any]) -> CustomFuture:
+        """An variant of 'then' function. it can only get an 'else_cb' which will be run when the future rejected"""
         return self.then(None, else_callback)
