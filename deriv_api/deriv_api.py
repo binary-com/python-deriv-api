@@ -265,8 +265,6 @@ class DerivAPI(DerivAPICalls):
     async def clear(self):
         await self.disconnect()
         for task in asyncio.all_tasks():
-            print(f"checking task {task.get_name()}")
             if re.match(r"^deriv_api:",task.get_name()):
-                print(f"cancelling task {task.get_name()}")
                 task.cancel('deriv api ended')
 
