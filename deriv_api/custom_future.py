@@ -28,12 +28,12 @@ class CustomFuture(Future):
         weak_future = weakref.ref(future)
 
         def cancel_cb(cb_future: Future):
-            future = weak_future()
-            if cb_future.cancelled() and not future.done():
+            out_future = weak_future()
+            if cb_future.cancelled() and not out_future.done():
                 try:
                     cb_future.result()
                 except CancelledError as err:
-                    future.cancel(*(err.args))
+                    out_future.cancel(*(err.args))
 
         custom_future.add_done_callback(cancel_cb)
         return custom_future
