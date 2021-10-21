@@ -1,23 +1,17 @@
 import pickle
 import re
 
-"""
-Utility Methods
----------------
-dict_to_cache_key(obj)
-    convert the dictionary object to Pickled representation of object as bytes
-
-is_valid_url(url)
-    check the given url as a valid ws or wss url
-"""
-
-
 def dict_to_cache_key(obj: dict) -> bytes:
     """convert the dictionary object to Pickled representation of object as bytes
 
-    param obj: request arguments
-    return: Pickled representation of request object as bytes
-    rtype: bytes
+    Parameter
+    ---------
+    obj : dict
+        Request arguments
+    Returns
+    ------- 
+        bytes
+            Pickled representation of request object as bytes
     """
 
     cloned_obj: dict = obj.copy()
