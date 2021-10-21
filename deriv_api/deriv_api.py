@@ -17,7 +17,7 @@ from deriv_api.deriv_api_calls import DerivAPICalls
 from deriv_api.errors import APIError, ConstructionError, ResponseError, AddedTaskError
 from deriv_api.in_memory import InMemory
 from deriv_api.subscription_manager import SubscriptionManager
-from deriv_api.utils import dict_to_cache_key, is_valid_url
+from deriv_api.utils import is_valid_url
 
 # TODO NEXT subscribe is not calling deriv_api_calls. that's , args not verified. can we improve it ?
 # TODO list these features missed
@@ -37,9 +37,10 @@ __pdoc__ = {
     'deriv_api.deriv_api.DerivAPI.delete_from_expect_response': False,
     'deriv_api.deriv_api.DerivAPI.disconnect': False,
     'deriv_api.deriv_api.DerivAPI.send': False,
-    'deriv_api.deriv_api.DerivAPI.wsconnection' : False,
-    'deriv_api.deriv_api.DerivAPI.storage' : False
+    'deriv_api.deriv_api.DerivAPI.wsconnection': False,
+    'deriv_api.deriv_api.DerivAPI.storage': False
 }
+
 
 class DerivAPI(DerivAPICalls):
     """
@@ -83,7 +84,7 @@ class DerivAPI(DerivAPICalls):
         lang = options.get('lang', 'EN')
         brand = options.get('brand', '')
         cache = options.get('cache', InMemory())
-        storage = options.get('storage')
+        storage: any = options.get('storage')
         self.wsconnection: Optional[WebSocketClientProtocol] = None
         self.wsconnection_from_inside = True
         if options.get('connection'):
@@ -99,10 +100,10 @@ class DerivAPI(DerivAPICalls):
                 'lang': lang,
                 'brand': brand
             }
-            self.__set_apiURL(connection_argument)
+            self.__set_api_url(connection_argument)
             self.shouldReconnect = True
 
-        self.storage: Union[InMemory, Cache, None] = None
+        self.storage: Optional[Cache] = None
         if storage:
             self.storage = Cache(self, storage)
         # If we have the storage look that one up
@@ -167,18 +168,18 @@ class DerivAPI(DerivAPICalls):
 
             self.pending_requests[req_id].on_next(response)
 
-    def __set_apiURL(self, connection_argument: dict) -> None:
+    def __set_api_url(self, connection_argument: dict) -> None:
         self.api_url = connection_argument.get('endpoint_url') + "/websockets/v3?app_id=" + connection_argument.get(
             'app_id') + "&l=" + connection_argument.get('lang') + "&brand=" + connection_argument.get('brand')
 
-    def __get_apiURL(self) -> str:
+    def __get_api_url(self) -> str:
         return self.api_url
 
     def get_url(self, original_endpoint: str) -> Union[str, ConstructionError]:
         if not isinstance(original_endpoint, str):
             raise ConstructionError(f"Endpoint must be a string, passed: {type(original_endpoint)}")
 
-        match = re.match(r'((?:\w*:\/\/)*)(.*)', original_endpoint).groups()
+        match = re.match(r'((?:\w*://)*)(.*)', original_endpoint).groups()
         protocol = match[0] if match[0] == "ws://" else "wss://"
         endpoint = match[1]
 
@@ -205,12 +206,6 @@ class DerivAPI(DerivAPICalls):
         if self.storage:
             self.storage.set(request, response)
         return response
-
-    async def subscribe(self, request):
-        """
-            subscribe the api calls
-        """
-        return await self.subscription_manager.subscribe(request)
 
     def send_and_get_source(self, request: dict):
         pending = Subject()
@@ -242,7 +237,6 @@ class DerivAPI(DerivAPICalls):
 
         return await self.subscription_manager.subscribe(request)
 
-
     async def forget(self, subs_id: str):
         """
         Forget / unsubscribe the specific subscription.
@@ -268,7 +262,7 @@ class DerivAPI(DerivAPICalls):
             api.forget_all("ticks", "candles")
         """
 
-        return await self.subscription_manager.forget_all(*types);
+        return await self.subscription_manager.forget_all(*types)
 
     async def disconnect(self) -> None:
         if not self.connected.is_resolved():
@@ -293,6 +287,7 @@ class DerivAPI(DerivAPICalls):
         for msg_type in msg_types:
             if msg_type not in self.expect_response_types:
                 future: Future = asyncio.get_event_loop().create_future()
+
                 async def get_by_msg_type(a_msg_type):
                     nonlocal future
                     val = await self.cache.get_by_msg_type(a_msg_type)
@@ -323,11 +318,12 @@ class DerivAPI(DerivAPICalls):
 
     def add_task(self, coroutine, name):
         name = 'deriv_api:' + name
-        async def wrap_coro(coru, name):
+
+        async def wrap_coro(coru, pname):
             try:
                 await coru
             except Exception as err:
-                self.sanity_errors.on_next(AddedTaskError(err, name))
+                self.sanity_errors.on_next(AddedTaskError(err, pname))
 
         asyncio.create_task(wrap_coro(coroutine, name), name=name)
 
@@ -337,6 +333,5 @@ class DerivAPI(DerivAPICalls):
         """
         await self.disconnect()
         for task in asyncio.all_tasks():
-            if re.match(r"^deriv_api:",task.get_name()):
+            if re.match(r"^deriv_api:", task.get_name()):
                 task.cancel('deriv api ended')
-
