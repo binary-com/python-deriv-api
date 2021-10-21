@@ -1,0 +1,226 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
+<meta name="generator" content="pdoc 0.10.0" />
+<title>deriv_api.cache API documentation</title>
+<meta name="description" content="" />
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/sanitize.min.css" integrity="sha256-PK9q560IAAa6WVRRh76LtCaI8pjTJ2z11v0miyNNjrs=" crossorigin>
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/typography.min.css" integrity="sha256-7l/o7C8jubJiy74VsKTidCy1yBkRtiUGbVkYBylBqUg=" crossorigin>
+<link rel="stylesheet preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/styles/github.min.css" crossorigin>
+<style>:root{--highlight-color:#fe9}.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:30px;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:1em 0 .50em 0}h3{font-size:1.4em;margin:25px 0 10px 0}h4{margin:0;font-size:105%}h1:target,h2:target,h3:target,h4:target,h5:target,h6:target{background:var(--highlight-color);padding:.2em 0}a{color:#058;text-decoration:none;transition:color .3s ease-in-out}a:hover{color:#e82}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900}pre code{background:#f8f8f8;font-size:.8em;line-height:1.4em}code{background:#f2f2f1;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{background:#f8f8f8;border:0;border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0;padding:1ex}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-weight:bold;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}dt:target .name{background:var(--highlight-color)}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}td{padding:0 .5em}.admonition{padding:.1em .5em;margin-bottom:1em}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.item .name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul{padding-left:1.5em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js" integrity="sha256-Uv3H6lx7dJmRfRvH8TH6kJD1TSK1aFcwgx+mdg3epi8=" crossorigin></script>
+<script>window.addEventListener('DOMContentLoaded', () => {hljs.configure({languages:[]}); hljs.initHighlighting(); })</script>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>deriv_api.cache</code></h1>
+</header>
+<section id="section-intro">
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-classes">Classes</h2>
+<dl>
+<dt id="deriv_api.cache.Cache"><code class="flex name class">
+<span>class <span class="ident">Cache</span></span>
+<span>(</span><span>api, storage)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Cache - A class for implementing in-memory and persistent cache</p>
+<p>The real implementation of the underlying cache is delegated to the storage
+object (See the params).</p>
+<p>The storage object needs to implement the API.</p>
+<h2 id="examples">Examples</h2>
+<ul>
+<li>Read the latest active symbols</li>
+</ul>
+<pre><code class="language-python-repl">&gt;&gt;&gt; symbols = await api.activeSymbols();
+</code></pre>
+<ul>
+<li>Read the data from cache if available</li>
+</ul>
+<pre><code class="language-python-repl">&gt;&gt;&gt; cached_symbols = await api.cache.activeSymbols();
+</code></pre>
+<h2 id="parameters">Parameters</h2>
+<pre><code>api : deriv_api.DerivAPI
+    API instance to get data that is not cached
+storage : Object
+    A storage instance to use for caching
+</code></pre></div>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="deriv_api.deriv_api_calls.DerivAPICalls" href="deriv_api_calls.html#deriv_api.deriv_api_calls.DerivAPICalls">DerivAPICalls</a></li>
+</ul>
+<h3>Inherited members</h3>
+<ul class="hlist">
+<li><code><b><a title="deriv_api.deriv_api_calls.DerivAPICalls" href="deriv_api_calls.html#deriv_api.deriv_api_calls.DerivAPICalls">DerivAPICalls</a></b></code>:
+<ul class="hlist">
+<li><code><a title="deriv_api.deriv_api_calls.DerivAPICalls.account_closure" href="deriv_api_calls.html#deriv_api.deriv_api_calls.DerivAPICalls.account_closure">account_closure</a></code></li>
+<li><code><a title="deriv_api.deriv_api_calls.DerivAPICalls.account_security" href="deriv_api_calls.html#deriv_api.deriv_api_calls.DerivAPICalls.account_security">account_security</a></code></li>
+<li><code><a title="deriv_api.deriv_api_calls.DerivAPICalls.account_statistics" href="deriv_api_calls.html#deriv_api.deriv_api_calls.DerivAPICalls.account_statistics">account_statistics</a></code></li>
+<li><code><a title="deriv_api.deriv_api_calls.DerivAPICalls.active_symbols" href="deriv_api_calls.html#deriv_api.deriv_api_calls.DerivAPICalls.active_symbols">active_symbols</a></code></li>
+<li><code><a title="deriv_api.deriv_api_calls.DerivAPICalls.affiliate_account_add" href="deriv_api_calls.html#deriv_api.deriv_api_calls.DerivAPICalls.affiliate_account_add">affiliate_account_add</a></code></li>
+<li><code><a title="deriv_api.deriv_api_calls.DerivAPICalls.api_token" href="deriv_api_calls.html#deriv_api.deriv_api_calls.DerivAPICalls.api_token">api_token</a></code></li>
+<li><code><a title="deriv_api.deriv_api_calls.DerivAPICalls.app_delete" href="deriv_api_calls.html#deriv_api.deriv_api_calls.DerivAPICalls.app_delete">app_delete</a></code></li>
+<li><code><a title="deriv_api.deriv_api_calls.DerivAPICalls.app_get" href="deriv_api_calls.html#deriv_api.deriv_api_calls.DerivAPICalls.app_get">app_get</a></code></li>
+<li><code><a title="deriv_api.deriv_api_calls.DerivAPICalls.app_list" href="deriv_api_calls.html#deriv_api.deriv_api_calls.DerivAPICalls.app_list">app_list</a></code></li>
+<li><code><a title="deriv_api.deriv_api_calls.DerivAPICalls.app_markup_details" href="deriv_api_calls.html#deriv_api.deriv_api_calls.DerivAPICalls.app_markup_details">app_markup_details</a></code></li>
+<li><code><a title="deriv_api.deriv_api_calls.DerivAPICalls.app_register" href="deriv_api_calls.html#deriv_api.deriv_api_calls.DerivAPICalls.app_register">app_register</a></code></li>
+<li><code><a title="deriv_api.deriv_api_calls.DerivAPICalls.app_update" href="deriv_api_calls.html#deriv_api.deriv_api_calls.DerivAPICalls.app_update">app_update</a></code></li>
+<li><code><a title="deriv_api.deriv_api_calls.DerivAPICalls.asset_index" href="deriv_api_calls.html#deriv_api.deriv_api_calls.DerivAPICalls.asset_index">asset_index</a></code></li>
+<li><code><a title="deriv_api.deriv_api_calls.DerivAPICalls.authorize" href="deriv_api_calls.html#deriv_api.deriv_api_calls.DerivAPICalls.authorize">authorize</a></code></li>
+<li><code><a title="deriv_api.deriv_api_calls.DerivAPICalls.balance" href="deriv_api_calls.html#deriv_api.deriv_api_calls.DerivAPICalls.balance">balance</a></code></li>
+<li><code><a title="deriv_api.deriv_api_calls.DerivAPICalls.buy" href="deriv_api_calls.html#deriv_api.deriv_api_calls.DerivAPICalls.buy">buy</a></code></li>
+<li><code><a title="deriv_api.deriv_api_calls.DerivAPICalls.buy_contract_for_multiple_accounts" href="deriv_api_calls.html#deriv_api.deriv_api_calls.DerivAPICalls.buy_contract_for_multiple_accounts">buy_contract_for_multiple_accounts</a></code></li>
+<li><code><a title="deriv_api.deriv_api_calls.DerivAPICalls.cancel" href="deriv_api_calls.html#deriv_api.deriv_api_calls.DerivAPICalls.cancel">cancel</a></code></li>
+<li><code><a title="deriv_api.deriv_api_calls.DerivAPICalls.cashier" href="deriv_api_calls.html#deriv_api.deriv_api_calls.DerivAPICalls.cashier">cashier</a></code></li>
+<li><code><a title="deriv_api.deriv_api_calls.DerivAPICalls.cashier_payments" href="deriv_api_calls.html#deriv_api.deriv_api_calls.DerivAPICalls.cashier_payments">cashier_payments</a></code></li>
+<li><code><a title="deriv_api.deriv_api_calls.DerivAPICalls.cashier_withdrawal_cancel" href="deriv_api_calls.html#deriv_api.deriv_api_calls.DerivAPICalls.cashier_withdrawal_cancel">cashier_withdrawal_cancel</a></code></li>
+<li><code><a title="deriv_api.deriv_api_calls.DerivAPICalls.change_password" href="deriv_api_calls.html#deriv_api.deriv_api_calls.DerivAPICalls.change_password">change_password</a></code></li>
+<li><code><a title="deriv_api.deriv_api_calls.DerivAPICalls.contract_update" href="deriv_api_calls.html#deriv_api.deriv_api_calls.DerivAPICalls.contract_update">contract_update</a></code></li>
+<li><code><a title="deriv_api.deriv_api_calls.DerivAPICalls.contract_update_history" href="deriv_api_calls.html#deriv_api.deriv_api_calls.DerivAPICalls.contract_update_history">contract_update_history</a></code></li>
+<li><code><a title="deriv_api.deriv_api_calls.DerivAPICalls.contracts_for" href="deriv_api_calls.html#deriv_api.deriv_api_calls.DerivAPICalls.contracts_for">contracts_for</a></code></li>
+<li><code><a title="deriv_api.deriv_api_calls.DerivAPICalls.copy_start" href="deriv_api_calls.html#deriv_api.deriv_api_calls.DerivAPICalls.copy_start">copy_start</a></code></li>
+<li><code><a title="deriv_api.deriv_api_calls.DerivAPICalls.copy_stop" href="deriv_api_calls.html#deriv_api.deriv_api_calls.DerivAPICalls.copy_stop">copy_stop</a></code></li>
+<li><code><a title="deriv_api.deriv_api_calls.DerivAPICalls.copytrading_list" href="deriv_api_calls.html#deriv_api.deriv_api_calls.DerivAPICalls.copytrading_list">copytrading_list</a></code></li>
+<li><code><a title="deriv_api.deriv_api_calls.DerivAPICalls.copytrading_statistics" href="deriv_api_calls.html#deriv_api.deriv_api_calls.DerivAPICalls.copytrading_statistics">copytrading_statistics</a></code></li>
+<li><code><a title="deriv_api.deriv_api_calls.DerivAPICalls.document_upload" href="deriv_api_calls.html#deriv_api.deriv_api_calls.DerivAPICalls.document_upload">document_upload</a></code></li>
+<li><code><a title="deriv_api.deriv_api_calls.DerivAPICalls.economic_calendar" href="deriv_api_calls.html#deriv_api.deriv_api_calls.DerivAPICalls.economic_calendar">economic_calendar</a></code></li>
+<li><code><a title="deriv_api.deriv_api_calls.DerivAPICalls.exchange_rates" href="deriv_api_calls.html#deriv_api.deriv_api_calls.DerivAPICalls.exchange_rates">exchange_rates</a></code></li>
+<li><code><a title="deriv_api.deriv_api_calls.DerivAPICalls.forget" href="deriv_api_calls.html#deriv_api.deriv_api_calls.DerivAPICalls.forget">forget</a></code></li>
+<li><code><a title="deriv_api.deriv_api_calls.DerivAPICalls.forget_all" href="deriv_api_calls.html#deriv_api.deriv_api_calls.DerivAPICalls.forget_all">forget_all</a></code></li>
+<li><code><a title="deriv_api.deriv_api_calls.DerivAPICalls.get_account_status" href="deriv_api_calls.html#deriv_api.deriv_api_calls.DerivAPICalls.get_account_status">get_account_status</a></code></li>
+<li><code><a title="deriv_api.deriv_api_calls.DerivAPICalls.get_financial_assessment" href="deriv_api_calls.html#deriv_api.deriv_api_calls.DerivAPICalls.get_financial_assessment">get_financial_assessment</a></code></li>
+<li><code><a title="deriv_api.deriv_api_calls.DerivAPICalls.get_limits" href="deriv_api_calls.html#deriv_api.deriv_api_calls.DerivAPICalls.get_limits">get_limits</a></code></li>
+<li><code><a title="deriv_api.deriv_api_calls.DerivAPICalls.get_self_exclusion" href="deriv_api_calls.html#deriv_api.deriv_api_calls.DerivAPICalls.get_self_exclusion">get_self_exclusion</a></code></li>
+<li><code><a title="deriv_api.deriv_api_calls.DerivAPICalls.get_settings" href="deriv_api_calls.html#deriv_api.deriv_api_calls.DerivAPICalls.get_settings">get_settings</a></code></li>
+<li><code><a title="deriv_api.deriv_api_calls.DerivAPICalls.identity_verification_document_add" href="deriv_api_calls.html#deriv_api.deriv_api_calls.DerivAPICalls.identity_verification_document_add">identity_verification_document_add</a></code></li>
+<li><code><a title="deriv_api.deriv_api_calls.DerivAPICalls.landing_company" href="deriv_api_calls.html#deriv_api.deriv_api_calls.DerivAPICalls.landing_company">landing_company</a></code></li>
+<li><code><a title="deriv_api.deriv_api_calls.DerivAPICalls.landing_company_details" href="deriv_api_calls.html#deriv_api.deriv_api_calls.DerivAPICalls.landing_company_details">landing_company_details</a></code></li>
+<li><code><a title="deriv_api.deriv_api_calls.DerivAPICalls.link_wallet" href="deriv_api_calls.html#deriv_api.deriv_api_calls.DerivAPICalls.link_wallet">link_wallet</a></code></li>
+<li><code><a title="deriv_api.deriv_api_calls.DerivAPICalls.login_history" href="deriv_api_calls.html#deriv_api.deriv_api_calls.DerivAPICalls.login_history">login_history</a></code></li>
+<li><code><a title="deriv_api.deriv_api_calls.DerivAPICalls.logout" href="deriv_api_calls.html#deriv_api.deriv_api_calls.DerivAPICalls.logout">logout</a></code></li>
+<li><code><a title="deriv_api.deriv_api_calls.DerivAPICalls.mt5_deposit" href="deriv_api_calls.html#deriv_api.deriv_api_calls.DerivAPICalls.mt5_deposit">mt5_deposit</a></code></li>
+<li><code><a title="deriv_api.deriv_api_calls.DerivAPICalls.mt5_get_settings" href="deriv_api_calls.html#deriv_api.deriv_api_calls.DerivAPICalls.mt5_get_settings">mt5_get_settings</a></code></li>
+<li><code><a title="deriv_api.deriv_api_calls.DerivAPICalls.mt5_login_list" href="deriv_api_calls.html#deriv_api.deriv_api_calls.DerivAPICalls.mt5_login_list">mt5_login_list</a></code></li>
+<li><code><a title="deriv_api.deriv_api_calls.DerivAPICalls.mt5_new_account" href="deriv_api_calls.html#deriv_api.deriv_api_calls.DerivAPICalls.mt5_new_account">mt5_new_account</a></code></li>
+<li><code><a title="deriv_api.deriv_api_calls.DerivAPICalls.mt5_password_change" href="deriv_api_calls.html#deriv_api.deriv_api_calls.DerivAPICalls.mt5_password_change">mt5_password_change</a></code></li>
+<li><code><a title="deriv_api.deriv_api_calls.DerivAPICalls.mt5_password_check" href="deriv_api_calls.html#deriv_api.deriv_api_calls.DerivAPICalls.mt5_password_check">mt5_password_check</a></code></li>
+<li><code><a title="deriv_api.deriv_api_calls.DerivAPICalls.mt5_password_reset" href="deriv_api_calls.html#deriv_api.deriv_api_calls.DerivAPICalls.mt5_password_reset">mt5_password_reset</a></code></li>
+<li><code><a title="deriv_api.deriv_api_calls.DerivAPICalls.mt5_withdrawal" href="deriv_api_calls.html#deriv_api.deriv_api_calls.DerivAPICalls.mt5_withdrawal">mt5_withdrawal</a></code></li>
+<li><code><a title="deriv_api.deriv_api_calls.DerivAPICalls.new_account_maltainvest" href="deriv_api_calls.html#deriv_api.deriv_api_calls.DerivAPICalls.new_account_maltainvest">new_account_maltainvest</a></code></li>
+<li><code><a title="deriv_api.deriv_api_calls.DerivAPICalls.new_account_real" href="deriv_api_calls.html#deriv_api.deriv_api_calls.DerivAPICalls.new_account_real">new_account_real</a></code></li>
+<li><code><a title="deriv_api.deriv_api_calls.DerivAPICalls.new_account_virtual" href="deriv_api_calls.html#deriv_api.deriv_api_calls.DerivAPICalls.new_account_virtual">new_account_virtual</a></code></li>
+<li><code><a title="deriv_api.deriv_api_calls.DerivAPICalls.new_account_wallet" href="deriv_api_calls.html#deriv_api.deriv_api_calls.DerivAPICalls.new_account_wallet">new_account_wallet</a></code></li>
+<li><code><a title="deriv_api.deriv_api_calls.DerivAPICalls.notification_event" href="deriv_api_calls.html#deriv_api.deriv_api_calls.DerivAPICalls.notification_event">notification_event</a></code></li>
+<li><code><a title="deriv_api.deriv_api_calls.DerivAPICalls.oauth_apps" href="deriv_api_calls.html#deriv_api.deriv_api_calls.DerivAPICalls.oauth_apps">oauth_apps</a></code></li>
+<li><code><a title="deriv_api.deriv_api_calls.DerivAPICalls.p2p_advert_create" href="deriv_api_calls.html#deriv_api.deriv_api_calls.DerivAPICalls.p2p_advert_create">p2p_advert_create</a></code></li>
+<li><code><a title="deriv_api.deriv_api_calls.DerivAPICalls.p2p_advert_info" href="deriv_api_calls.html#deriv_api.deriv_api_calls.DerivAPICalls.p2p_advert_info">p2p_advert_info</a></code></li>
+<li><code><a title="deriv_api.deriv_api_calls.DerivAPICalls.p2p_advert_list" href="deriv_api_calls.html#deriv_api.deriv_api_calls.DerivAPICalls.p2p_advert_list">p2p_advert_list</a></code></li>
+<li><code><a title="deriv_api.deriv_api_calls.DerivAPICalls.p2p_advert_update" href="deriv_api_calls.html#deriv_api.deriv_api_calls.DerivAPICalls.p2p_advert_update">p2p_advert_update</a></code></li>
+<li><code><a title="deriv_api.deriv_api_calls.DerivAPICalls.p2p_advertiser_adverts" href="deriv_api_calls.html#deriv_api.deriv_api_calls.DerivAPICalls.p2p_advertiser_adverts">p2p_advertiser_adverts</a></code></li>
+<li><code><a title="deriv_api.deriv_api_calls.DerivAPICalls.p2p_advertiser_create" href="deriv_api_calls.html#deriv_api.deriv_api_calls.DerivAPICalls.p2p_advertiser_create">p2p_advertiser_create</a></code></li>
+<li><code><a title="deriv_api.deriv_api_calls.DerivAPICalls.p2p_advertiser_info" href="deriv_api_calls.html#deriv_api.deriv_api_calls.DerivAPICalls.p2p_advertiser_info">p2p_advertiser_info</a></code></li>
+<li><code><a title="deriv_api.deriv_api_calls.DerivAPICalls.p2p_advertiser_payment_methods" href="deriv_api_calls.html#deriv_api.deriv_api_calls.DerivAPICalls.p2p_advertiser_payment_methods">p2p_advertiser_payment_methods</a></code></li>
+<li><code><a title="deriv_api.deriv_api_calls.DerivAPICalls.p2p_advertiser_relations" href="deriv_api_calls.html#deriv_api.deriv_api_calls.DerivAPICalls.p2p_advertiser_relations">p2p_advertiser_relations</a></code></li>
+<li><code><a title="deriv_api.deriv_api_calls.DerivAPICalls.p2p_advertiser_update" href="deriv_api_calls.html#deriv_api.deriv_api_calls.DerivAPICalls.p2p_advertiser_update">p2p_advertiser_update</a></code></li>
+<li><code><a title="deriv_api.deriv_api_calls.DerivAPICalls.p2p_chat_create" href="deriv_api_calls.html#deriv_api.deriv_api_calls.DerivAPICalls.p2p_chat_create">p2p_chat_create</a></code></li>
+<li><code><a title="deriv_api.deriv_api_calls.DerivAPICalls.p2p_order_cancel" href="deriv_api_calls.html#deriv_api.deriv_api_calls.DerivAPICalls.p2p_order_cancel">p2p_order_cancel</a></code></li>
+<li><code><a title="deriv_api.deriv_api_calls.DerivAPICalls.p2p_order_confirm" href="deriv_api_calls.html#deriv_api.deriv_api_calls.DerivAPICalls.p2p_order_confirm">p2p_order_confirm</a></code></li>
+<li><code><a title="deriv_api.deriv_api_calls.DerivAPICalls.p2p_order_create" href="deriv_api_calls.html#deriv_api.deriv_api_calls.DerivAPICalls.p2p_order_create">p2p_order_create</a></code></li>
+<li><code><a title="deriv_api.deriv_api_calls.DerivAPICalls.p2p_order_dispute" href="deriv_api_calls.html#deriv_api.deriv_api_calls.DerivAPICalls.p2p_order_dispute">p2p_order_dispute</a></code></li>
+<li><code><a title="deriv_api.deriv_api_calls.DerivAPICalls.p2p_order_info" href="deriv_api_calls.html#deriv_api.deriv_api_calls.DerivAPICalls.p2p_order_info">p2p_order_info</a></code></li>
+<li><code><a title="deriv_api.deriv_api_calls.DerivAPICalls.p2p_order_list" href="deriv_api_calls.html#deriv_api.deriv_api_calls.DerivAPICalls.p2p_order_list">p2p_order_list</a></code></li>
+<li><code><a title="deriv_api.deriv_api_calls.DerivAPICalls.p2p_payment_methods" href="deriv_api_calls.html#deriv_api.deriv_api_calls.DerivAPICalls.p2p_payment_methods">p2p_payment_methods</a></code></li>
+<li><code><a title="deriv_api.deriv_api_calls.DerivAPICalls.payment_methods" href="deriv_api_calls.html#deriv_api.deriv_api_calls.DerivAPICalls.payment_methods">payment_methods</a></code></li>
+<li><code><a title="deriv_api.deriv_api_calls.DerivAPICalls.paymentagent_create" href="deriv_api_calls.html#deriv_api.deriv_api_calls.DerivAPICalls.paymentagent_create">paymentagent_create</a></code></li>
+<li><code><a title="deriv_api.deriv_api_calls.DerivAPICalls.paymentagent_details" href="deriv_api_calls.html#deriv_api.deriv_api_calls.DerivAPICalls.paymentagent_details">paymentagent_details</a></code></li>
+<li><code><a title="deriv_api.deriv_api_calls.DerivAPICalls.paymentagent_list" href="deriv_api_calls.html#deriv_api.deriv_api_calls.DerivAPICalls.paymentagent_list">paymentagent_list</a></code></li>
+<li><code><a title="deriv_api.deriv_api_calls.DerivAPICalls.paymentagent_transfer" href="deriv_api_calls.html#deriv_api.deriv_api_calls.DerivAPICalls.paymentagent_transfer">paymentagent_transfer</a></code></li>
+<li><code><a title="deriv_api.deriv_api_calls.DerivAPICalls.paymentagent_withdraw" href="deriv_api_calls.html#deriv_api.deriv_api_calls.DerivAPICalls.paymentagent_withdraw">paymentagent_withdraw</a></code></li>
+<li><code><a title="deriv_api.deriv_api_calls.DerivAPICalls.payout_currencies" href="deriv_api_calls.html#deriv_api.deriv_api_calls.DerivAPICalls.payout_currencies">payout_currencies</a></code></li>
+<li><code><a title="deriv_api.deriv_api_calls.DerivAPICalls.ping" href="deriv_api_calls.html#deriv_api.deriv_api_calls.DerivAPICalls.ping">ping</a></code></li>
+<li><code><a title="deriv_api.deriv_api_calls.DerivAPICalls.portfolio" href="deriv_api_calls.html#deriv_api.deriv_api_calls.DerivAPICalls.portfolio">portfolio</a></code></li>
+<li><code><a title="deriv_api.deriv_api_calls.DerivAPICalls.process_request" href="deriv_api_calls.html#deriv_api.deriv_api_calls.DerivAPICalls.process_request">process_request</a></code></li>
+<li><code><a title="deriv_api.deriv_api_calls.DerivAPICalls.profit_table" href="deriv_api_calls.html#deriv_api.deriv_api_calls.DerivAPICalls.profit_table">profit_table</a></code></li>
+<li><code><a title="deriv_api.deriv_api_calls.DerivAPICalls.proposal" href="deriv_api_calls.html#deriv_api.deriv_api_calls.DerivAPICalls.proposal">proposal</a></code></li>
+<li><code><a title="deriv_api.deriv_api_calls.DerivAPICalls.proposal_open_contract" href="deriv_api_calls.html#deriv_api.deriv_api_calls.DerivAPICalls.proposal_open_contract">proposal_open_contract</a></code></li>
+<li><code><a title="deriv_api.deriv_api_calls.DerivAPICalls.reality_check" href="deriv_api_calls.html#deriv_api.deriv_api_calls.DerivAPICalls.reality_check">reality_check</a></code></li>
+<li><code><a title="deriv_api.deriv_api_calls.DerivAPICalls.request_report" href="deriv_api_calls.html#deriv_api.deriv_api_calls.DerivAPICalls.request_report">request_report</a></code></li>
+<li><code><a title="deriv_api.deriv_api_calls.DerivAPICalls.reset_password" href="deriv_api_calls.html#deriv_api.deriv_api_calls.DerivAPICalls.reset_password">reset_password</a></code></li>
+<li><code><a title="deriv_api.deriv_api_calls.DerivAPICalls.residence_list" href="deriv_api_calls.html#deriv_api.deriv_api_calls.DerivAPICalls.residence_list">residence_list</a></code></li>
+<li><code><a title="deriv_api.deriv_api_calls.DerivAPICalls.revoke_oauth_app" href="deriv_api_calls.html#deriv_api.deriv_api_calls.DerivAPICalls.revoke_oauth_app">revoke_oauth_app</a></code></li>
+<li><code><a title="deriv_api.deriv_api_calls.DerivAPICalls.sell" href="deriv_api_calls.html#deriv_api.deriv_api_calls.DerivAPICalls.sell">sell</a></code></li>
+<li><code><a title="deriv_api.deriv_api_calls.DerivAPICalls.sell_contract_for_multiple_accounts" href="deriv_api_calls.html#deriv_api.deriv_api_calls.DerivAPICalls.sell_contract_for_multiple_accounts">sell_contract_for_multiple_accounts</a></code></li>
+<li><code><a title="deriv_api.deriv_api_calls.DerivAPICalls.sell_expired" href="deriv_api_calls.html#deriv_api.deriv_api_calls.DerivAPICalls.sell_expired">sell_expired</a></code></li>
+<li><code><a title="deriv_api.deriv_api_calls.DerivAPICalls.service_token" href="deriv_api_calls.html#deriv_api.deriv_api_calls.DerivAPICalls.service_token">service_token</a></code></li>
+<li><code><a title="deriv_api.deriv_api_calls.DerivAPICalls.set_account_currency" href="deriv_api_calls.html#deriv_api.deriv_api_calls.DerivAPICalls.set_account_currency">set_account_currency</a></code></li>
+<li><code><a title="deriv_api.deriv_api_calls.DerivAPICalls.set_financial_assessment" href="deriv_api_calls.html#deriv_api.deriv_api_calls.DerivAPICalls.set_financial_assessment">set_financial_assessment</a></code></li>
+<li><code><a title="deriv_api.deriv_api_calls.DerivAPICalls.set_self_exclusion" href="deriv_api_calls.html#deriv_api.deriv_api_calls.DerivAPICalls.set_self_exclusion">set_self_exclusion</a></code></li>
+<li><code><a title="deriv_api.deriv_api_calls.DerivAPICalls.set_settings" href="deriv_api_calls.html#deriv_api.deriv_api_calls.DerivAPICalls.set_settings">set_settings</a></code></li>
+<li><code><a title="deriv_api.deriv_api_calls.DerivAPICalls.statement" href="deriv_api_calls.html#deriv_api.deriv_api_calls.DerivAPICalls.statement">statement</a></code></li>
+<li><code><a title="deriv_api.deriv_api_calls.DerivAPICalls.states_list" href="deriv_api_calls.html#deriv_api.deriv_api_calls.DerivAPICalls.states_list">states_list</a></code></li>
+<li><code><a title="deriv_api.deriv_api_calls.DerivAPICalls.ticks" href="deriv_api_calls.html#deriv_api.deriv_api_calls.DerivAPICalls.ticks">ticks</a></code></li>
+<li><code><a title="deriv_api.deriv_api_calls.DerivAPICalls.ticks_history" href="deriv_api_calls.html#deriv_api.deriv_api_calls.DerivAPICalls.ticks_history">ticks_history</a></code></li>
+<li><code><a title="deriv_api.deriv_api_calls.DerivAPICalls.time" href="deriv_api_calls.html#deriv_api.deriv_api_calls.DerivAPICalls.time">time</a></code></li>
+<li><code><a title="deriv_api.deriv_api_calls.DerivAPICalls.tnc_approval" href="deriv_api_calls.html#deriv_api.deriv_api_calls.DerivAPICalls.tnc_approval">tnc_approval</a></code></li>
+<li><code><a title="deriv_api.deriv_api_calls.DerivAPICalls.topup_virtual" href="deriv_api_calls.html#deriv_api.deriv_api_calls.DerivAPICalls.topup_virtual">topup_virtual</a></code></li>
+<li><code><a title="deriv_api.deriv_api_calls.DerivAPICalls.trading_durations" href="deriv_api_calls.html#deriv_api.deriv_api_calls.DerivAPICalls.trading_durations">trading_durations</a></code></li>
+<li><code><a title="deriv_api.deriv_api_calls.DerivAPICalls.trading_platform_accounts" href="deriv_api_calls.html#deriv_api.deriv_api_calls.DerivAPICalls.trading_platform_accounts">trading_platform_accounts</a></code></li>
+<li><code><a title="deriv_api.deriv_api_calls.DerivAPICalls.trading_platform_deposit" href="deriv_api_calls.html#deriv_api.deriv_api_calls.DerivAPICalls.trading_platform_deposit">trading_platform_deposit</a></code></li>
+<li><code><a title="deriv_api.deriv_api_calls.DerivAPICalls.trading_platform_investor_password_change" href="deriv_api_calls.html#deriv_api.deriv_api_calls.DerivAPICalls.trading_platform_investor_password_change">trading_platform_investor_password_change</a></code></li>
+<li><code><a title="deriv_api.deriv_api_calls.DerivAPICalls.trading_platform_investor_password_reset" href="deriv_api_calls.html#deriv_api.deriv_api_calls.DerivAPICalls.trading_platform_investor_password_reset">trading_platform_investor_password_reset</a></code></li>
+<li><code><a title="deriv_api.deriv_api_calls.DerivAPICalls.trading_platform_new_account" href="deriv_api_calls.html#deriv_api.deriv_api_calls.DerivAPICalls.trading_platform_new_account">trading_platform_new_account</a></code></li>
+<li><code><a title="deriv_api.deriv_api_calls.DerivAPICalls.trading_platform_password_change" href="deriv_api_calls.html#deriv_api.deriv_api_calls.DerivAPICalls.trading_platform_password_change">trading_platform_password_change</a></code></li>
+<li><code><a title="deriv_api.deriv_api_calls.DerivAPICalls.trading_platform_password_reset" href="deriv_api_calls.html#deriv_api.deriv_api_calls.DerivAPICalls.trading_platform_password_reset">trading_platform_password_reset</a></code></li>
+<li><code><a title="deriv_api.deriv_api_calls.DerivAPICalls.trading_platform_withdrawal" href="deriv_api_calls.html#deriv_api.deriv_api_calls.DerivAPICalls.trading_platform_withdrawal">trading_platform_withdrawal</a></code></li>
+<li><code><a title="deriv_api.deriv_api_calls.DerivAPICalls.trading_servers" href="deriv_api_calls.html#deriv_api.deriv_api_calls.DerivAPICalls.trading_servers">trading_servers</a></code></li>
+<li><code><a title="deriv_api.deriv_api_calls.DerivAPICalls.trading_times" href="deriv_api_calls.html#deriv_api.deriv_api_calls.DerivAPICalls.trading_times">trading_times</a></code></li>
+<li><code><a title="deriv_api.deriv_api_calls.DerivAPICalls.transaction" href="deriv_api_calls.html#deriv_api.deriv_api_calls.DerivAPICalls.transaction">transaction</a></code></li>
+<li><code><a title="deriv_api.deriv_api_calls.DerivAPICalls.transfer_between_accounts" href="deriv_api_calls.html#deriv_api.deriv_api_calls.DerivAPICalls.transfer_between_accounts">transfer_between_accounts</a></code></li>
+<li><code><a title="deriv_api.deriv_api_calls.DerivAPICalls.verify_email" href="deriv_api_calls.html#deriv_api.deriv_api_calls.DerivAPICalls.verify_email">verify_email</a></code></li>
+<li><code><a title="deriv_api.deriv_api_calls.DerivAPICalls.website_status" href="deriv_api_calls.html#deriv_api.deriv_api_calls.DerivAPICalls.website_status">website_status</a></code></li>
+</ul>
+</li>
+</ul>
+</dd>
+</dl>
+</section>
+</article>
+<nav id="sidebar">
+<h1>Index</h1>
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+<li><h3>Super-module</h3>
+<ul>
+<li><code><a title="deriv_api" href="index.html">deriv_api</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-classes">Classes</a></h3>
+<ul>
+<li>
+<h4><code><a title="deriv_api.cache.Cache" href="#deriv_api.cache.Cache">Cache</a></code></h4>
+</li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc" title="pdoc: Python API documentation generator"><cite>pdoc</cite> 0.10.0</a>.</p>
+</footer>
+</body>
+</html>
