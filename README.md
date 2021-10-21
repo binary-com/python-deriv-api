@@ -53,3 +53,12 @@ pytest
 #### Generate documentations
 
 pdoc deriv_api --force --html -o docs/html --template-dir docs/templates
+
+#### Run examples
+
+set token and run example
+
+```
+export DERIV_TOKEN=xxxTokenxxx
+PYTHONPATH=. python3 examples/simple_bot1.py
+```
