@@ -33,7 +33,7 @@ class CustomFuture(Future):
                 try:
                     cb_future.result()
                 except CancelledError as err:
-                    out_future.cancel(*(err.args))
+                    out_future.cancel(*err.args)
 
         custom_future.add_done_callback(cancel_cb)
         return custom_future
@@ -57,7 +57,7 @@ class CustomFuture(Future):
         return self.done() and not self.cancelled() and not self.exception()
 
     def is_rejected(self) -> bool:
-        """check if the future is rejected (excetion set)"""
+        """check if the future is rejected (exception set)"""
         return self.done() and not self.cancelled() and self.exception()
 
     def is_cancelled(self) -> bool:
@@ -74,7 +74,7 @@ class CustomFuture(Future):
                 result = f.result()
                 self.set_result(result)
             except CancelledError as err:
-                self.cancel(*(err.args))
+                self.cancel(*err.args)
             except BaseException as err:
                 self.set_exception(err)
 
