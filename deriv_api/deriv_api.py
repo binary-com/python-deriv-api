@@ -94,9 +94,7 @@ class DerivAPI(DerivAPICalls):
         self.add_task(self.__wait_data(), 'wait_data')
 
     async def __wait_data(self):
-        print("waiting connected")
         await self.connected
-        print("waited")
         while self.connected.is_resolved():
             try:
                 data = await self.wsconnection.recv()
@@ -253,7 +251,6 @@ class DerivAPI(DerivAPICalls):
 
     def add_task(self, coroutine, name):
         name = 'deriv_api:' + name
-        print(f"adding task name {name}")
         async def wrap_coro(coru, name):
             try:
                 await coru
