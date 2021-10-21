@@ -1,10 +1,11 @@
 
 __pdoc__ = {
     'deriv_api.in_memory.InMemory.get': False,
-    'deriv_api.in_memory.InMemory.get_by_msg_type' : False,
+    'deriv_api.in_memory.InMemory.get_by_msg_type': False,
     'deriv_api.in_memory.InMemory.has': False,
     'deriv_api.in_memory.InMemory.set': False
 }
+
 
 class InMemory:
     """An in memory storage which can be used for caching"""

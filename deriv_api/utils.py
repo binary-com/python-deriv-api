@@ -1,6 +1,7 @@
 import pickle
 import re
 
+
 def dict_to_cache_key(obj: dict) -> bytes:
     """convert the dictionary object to Pickled representation of object as bytes
 
@@ -23,7 +24,7 @@ def dict_to_cache_key(obj: dict) -> bytes:
 
 def is_valid_url(url: str) -> bool:
     regex = re.compile(
-        r'^(?:ws)s?://'  # ws:// or wss://
+        r'^wss?://'  # ws:// or wss://
         r'(?:(?:[A-Z0-9](?:[A-Z0-9-]{0,61}[A-Z0-9])?\.)+(?:[A-Z]{2,6}\.?|[A-Z0-9-]{2,}\.?)|'  # domain...
         r'localhost|'  # localhost...
         r'\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})'  # ...or ip
