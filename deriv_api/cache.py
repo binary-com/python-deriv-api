@@ -11,11 +11,12 @@ from deriv_api.in_memory import InMemory
 
 __pdoc__ = {
     'deriv_api.cache.Cache.get': False,
-    'deriv_api.cache.Cache.get_by_msg_type' : False,
+    'deriv_api.cache.Cache.get_by_msg_type': False,
     'deriv_api.cache.Cache.has': False,
-    'deriv_api.cache.Cache.send' : False,
+    'deriv_api.cache.Cache.send': False,
     'deriv_api.cache.Cache.set': False
 }
+
 
 class Cache(DerivAPICalls):
     """
@@ -41,6 +42,7 @@ class Cache(DerivAPICalls):
             storage : Object
                 A storage instance to use for caching
         """
+
     def __init__(self, api: Union[DerivAPI, Cache], storage: Union[InMemory, Cache]) -> None:
         if not api:
             raise ConstructionError('Cache object needs an API to work')
