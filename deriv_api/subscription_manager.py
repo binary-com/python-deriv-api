@@ -15,7 +15,51 @@ streams_list = ['balance', 'candles', 'p2p_advertiser', 'p2p_order', 'proposal',
                 'proposal_array', 'proposal_open_contract', 'ticks', 'ticks_history', 'transaction',
                 'website_status', 'buy']
 
+__pdoc__ = {
+    'deriv_api.subscription_manager.SubscriptionManager.complete_subs_by_ids' : False,
+    'deriv_api.subscription_manager.SubscriptionManager.complete_subs_by_key' : False,
+    'deriv_api.subscription_manager.SubscriptionManager.create_new_source': False,
+    'deriv_api.subscription_manager.SubscriptionManager.get_source': False,
+    'deriv_api.subscription_manager.SubscriptionManager.remove_key_on_error': False,
+    'deriv_api.subscription_manager.SubscriptionManager.save_subs_id': False,
+    'deriv_api.subscription_manager.SubscriptionManager.save_subs_per_msg_type': False,
+    'deriv_api.subscription_manager.SubscriptionManager.create_new_sourcesource_exists': False,
+    'deriv_api.subscription_manager.SubscriptionManager.source_exists': False,
+    'deriv_api.subscription_manager.SubscriptionManager.forget': False,
+    'deriv_api.subscription_manager.SubscriptionManager.forget_all': False,
+    'deriv_api.subscription_manager.get_msg_type': False
+}
+
 class SubscriptionManager:
+    """
+        Subscription Manager - manage subscription channels
+
+        Makes sure there is always only one subscription channel for all requests of subscriptions,
+        keeps a history of received values for the subscription of ticks and forgets channels that
+        do not have subscribers. It also ensures that subscriptions are revived after connection
+        drop/account changed.
+
+        Parameters
+        ----------
+            api : deriv_api.DerivAPI
+
+        Example
+        -------
+        - create a new subscription for R_100
+        >>> source_tick_50: Observable  = await api.subscribe({'ticks': 'R_50'})
+        >>> subscription_id = 0
+        >>> def tick_50_callback(data):
+        >>>     subscription_id = data['subscription']['id']
+        >>>     print(data)
+        >>> source_tick_50.subscribe(tick_50_callback)
+
+        - forget all ticks
+        >>> await api.forget_all('ticks')
+
+        - forget based on subscription id
+        >>> await api.forget(subscription_id)
+        """
+
     def __init__(self, api):
         self.api = api
         self.sources: dict = {}
@@ -30,13 +74,20 @@ class SubscriptionManager:
         Subscribe to a given request, returns a stream of new responses,
         Errors should be handled by the user of the stream
 
-        example
-        const ticks = api.subscribe({ 'ticks': 'R_100' });
-        ticks.subscribe(log) // Print every new tick
+        Example
+        -------
+        >>> ticks = api.subscribe({ 'ticks': 'R_100' });
+        >>> ticks.subscribe(call_back_function)
 
-        param {Object} request - A request object acceptable by the API
+        Parameter
+        ---------
+        request : dict
+            A request object acceptable by the API
 
-        returns {Observable} - An RxPY SObservable
+        Returns
+        -------
+            Observable
+                An RxPY SObservable
         """
         if not get_msg_type(request):
             raise APIError('Subscription type is not found in deriv-api')

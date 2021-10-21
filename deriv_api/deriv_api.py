@@ -29,26 +29,53 @@ logging.basicConfig(
     level=logging.ERROR
 )
 
+__pdoc__ = {
+    'deriv_api.deriv_api.DerivAPI.send_and_get_source': False,
+    'deriv_api.deriv_api.DerivAPI.api_connect': False,
+    'deriv_api.deriv_api.DerivAPI.get_url': False,
+    'deriv_api.deriv_api.DerivAPI.add_task': False,
+    'deriv_api.deriv_api.DerivAPI.delete_from_expect_response': False,
+    'deriv_api.deriv_api.DerivAPI.disconnect': False,
+    'deriv_api.deriv_api.DerivAPI.send': False,
+    'deriv_api.deriv_api.DerivAPI.wsconnection' : False,
+    'deriv_api.deriv_api.DerivAPI.storage' : False
+}
 
 class DerivAPI(DerivAPICalls):
     """
     The minimum functionality provided by DerivAPI, provides direct calls to the API.
     `api.cache` is available if you want to use the cached data
 
-    example
-    apiFromEndpoint = deriv_api.DerivAPI({ endpoint: 'ws.binaryws.com', app_id: 1234 });
+    Examples
+    --------
+    - Pass the arguments needed to create a connection:
+    >>> api = deriv_api.DerivAPI({ endpoint: 'ws://...', app_id: 1234 });
 
-    param {Object}     options
-    param {WebSocketClientProtocol}  options.connection - A ready to use connection
-    param {String}     options.endpoint   - API server to connect to
-    param {Number}     options.app_id     - Application ID of the API user
-    param {String}     options.lang       - Language of the API communication
-    param {String}     options.brand      - Brand name
-    param {Object}     options.middleware - A middleware to call on certain API actions
+    - create and use a previously opened connection:
+    >>> connection = await websockets.connect('ws://...')
+    >>> api = deriv_api.DerivAPI(connection=connection)
 
-    property {Cache} cache - Temporary cache default to {InMemory}
-    property {Cache} storage - If specified, uses a more persistent cache (local storage, etc.)
+    Parameters
+    ----------
+        options : dict with following keys
+            connection : websockets.WebSocketClientProtocol
+                A ready to use connection
+            endpoint : String
+                API server to connect to
+            app_id : String
+                Application ID of the API user
+            lang : String
+                Language of the API communication
+            brand : String
+                Brand name
+            middleware : String
+                A middleware to call on certain API actions
+    Properties
+    ----------
+    storage : Cache
+        If specified, uses a more persistent cache (local storage, etc.)
     """
+
     storage:  None
 
     def __init__(self, **options: str) -> None:
@@ -182,6 +209,9 @@ class DerivAPI(DerivAPICalls):
         return response
 
     async def subscribe(self, request):
+        """
+            subscribe the api calls
+        """
         return await self.subscription_manager.subscribe(request)
 
     def send_and_get_source(self, request: dict):
@@ -201,12 +231,45 @@ class DerivAPI(DerivAPICalls):
         return pending
 
     async def subscribe(self, request):
+        """
+        Subscribe to a given requestSubscribe the request
+        Example
+        -------
+        >>> proposal_subscription = api.subscribe({"proposal_open_contract": 1, "contract_id": 11111111, "subscribe": 1})
+
+        Returns
+        -------
+            Observable
+        """
+
         return await self.subscription_manager.subscribe(request)
 
-    async def forget(self, subs_id):
+
+    async def forget(self, subs_id: str):
+        """
+        Forget / unsubscribe the specific subscription.
+
+        Parameter
+        ---------
+            subs_id : str
+                subscription id
+        """
+
         return await self.subscription_manager.forget(subs_id)
 
     async def forget_all(self, *types):
+        """
+        Forget / unsubscribe the subscriptions of given types.
+        Possible values are: 'ticks', 'candles', 'proposal', 'proposal_open_contract', 'balance', 'transaction', 'proposal_array', 'website_status'
+
+        Parameter
+        ---------
+            *types : Any number of non-keyword arguments
+        Example
+        -------
+            api.forget_all("ticks", "candles")
+        """
+
         return await self.subscription_manager.forget_all(*types);
 
     async def disconnect(self) -> None:
@@ -220,6 +283,15 @@ class DerivAPI(DerivAPICalls):
             await self.wsconnection.close()
 
     def expect_response(self, *msg_types):
+        """
+        Parameter
+        ---------
+            *msg_types : variable number of non-key string argument
+                Expect these types to be received by the API
+        Returns
+        -------
+             Resolves to a single response or an array        
+        """
         for msg_type in msg_types:
             if msg_type not in self.expect_response_types:
                 future: Future = asyncio.get_event_loop().create_future()
@@ -263,6 +335,9 @@ class DerivAPI(DerivAPICalls):
         asyncio.create_task(wrap_coro(coroutine, name), name=name)
 
     async def clear(self):
+        """
+        Disconnect and cancel all the tasks        
+        """
         await self.disconnect()
         for task in asyncio.all_tasks():
             print(f"checking task {task.get_name()}")
