@@ -39,6 +39,8 @@ class Cache(DerivAPICalls):
         self.storage = storage
 
     async def send(self, request: dict) -> dict:
+        """Check if there is a cache for the request. If so then return that value.
+        Otherwise send the request by the api"""
         if await self.has(request):
             return await self.get(request)
 
