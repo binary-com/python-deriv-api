@@ -1,7 +1,23 @@
 # python-deriv-api
 A python implementation of deriv api library
 
+### Requirement
+Python 3.9.6
+pip3
+# Installation
+
+Setup environment
+```
+make setup
+```
+
+Setup environment and run test
+```
+make all
+```
 # Usage
+This is basic deriv-api python library which helps to make websocket connection and
+deal the API calls (including subscription).
 
 Import the module
 
@@ -30,7 +46,6 @@ print(response)
 ```
 
 # Documentation
-
 
 # Development
 ```
