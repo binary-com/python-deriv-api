@@ -1,8 +1,8 @@
-def error_factory(type: str) -> object:
+def error_factory(class_type: str) -> object:
     class GenericError(Exception):
         def __init__(self, message: str):
             super().__init__(message)
-            self.type = type
+            self.type = class_type
             self.message = message
 
         def __str__(self) -> str:
@@ -18,6 +18,7 @@ class APIError(error_factory('APIError')):
 class ConstructionError(error_factory('ConstructionError')):
     pass
 
+
 class ResponseError(Exception):
     def __init__(self, response: dict):
         super().__init__(response['error']['message'])
@@ -29,6 +30,7 @@ class ResponseError(Exception):
 
     def __str__(self) -> str:
         return f"ResponseError: {self.message}"
+
 
 class AddedTaskError(Exception):
     def __init__(self, exception, name):
