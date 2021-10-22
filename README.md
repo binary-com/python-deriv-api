@@ -40,6 +40,9 @@ print(response)
 
 # Documentation
 
+#### API reference
+The complete API reference is hosted [here](https://binary-com.github.io/python-deriv-api/)
+
 # Development
 ```
 git clone https://github.com/binary-com/python-deriv-api
@@ -69,7 +72,8 @@ pytest
 
 #### Generate documentations
 
-make doc
+Generate html version of the docs and publish it to gh-pages
+make gh-pages
 
 #### Run examples
 
