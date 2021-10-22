@@ -1,3 +1,8 @@
+"""
+.. include:: ../README.md
+.. include:: ../docs/usage_examples.md
+"""
+
 __pdoc__ = {
     'deriv_api.errors' : False,
     'deriv_api.utils' : False,
@@ -6,3 +11,4 @@ __pdoc__ = {
 
 from .deriv_api import DerivAPI
 from .errors import *
+
