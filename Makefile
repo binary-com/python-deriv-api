@@ -1,7 +1,7 @@
 .PHONY: all setup test doc gh-pages
 all: setup test
 setup:
-	pip3 install pipenv && pipenv install --dev && pipenv shell
+	pip3 install pipenv && pipenv install --dev
 test:
 	pipenv run python setup.py pytest
 doc:
