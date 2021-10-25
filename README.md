@@ -1,15 +1,18 @@
 # python-deriv-api
-A python implementation of deriv api library
+A python implementation of deriv api library.
+
+Go thru https://api.deriv.com/ to know simple easy steps on how to register and get access.
+Use this all-in-one python library to set up and make your app running or you can extend it.
 
 ### Requirement
-Python (3.9.6 or higher is recommended) and pip3
+Python (3.9.6 or higher is recommended) and pip3 token
 
 # Installation
 
 
 
 # Usage
-This is basic deriv-api python library which helps to make websocket connection and
+This is basic deriv-api python library which helps to make websockets connection and
 deal the API calls (including subscription).
 
 Import the module
@@ -26,7 +29,14 @@ response = await api.ping({'ping': 1})
 print(response) 
 ```
 
-## Creating a websocket connection
+## Creating a websockets connection and API instantiation
+You can either create an instance of websockets and pass it as connection
+    or
+pass the endpoint and app_id to the constructor to create the connection for you.
+
+If you pass the connection it's up to you to reconnect in case the connection drops (cause API doesn't know how to create the same connection).
+
+
 - Pass the arguments needed to create a connection:
 ```
    api = deriv_api.DerivAPI({ endpoint: 'ws://...', app_id: 1234 });

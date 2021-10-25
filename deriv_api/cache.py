@@ -1,9 +1,8 @@
 from __future__ import annotations
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Union
 
 if TYPE_CHECKING:
     from deriv_api.deriv_api import DerivAPI
-from typing import Union
 from deriv_api.deriv_api_calls import DerivAPICalls
 from deriv_api.errors import ConstructionError
 from deriv_api.utils import dict_to_cache_key
@@ -30,10 +29,10 @@ class Cache(DerivAPICalls):
         Examples
         --------
         - Read the latest active symbols
-        >>> symbols = await api.activeSymbols();
+        >>> symbols = await api.active_symbols()
 
         - Read the data from cache if available
-        >>> cached_symbols = await api.cache.activeSymbols();
+        >>> cached_symbols = await api.cache.active_symbols()
 
         Parameters
         ----------
@@ -73,6 +72,6 @@ class Cache(DerivAPICalls):
         """Redirected to the method defined by the storage"""
         return self.storage.get_by_msg_type(msg_type)
 
-    def set(self, request, response: dict) -> None:
+    def set(self, request: dict, response: dict) -> None:
         """Redirected to the method defined by the storage"""
         return self.storage.set(dict_to_cache_key(request), response)

@@ -28,6 +28,6 @@ class InMemory:
     def get_by_msg_type(self, msg_type: str) -> dict:
         return self.type_store.get(msg_type)
 
-    def set(self, key: str, value: dict) -> None:
+    def set(self, key: bytes, value: dict) -> None:
         self.store[key] = value
         self.type_store[value['msg_type']] = value
