@@ -19,7 +19,8 @@ async def sample_calls():
             print(f"get symbol {symbol} {count}")
         return cb
 
-    source_tick_50.subscribe(create_subs_cb('R_50'))
+    a_sub = source_tick_50.subscribe(create_subs_cb('R_50'))
+    b_sub = source_tick_50.subscribe(create_subs_cb('R_50'))
     source_tick_100: Observable  = await api.subscribe({'ticks': 'R_100'})
     source_tick_100.subscribe(create_subs_cb('R_100'))
     first_tick = await wait_tick
@@ -28,7 +29,11 @@ async def sample_calls():
     print("now will forget")
     #await api.forget(last_data['R_50']['subscription']['id'])
     #await api.forget(last_data['R_100']['subscription']['id'])
-    await api.forget_all('ticks')
+    #await api.forget_all('ticks')
+    a_sub.dispose()
+    await asyncio.sleep(5)
+    print("disposing the last one will call forget")
+    b_sub.dispose()
     await asyncio.sleep(5)
     await api.clear()
 
