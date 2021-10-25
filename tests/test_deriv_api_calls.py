@@ -18,22 +18,22 @@ async def test_deriv_api_calls(mocker):
 
 def test_parse_parse_args():
     assert parse_args(
-        {'config': {'acc': {'type': 'boolean'}}, 'args': '1', 'method': 'acc', 'needsMethodArg': 1}) == {
-               'acc': 1}, "method will be a key and arg will be value if arg is not a dict and needsMethodArg is true"
+        {'config': {'acc': {'type': 'boolean'}}, 'args': '1', 'method': 'acc', 'needs_method_arg': 1}) == {
+               'acc': 1}, "method will be a key and arg will be value if arg is not a dict and needs_method_arg is true"
     assert parse_args(
-        {'config': {'acc': {'type': 'boolean'}}, 'args': {'acc': '0'}, 'method': 'acc', 'needsMethodArg': 1}) == {
-               'acc': 0}, "method value will from args if arg is a dict and needsMethodArg is true"
+        {'config': {'acc': {'type': 'boolean'}}, 'args': {'acc': '0'}, 'method': 'acc', 'needs_method_arg': 1}) == {
+               'acc': 0}, "method value will from args if arg is a dict and needs_method_arg is true"
     assert parse_args({'config': {'acc': {'type': 'string'}}, 'args': {'hello': 0}, 'method': 'acc',
-                                      'needsMethodArg': 1}) is None, "if arg is not in config, then return none"
+                                      'needs_method_arg': 1}) is None, "if arg is not in config, then return none"
     # test type
     assert parse_args(
-        {'config': {'acc': {'type': 'string'}}, 'args': {'acc': 0}, 'method': 'acc', 'needsMethodArg': 1}) == {
+        {'config': {'acc': {'type': 'string'}}, 'args': {'acc': 0}, 'method': 'acc', 'needs_method_arg': 1}) == {
                'acc': '0'}, "arg is string"
     assert parse_args(
-        {'config': {'acc': {'type': 'numeric'}}, 'args': {'acc': '0'}, 'method': 'acc', 'needsMethodArg': 1}) == {
+        {'config': {'acc': {'type': 'numeric'}}, 'args': {'acc': '0'}, 'method': 'acc', 'needs_method_arg': 1}) == {
                'acc': 0}, "arg is numeric"
     assert parse_args(
-        {'config': {'acc': {'type': 'boolean'}}, 'args': {'acc': '0'}, 'method': 'acc', 'needsMethodArg': 1}) == {
+        {'config': {'acc': {'type': 'boolean'}}, 'args': {'acc': '0'}, 'method': 'acc', 'needs_method_arg': 1}) == {
                'acc': 0}, "arg is boolean"
 
 def test_validate_args():
