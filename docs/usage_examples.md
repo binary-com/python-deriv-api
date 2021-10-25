@@ -93,7 +93,7 @@ api = DerivAPI(app_id=app_id)
     seq_sub.dispose()
 ```
 
-## unsubscribe the deriv api stream
+### unsubscribe the deriv api stream
 
 There are 2 wasy to unsubscribe deriv api stream
 
@@ -111,9 +111,22 @@ There are 2 wasy to unsubscribe deriv api stream
 
 2. by `froget` that deriv stream
 ```
-# get a datum first
-from rx import operators as op
-tick = await source_tick_50.pipe(op.first(), op.to_future)
-api.forget(tick['R_50']['subscription']['id'])
+    # get a datum first
+    from rx import operators as op
+    tick = await source_tick_50.pipe(op.first(), op.to_future)
+    api.forget(tick['R_50']['subscription']['id'])
+```
 
+### print errors
+```
+    api.sanity_errors.subscribe(lambda err: print(err))
+```
+
+### do something when one type of message coming
+```
+    async def print_hello_after_authorize():
+        auth_data = await api.expect_resposne('authorize')
+        print(f"Hello {auth_data['authorize']['fullname']}")
+    asyncio.create_task(print_hello_after_authorize())
+    api.authorize({'authorize': 'AVALIDTOKEN'})
 ```
