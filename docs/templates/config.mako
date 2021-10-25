@@ -10,7 +10,7 @@
     show_inherited_members = False
     extract_module_toc_into_sidebar = True
     list_class_variables_in_index = False
-    sort_identifiers = True
+    sort_identifiers = False
     show_type_annotations = False
 
     # Show collapsed source code block next to each item.
