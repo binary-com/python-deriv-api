@@ -79,7 +79,8 @@ api = DerivAPI(app_id=app_id)
 ```
 
 ### Subscribe a stream
-    We are using rxpy to maintain our deriv api sbuscriptions. Please distinguish api subscription from rxpy sequence sub scription
+
+We are using rxpy to maintain our deriv api sbuscriptions. Please distinguish api subscription from rxpy sequence sub scription
 ```
     # creating a rxpy sequence object to represent deriv api streams
     source_tick_50 = await api.subscribe({'ticks': 'R_50'})
@@ -95,9 +96,9 @@ api = DerivAPI(app_id=app_id)
 
 ### unsubscribe the deriv api stream
 
-There are 2 wasy to unsubscribe deriv api stream
+There are 2 ways to unsubscribe deriv api stream
 
-1. by `dispose` all sequence subscriptions
+- by `dispose` all sequence subscriptions
 ```
     # creating a rxpy sequence object to represent deriv api streams
     source_tick_50 = await api.subscribe({'ticks': 'R_50'})
@@ -109,7 +110,7 @@ There are 2 wasy to unsubscribe deriv api stream
     # When all seq subscriptions of one sequence are disposed. Then a `forget` will be called and that deriv api stream will be unsubscribed
 ```
 
-2. by `froget` that deriv stream
+- by `froget` that deriv stream
 ```
     # get a datum first
     from rx import operators as op
