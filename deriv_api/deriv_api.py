@@ -3,11 +3,12 @@ import json
 import logging
 import re
 from asyncio import Future
-from typing import Dict, Optional, Union
+from typing import Dict, Optional, Union, Coroutine
 
 import websockets
 from rx import operators as op
 from rx.subject import Subject
+from rx import Observable
 from websockets.legacy.client import WebSocketClientProtocol
 from websockets.exceptions import ConnectionClosedOK, ConnectionClosed
 
@@ -87,6 +88,7 @@ class DerivAPI(DerivAPICalls):
         storage: any = options.get('storage')
         self.wsconnection: Optional[WebSocketClientProtocol] = None
         self.wsconnection_from_inside = True
+        self.shouldReconnect = False
         if options.get('connection'):
             self.wsconnection: Optional[WebSocketClientProtocol] = options.get('connection')
             self.wsconnection_from_inside = False
@@ -115,7 +117,6 @@ class DerivAPI(DerivAPICalls):
         self.connected = CustomFuture()
         self.subscription_manager: SubscriptionManager = SubscriptionManager(self)
         self.sanity_errors: Subject = Subject()
-        self.subscription_manager = SubscriptionManager(self)
         self.expect_response_types = {}
         self.wait_data_task = CustomFuture().set_result(1)
         self.add_task(self.api_connect(), 'api_connect')
@@ -207,7 +208,7 @@ class DerivAPI(DerivAPICalls):
             self.storage.set(request, response)
         return response
 
-    def send_and_get_source(self, request: dict):
+    def send_and_get_source(self, request: dict) -> Subject:
         pending = Subject()
         if 'req_id' not in request:
             self.req_id += 1
@@ -223,7 +224,7 @@ class DerivAPI(DerivAPICalls):
         self.add_task(send_message(), 'send_message')
         return pending
 
-    async def subscribe(self, request):
+    async def subscribe(self, request) -> Observable:
         """
         Subscribe to a given requestSubscribe the request
         Example
@@ -245,6 +246,10 @@ class DerivAPI(DerivAPICalls):
         ---------
             subs_id : str
                 subscription id
+
+        Returns
+        -------
+            Returns dict
         """
 
         return await self.subscription_manager.forget(subs_id)
@@ -260,6 +265,10 @@ class DerivAPI(DerivAPICalls):
         Example
         -------
             api.forget_all("ticks", "candles")
+
+        Returns
+        -------
+            Returns the dict
         """
 
         return await self.subscription_manager.forget_all(*types)
@@ -316,10 +325,10 @@ class DerivAPI(DerivAPICalls):
                 and self.expect_response_types[response_type].done():
             del self.expect_response_types[response_type]
 
-    def add_task(self, coroutine, name):
+    def add_task(self, coroutine: Coroutine, name: str) -> None:
         name = 'deriv_api:' + name
 
-        async def wrap_coro(coru, pname):
+        async def wrap_coro(coru: Coroutine, pname: str) -> None:
             try:
                 await coru
             except Exception as err:

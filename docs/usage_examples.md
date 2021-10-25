@@ -80,11 +80,13 @@ api = DerivAPI(app_id=app_id)
 
 ### Subscribe a stream
 
-We are using rxpy to maintain our deriv api sbuscriptions. Please distinguish api subscription from rxpy sequence sub scription
+We are using rxpy to maintain our deriv api sbuscriptions. Please distinguish api subscription from rxpy sequence subscription
 ```
     # creating a rxpy sequence object to represent deriv api streams
     source_tick_50 = await api.subscribe({'ticks': 'R_50'})
-    # subscribe the rxpy sequence with a callback function, when the data received , the call back function will be called
+
+    # subscribe the rxpy sequence with a callback function,
+    # when the data received, the call back function will be called
     source_tick_50.subscribe(lambda tick: print(tick))
 ```
 
@@ -102,7 +104,8 @@ There are 2 ways to unsubscribe deriv api stream
 ```
     # creating a rxpy sequence object to represent deriv api streams
     source_tick_50 = await api.subscribe({'ticks': 'R_50'})
-    # subscribe the rxpy sequence with a callback function, when the data received , the call back function will be called
+    # subscribe the rxpy sequence with a callback function,
+    # when the data received , the call back function will be called
     seq_sub1 = source_tick_50.subscribe(lambda tick: print(f"get tick from sub1 {tick}"))
     seq_sub2 = source_tick_50.subscribe(lambda tick: print(f"get tick from sub2 {tick}"))
     seq_sub1.dispose()
@@ -110,7 +113,7 @@ There are 2 ways to unsubscribe deriv api stream
     # When all seq subscriptions of one sequence are disposed. Then a `forget` will be called and that deriv api stream will be unsubscribed
 ```
 
-- by `froget` that deriv stream
+- by `forget` that deriv stream
 ```
     # get a datum first
     from rx import operators as op
@@ -126,7 +129,7 @@ There are 2 ways to unsubscribe deriv api stream
 ### do something when one type of message coming
 ```
     async def print_hello_after_authorize():
-        auth_data = await api.expect_resposne('authorize')
+        auth_data = await api.expect_response('authorize')
         print(f"Hello {auth_data['authorize']['fullname']}")
     asyncio.create_task(print_hello_after_authorize())
     api.authorize({'authorize': 'AVALIDTOKEN'})

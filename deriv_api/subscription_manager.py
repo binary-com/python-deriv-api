@@ -3,7 +3,7 @@ from deriv_api.errors import APIError
 from rx import operators as op
 from rx.subject import Subject
 from rx import Observable
-from typing import Optional
+from typing import Optional, Union
 
 # streams_list is the list of subscriptions msg_types available.
 # Please add / remove based on current available streams in api.
@@ -149,11 +149,11 @@ class SubscriptionManager:
         self.api.add_task(process_response(), 'subs manager: process_response')
         return source
 
-    async def forget(self, subs_id):
+    async def forget(self, subs_id: str) -> dict:
         self.complete_subs_by_ids(subs_id)
         return await self.api.send({'forget': subs_id})
 
-    async def forget_all(self, *types):
+    async def forget_all(self, *types) -> dict:
         # To include subscriptions that were automatically unsubscribed
         # for example a proposal subscription is auto-unsubscribed after buy
 
@@ -169,7 +169,7 @@ class SubscriptionManager:
                 key = self.subs_id_to_key[subs_id]
                 self.complete_subs_by_key(key)
 
-    def save_subs_id(self, key, subscription):
+    def save_subs_id(self, key: bytes, subscription: Union[dict, None]):
         if not subscription:
             return self.complete_subs_by_key(key)
 
@@ -180,7 +180,7 @@ class SubscriptionManager:
 
         return None
 
-    def save_subs_per_msg_type(self, request, key):
+    def save_subs_per_msg_type(self, request: dict, key: bytes):
         msg_type = get_msg_type(request)
         if msg_type:
             self.subs_per_msg_type[msg_type] = self.subs_per_msg_type.get(msg_type) or []
@@ -188,10 +188,10 @@ class SubscriptionManager:
         else:
             self.api.sanity_errors.next(APIError('Subscription type is not found in deriv-api'))
 
-    def remove_key_on_error(self, key):
+    def remove_key_on_error(self, key: bytes):
         return lambda: self.complete_subs_by_key(key)
 
-    def complete_subs_by_key(self, key):
+    def complete_subs_by_key(self, key: bytes):
         if not key or not self.sources[key]:
             return
 
@@ -217,5 +217,5 @@ class SubscriptionManager:
         orig_source.dispose()
 
 
-def get_msg_type(request) -> str:
+def get_msg_type(request: dict) -> str:
     return next((x for x in streams_list if x in request), None)
