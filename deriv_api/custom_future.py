@@ -4,7 +4,6 @@ from asyncio import Future, CancelledError, InvalidStateError
 from typing import Any, Optional, TypeVar, Union, Callable
 import weakref
 
-_T = TypeVar("_T")
 _S = TypeVar("_S")
 
 

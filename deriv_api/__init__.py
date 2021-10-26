@@ -10,5 +10,5 @@ __pdoc__ = {
 }
 
 from .deriv_api import DerivAPI
-from .errors import *
+from .errors import AddedTaskError, APIError, ConstructionError, ResponseError
 
