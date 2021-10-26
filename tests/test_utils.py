@@ -1,4 +1,4 @@
-from deriv_api.utils import *
+from deriv_api.utils import dict_to_cache_key
 import pickle
 
 

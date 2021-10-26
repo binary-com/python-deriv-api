@@ -1,4 +1,4 @@
-from deriv_api.errors import *
+from deriv_api.errors import APIError, ConstructionError
 
 def test_app_error_class():
     error = APIError("A error")

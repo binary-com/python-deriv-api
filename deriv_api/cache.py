@@ -2,7 +2,7 @@ from __future__ import annotations
 from typing import TYPE_CHECKING, Union
 
 if TYPE_CHECKING:
-    from deriv_api.deriv_api import DerivAPI
+    from deriv_api import DerivAPI
 from deriv_api.deriv_api_calls import DerivAPICalls
 from deriv_api.errors import ConstructionError
 from deriv_api.utils import dict_to_cache_key

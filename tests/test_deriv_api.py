@@ -5,7 +5,7 @@ import pytest
 import pytest_mock
 import rx
 
-from deriv_api import deriv_api
+import deriv_api
 from deriv_api.errors import APIError, ConstructionError, ResponseError
 from deriv_api.custom_future import CustomFuture
 from rx.subject import Subject
@@ -97,7 +97,7 @@ def test_connect_parameter():
 
 @pytest.mark.asyncio
 async def test_deriv_api(mocker):
-    mocker.patch('deriv_api.deriv_api.DerivAPI.api_connect', return_value='')
+    mocker.patch('deriv_api.DerivAPI.api_connect', return_value='')
     api = deriv_api.DerivAPI(app_id=1234, endpoint='localhost')
     assert(isinstance(api, deriv_api.DerivAPI))
     await asyncio.sleep(0.1)
@@ -114,7 +114,7 @@ async def test_get_url(mocker):
     await api.clear()
 
 def get_deriv_api(mocker):
-    mocker.patch('deriv_api.deriv_api.DerivAPI.api_connect', return_value=CustomFuture().set_result(1))
+    mocker.patch('deriv_api.DerivAPI.api_connect', return_value=CustomFuture().set_result(1))
     api = deriv_api.DerivAPI(app_id=1234, endpoint='localhost')
     return api
 
