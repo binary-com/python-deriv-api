@@ -33,21 +33,21 @@ async def sample_calls():
     """
     # await asyncio.sleep(300)
 
-    '''Authorize'''
+    # Authorize
     authorize = await api.authorize(api_token)
     print(authorize)
 
-    '''Get Balance'''
+    # Get Balance
     response = await api.balance()
     response = response['balance']
     currency = response['currency']
     print("Your current balance is", response['currency'], response['balance'])
 
-    '''Get active symbols from cache'''
+    # Get active symbols from cache
     cached_active_symbols = await api.cache.active_symbols({"active_symbols": "brief", "product_type": "basic"})
     print(cached_active_symbols)
 
-    ''' get assets '''
+    # Get assets
     assets = await api.cache.asset_index({"asset_index": 1})
     print(assets)
     await api.clear()
