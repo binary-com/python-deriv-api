@@ -11,4 +11,8 @@ setup(
     setup_requires=['pytest-runner==5.3.1'],
     tests_require=['pytest==6.2.5'],
     test_suite='tests',
+    url='https://github.com/binary-com/python-deriv-api',
+    project_urls={
+        'Bug Tracker': "https://github.com/binary-com/python-deriv-api/issues"
+    }
 )
