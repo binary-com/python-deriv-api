@@ -1,6 +1,6 @@
 import pytest
 import re
-from deriv_api.deriv_api_calls import *
+from deriv_api.deriv_api_calls import DerivAPICalls, parse_args, validate_args
 
 class DerivedDerivAPICalls(DerivAPICalls):
     async def send(self, args):

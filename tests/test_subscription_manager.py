@@ -1,6 +1,6 @@
 import pytest
 
-from deriv_api.subscription_manager import *
+from deriv_api.subscription_manager import SubscriptionManager, get_msg_type
 from rx.subject import Subject
 from rx import Observable
 import asyncio
