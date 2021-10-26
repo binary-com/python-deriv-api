@@ -224,9 +224,15 @@ class DerivAPI(DerivAPICalls):
         self.add_task(send_message(), 'send_message')
         return pending
 
-    async def subscribe(self, request) -> Observable:
+    async def subscribe(self, request:dict) -> Observable:
         """
-        Subscribe to a given requestSubscribe the request
+        Subscribe to a given request
+
+        Parameter
+        --------
+            request : dict
+                Subscribe request
+
         Example
         -------
         >>> proposal_subscription = api.subscribe({"proposal_open_contract": 1, "contract_id": 11111111, "subscribe": 1})
@@ -257,6 +263,7 @@ class DerivAPI(DerivAPICalls):
     async def forget_all(self, *types):
         """
         Forget / unsubscribe the subscriptions of given types.
+
         Possible values are: 'ticks', 'candles', 'proposal', 'proposal_open_contract', 'balance', 'transaction', 'proposal_array', 'website_status'
 
         Parameter

@@ -43,8 +43,7 @@ async def sample_calls():
     # Get proposal
     proposal = await api.proposal({"proposal": 1, "amount": 100, "barrier": "+0.1", "basis": "payout",
                                    "contract_type": "CALL", "currency": "USD", "duration": 60, "duration_unit": "s",
-                                   "symbol": "R_100",
-                                   # "subscribe":1
+                                   "symbol": "R_100"
                                    })
     print(proposal)
 
@@ -59,9 +58,7 @@ async def sample_calls():
 
     # open contracts
     poc = await api.proposal_open_contract(
-        {"proposal_open_contract": 1, "contract_id": response.get('buy').get('contract_id'),
-         # "subscribe": 1
-         })
+        {"proposal_open_contract": 1, "contract_id": response.get('buy').get('contract_id')})
     print(poc)
     print("waiting is sold........................")
     if not poc.get('proposal_open_contract').get('is_sold'):
