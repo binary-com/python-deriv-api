@@ -68,7 +68,7 @@ Setup environment and run test
 make all
 ```
 
-# Run test
+#### Run test
 
 ```
 python setup.py pytest
@@ -85,6 +85,10 @@ pytest
 Generate html version of the docs and publish it to gh-pages
 make gh-pages
 
+#### Build the package
+```
+make build
+```
 #### Run examples
 
 set token and run example
@@ -93,3 +97,4 @@ set token and run example
 export DERIV_TOKEN=xxxTokenxxx
 PYTHONPATH=. python3 examples/simple_bot1.py
 ```
+
