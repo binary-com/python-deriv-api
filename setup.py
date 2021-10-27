@@ -4,7 +4,7 @@ setup(
     name='python_deriv_api',
     packages=find_packages(include=['deriv_api']),
     version='0.1.0',
-    description='Python Deriv API',
+    description='Python bindings for deriv.com websocket API',
     author='deriv.com',
     author_email='',
     license='MIT',
