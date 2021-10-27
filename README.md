@@ -18,13 +18,13 @@ deal the API calls (including subscription).
 Import the module
 
 ```
-from deriv_api import deriv_api
+from deriv_api import DerivAPI
 ```
 
 Access 
 
 ```
-api = deriv_api.DerivAPI({ endpoint: 'ws://...', app_id: 1234 });
+api = DerivAPI(endpoint='ws://...', app_id=1234);
 response = await api.ping({'ping': 1})
 print(response) 
 ```
@@ -39,13 +39,13 @@ If you pass the connection it's up to you to reconnect in case the connection dr
 
 - Pass the arguments needed to create a connection:
 ```
-   api = deriv_api.DerivAPI({ endpoint: 'ws://...', app_id: 1234 });
+   api = DerivAPI(endpoint='ws://...', app_id=1234);
 ```
 
 - create and use a previously opened connection:
 ```
    connection = await websockets.connect('ws://...')
-   api = deriv_api.DerivAPI(connection=connection)
+   api = DerivAPI(connection=connection)
 ```
 
 # Documentation

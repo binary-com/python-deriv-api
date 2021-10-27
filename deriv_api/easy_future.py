@@ -7,7 +7,7 @@ import weakref
 _S = TypeVar("_S")
 
 
-class CustomFuture(Future):
+class EasyFuture(Future):
     """A class that extend asyncio Future class and has some more convenient methods
     Just like Promise in JS or Future in Perl"""
     def __init__(self, *, loop: Optional[asyncio.AbstractEventLoop] = None, label: Optional[str] = None) -> None:
@@ -17,13 +17,13 @@ class CustomFuture(Future):
         self.label = label
 
     @classmethod
-    def wrap(cls, future: Future) -> CustomFuture:
-        """Wrap an Asyncio Future to a CustomFuture"""
+    def wrap(cls, future: Future) -> EasyFuture:
+        """Wrap an Asyncio Future to a EasyFuture"""
         if isinstance(future, cls):
             return future
 
-        custom_future = cls(loop=future.get_loop())
-        custom_future.cascade(future)
+        easy_future = cls(loop=future.get_loop())
+        easy_future.cascade(future)
         weak_future = weakref.ref(future)
 
         def cancel_cb(cb_future: Future):
@@ -34,15 +34,15 @@ class CustomFuture(Future):
                 except CancelledError as err:
                     out_future.cancel(*err.args)
 
-        custom_future.add_done_callback(cancel_cb)
-        return custom_future
+        easy_future.add_done_callback(cancel_cb)
+        return easy_future
 
-    def resolve(self, *args: Any) -> CustomFuture:
+    def resolve(self, *args: Any) -> EasyFuture:
         """Set result on the future"""
         super().set_result(*args)
         return self
 
-    def reject(self, *args: Union[type, BaseException]) -> CustomFuture:
+    def reject(self, *args: Union[type, BaseException]) -> EasyFuture:
         """Set exception on the future"""
         super().set_exception(*args)
         return self
@@ -63,7 +63,7 @@ class CustomFuture(Future):
         """check if the future is cancelled"""
         return self.cancelled()
 
-    def cascade(self, future: Future) -> CustomFuture:
+    def cascade(self, future: Future) -> EasyFuture:
         """copy another future result to itself"""
         if self.done():
             raise InvalidStateError('invalid state')
@@ -80,7 +80,7 @@ class CustomFuture(Future):
         future.add_done_callback(done_callback)
         return self
 
-    def then(self, then_callback: Union[Callable[[Any], Any], None], else_callback: Union[Callable[[Any], Any], None] = None) -> CustomFuture:
+    def then(self, then_callback: Union[Callable[[Any], Any], None], else_callback: Union[Callable[[Any], Any], None] = None) -> EasyFuture:
         """Simulate Perl Future's 'then' function.
         Parameters:
         then_callback: the cb function that will be called when the original Future is resolved
@@ -90,10 +90,10 @@ class CustomFuture(Future):
         Both cb function should return a Future. The Future returned by the function 'then'
         will have same result of cb returned Future.
         """
-        new_future = CustomFuture(loop=self.get_loop())
+        new_future = EasyFuture(loop=self.get_loop())
 
-        def done_callback(myself: CustomFuture) -> None:
-            f: Optional[CustomFuture] = None
+        def done_callback(myself: EasyFuture) -> None:
+            f: Optional[EasyFuture] = None
             if myself.is_cancelled():
                 new_future.cancel('Upstream future cancelled')
                 return
@@ -107,7 +107,7 @@ class CustomFuture(Future):
                 new_future.cascade(myself)
                 return
 
-            def inside_callback(internal_future: CustomFuture) -> None:
+            def inside_callback(internal_future: EasyFuture) -> None:
                 new_future.cascade(internal_future)
 
             f.add_done_callback(inside_callback)
@@ -115,6 +115,6 @@ class CustomFuture(Future):
         self.add_done_callback(done_callback)
         return new_future
 
-    def catch(self, else_callback: Callable[[_S], Any]) -> CustomFuture:
+    def catch(self, else_callback: Callable[[_S], Any]) -> EasyFuture:
         """An variant of 'then' function. it can only get an 'else_cb' which will be run when the future rejected"""
         return self.then(None, else_callback)

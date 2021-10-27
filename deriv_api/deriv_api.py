@@ -13,7 +13,7 @@ from websockets.legacy.client import WebSocketClientProtocol
 from websockets.exceptions import ConnectionClosedOK, ConnectionClosed
 
 from deriv_api.cache import Cache
-from deriv_api.custom_future import CustomFuture
+from deriv_api.easy_future import EasyFuture
 from deriv_api.deriv_api_calls import DerivAPICalls
 from deriv_api.errors import APIError, ConstructionError, ResponseError, AddedTaskError
 from deriv_api.in_memory import InMemory
@@ -51,11 +51,11 @@ class DerivAPI(DerivAPICalls):
     Examples
     --------
     - Pass the arguments needed to create a connection:
-    >>> api = deriv_api.DerivAPI({ endpoint: 'ws://...', app_id: 1234 });
+    >>> api = DerivAPI(endpoint='ws://...', app_id=1234);
 
     - create and use a previously opened connection:
     >>> connection = await websockets.connect('ws://...')
-    >>> api = deriv_api.DerivAPI(connection=connection)
+    >>> api = DerivAPI(connection=connection)
 
     Parameters
     ----------
@@ -114,11 +114,11 @@ class DerivAPI(DerivAPICalls):
         self.req_id = 0
         self.pending_requests: Dict[str, Subject] = {}
         # resolved: connected  rejected: disconnected  pending: not connected yet
-        self.connected = CustomFuture()
+        self.connected = EasyFuture()
         self.subscription_manager: SubscriptionManager = SubscriptionManager(self)
         self.sanity_errors: Subject = Subject()
         self.expect_response_types = {}
-        self.wait_data_task = CustomFuture().set_result(1)
+        self.wait_data_task = EasyFuture().set_result(1)
         self.add_task(self.api_connect(), 'api_connect')
         self.add_task(self.__wait_data(), 'wait_data')
 
@@ -129,7 +129,7 @@ class DerivAPI(DerivAPICalls):
                 data = await self.wsconnection.recv()
             except ConnectionClosed as err:
                 if self.connected.is_resolved():
-                    self.connected = CustomFuture().reject(err)
+                    self.connected = EasyFuture().reject(err)
                     self.connected.exception()  # call it to hide the warning of 'exception never retrieved'
                 self.sanity_errors.on_next(err)
                 break
@@ -196,7 +196,7 @@ class DerivAPI(DerivAPICalls):
         if self.connected.is_pending():
             self.connected.resolve(True)
         else:
-            self.connected = CustomFuture().resolve(True)
+            self.connected = EasyFuture().resolve(True)
         return self.wsconnection
 
     async def send(self, request: dict) -> dict:
@@ -283,7 +283,7 @@ class DerivAPI(DerivAPICalls):
     async def disconnect(self) -> None:
         if not self.connected.is_resolved():
             return
-        self.connected = CustomFuture().reject(ConnectionClosedOK(1000, 'Closed by disconnect'))
+        self.connected = EasyFuture().reject(ConnectionClosedOK(1000, 'Closed by disconnect'))
         self.connected.exception()  # fetch exception to avoid the warning of 'exception never retrieved'
         if self.wsconnection_from_inside:
             # TODO NEXT reconnect feature
