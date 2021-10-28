@@ -11,4 +11,4 @@ gh-pages:
 build:
 	pip3 install build && python3 -m build
 coverage:
-	pipenv run coverage run --source deriv_api -m pytest && pipenv run coverage report -m
+	pipenv run coverage run --source deriv_api -m pytest && pipenv run coverage report -m 
