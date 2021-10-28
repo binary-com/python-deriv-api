@@ -1,6 +1,9 @@
 # python-deriv-api
 A python implementation of deriv api library.
 
+[![PyPI](https://img.shields.io/pypi/v/python_deriv_api.svg?style=flat-square)](https://pypi.org/project/python_deriv_api/)
+[![Python 3.9.6](https://img.shields.io/badge/python-3.9.6-blue.svg)](https://www.python.org/download/releases/3.9.6/)
+
 Go thru [api.deriv.com](https://api.deriv.com/){:target="_blank"} to know simple easy steps on how to register and get access.
 Use this all-in-one python library to set up and make your app running or you can extend it.
 
