@@ -51,9 +51,9 @@ If you pass the connection it's up to you to reconnect in case the connection dr
 # Documentation
 
 #### API reference
-The complete API reference is hosted [here](https://binary-com.github.io/python-deriv-api/)
+The complete API reference is hosted [here](https://binary-com.github.io/python-deriv-api/){:target="_blank"}
 
-Examples [here](https://github.com/binary-com/python-deriv-api/examples)
+Examples [here](https://github.com/binary-com/python-deriv-api/examples){:target="_blank"}
 
 # Development
 ```
