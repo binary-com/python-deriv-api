@@ -15,6 +15,7 @@ pytest-runner = "*"
 pytest-mock = "*"
 pytest-asyncio = "*"
 pdoc3 = "*"
+coverage = "===4.5.4"
 
 [requires]
 python_version = "3.9.6"
