@@ -1,7 +1,7 @@
 # python-deriv-api
 A python implementation of deriv api library.
 
-Go thru https://api.deriv.com/ to know simple easy steps on how to register and get access.
+Go thru [api.deriv.com](https://api.deriv.com/){:target="_blank"} to know simple easy steps on how to register and get access.
 Use this all-in-one python library to set up and make your app running or you can extend it.
 
 ### Requirement
@@ -9,7 +9,7 @@ Python (3.9.6 or higher is recommended) and pip3 token
 
 # Installation
 
-
+`python3 -m pip install python_deriv_api`
 
 # Usage
 This is basic deriv-api python library which helps to make websockets connection and
@@ -52,6 +52,8 @@ If you pass the connection it's up to you to reconnect in case the connection dr
 
 #### API reference
 The complete API reference is hosted [here](https://binary-com.github.io/python-deriv-api/)
+
+Examples [here](https://github.com/binary-com/python-deriv-api/examples)
 
 # Development
 ```
