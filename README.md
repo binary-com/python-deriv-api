@@ -4,11 +4,11 @@ A python implementation of deriv api library.
 [![PyPI](https://img.shields.io/pypi/v/python_deriv_api.svg?style=flat-square)](https://pypi.org/project/python_deriv_api/)
 [![Python 3.9.6](https://img.shields.io/badge/python-3.9.6-blue.svg)](https://www.python.org/download/releases/3.9.6/)
 
-Go thru [api.deriv.com](https://api.deriv.com/){:target="_blank"} to know simple easy steps on how to register and get access.
+Go thru [api.deriv.com](https://api.deriv.com/) to know simple easy steps on how to register and get access.
 Use this all-in-one python library to set up and make your app running or you can extend it.
 
 ### Requirement
-Python (3.9.6 or higher is recommended) and pip3 token
+Python (3.9.6 or higher is recommended) and pip3
 
 # Installation
 
@@ -54,9 +54,9 @@ If you pass the connection it's up to you to reconnect in case the connection dr
 # Documentation
 
 #### API reference
-The complete API reference is hosted [here](https://binary-com.github.io/python-deriv-api/){:target="_blank"}
+The complete API reference is hosted [here](https://binary-com.github.io/python-deriv-api/)
 
-Examples [here](https://github.com/binary-com/python-deriv-api/examples){:target="_blank"}
+Examples [here](https://github.com/binary-com/python-deriv-api/examples)
 
 # Development
 ```
@@ -85,10 +85,18 @@ or
 pytest
 ```
 
+or
+
+```
+make test
+```
 #### Generate documentations
 
 Generate html version of the docs and publish it to gh-pages
+
+```
 make gh-pages
+```
 
 #### Build the package
 ```

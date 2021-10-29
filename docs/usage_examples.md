@@ -19,6 +19,12 @@ api = DerivAPI(app_id=app_id)
 ```
 ### Get all the assets info
 ```python
+    assets = await api.asset_index({"asset_index": 1})
+    print(assets)
+```
+
+To get assets info from cache
+```python
     assets = await api.cache.asset_index({"asset_index": 1})
     print(assets)
 ```
@@ -29,7 +35,7 @@ api = DerivAPI(app_id=app_id)
     print(active_symbols)
 ```
 
-### To get active symbols from cache 
+To get active symbols from cache
 ```python
     active_symbols = await api.cache.active_symbols({"active_symbols": "full"})
     print(active_symbols)
@@ -42,6 +48,17 @@ api = DerivAPI(app_id=app_id)
                                    "symbol": "R_100"
     })
     print(proposal) 
+```
+
+subscribe the proposal stream
+```python
+    source_proposal: Observable = await api.subscribe({"proposal": 1, "amount": 100, "barrier": "+0.1", "basis": "payout",
+                                           "contract_type": "CALL", "currency": "USD", "duration": 160,
+                                           "duration_unit": "s",
+                                           "symbol": "R_100",
+                                           "subscribe": 1
+                                           })
+    source_proposal.subscribe(lambda proposal: print(proposal))
 ```
 
 ### Buy
@@ -57,6 +74,12 @@ api = DerivAPI(app_id=app_id)
     poc = await api.proposal_open_contract(
         {"proposal_open_contract": 1, "contract_id": contract_id })
     print(poc)
+```
+
+subscribe the open contract stream
+```
+    source_poc: Observable = await api.subscribe({"proposal_open_contract": 1, "contract_id": contract_id})
+    source_poc.subscribe(lambda poc: print(poc)
 ```
 
 ### Sell 
