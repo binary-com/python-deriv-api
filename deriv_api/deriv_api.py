@@ -51,7 +51,7 @@ class DerivAPI(DerivAPICalls):
     Examples
     --------
     - Pass the arguments needed to create a connection:
-    >>> api = DerivAPI(endpoint='ws://...', app_id=1234);
+    >>> api = DerivAPI(endpoint='ws://...', app_id=1234)
 
     - create and use a previously opened connection:
     >>> connection = await websockets.connect('ws://...')
@@ -78,7 +78,7 @@ class DerivAPI(DerivAPICalls):
         If specified, uses a more persistent cache (local storage, etc.)
     """
 
-    storage:  None
+    storage: None
 
     def __init__(self, **options: str) -> None:
         endpoint = options.get('endpoint', 'frontend.binaryws.com')
@@ -170,13 +170,41 @@ class DerivAPI(DerivAPICalls):
             self.pending_requests[req_id].on_next(response)
 
     def __set_api_url(self, connection_argument: dict) -> None:
+        """
+        Construct the websocket request url
+
+        Parameters
+        ----------
+        connection_argument : dict
+
+        """
         self.api_url = connection_argument.get('endpoint_url') + "/websockets/v3?app_id=" + connection_argument.get(
             'app_id') + "&l=" + connection_argument.get('lang') + "&brand=" + connection_argument.get('brand')
 
     def __get_api_url(self) -> str:
+        """
+            Returns the api request url
+
+        Returns
+        -------
+            websocket api request url
+        """
         return self.api_url
 
     def get_url(self, original_endpoint: str) -> Union[str, ConstructionError]:
+        """
+        Validate and return the url
+
+        Parameters
+        ----------
+        original_endpoint : str
+            endpoint argument passed to constructor
+
+        Returns
+        -------
+            Returns api url. If validation fails then throws constructionError
+
+        """
         if not isinstance(original_endpoint, str):
             raise ConstructionError(f"Endpoint must be a string, passed: {type(original_endpoint)}")
 
@@ -191,6 +219,12 @@ class DerivAPI(DerivAPICalls):
         return url
 
     async def api_connect(self) -> websockets.WebSocketClientProtocol:
+        """
+            Make a websockets connection and returns WebSocketClientProtocol
+        Returns
+        -------
+            Returns websockets.WebSocketClientProtocol
+        """
         if not self.wsconnection and self.shouldReconnect:
             self.wsconnection = await websockets.connect(self.api_url)
         if self.connected.is_pending():
@@ -200,6 +234,18 @@ class DerivAPI(DerivAPICalls):
         return self.wsconnection
 
     async def send(self, request: dict) -> dict:
+        """
+        Send the API call and returns response
+
+        Parameters
+        ----------
+        request : dict
+            API request
+
+        Returns
+        -------
+            API response
+        """
         response_future = self.send_and_get_source(request).pipe(op.first(), op.to_future())
 
         response = await response_future
@@ -209,6 +255,18 @@ class DerivAPI(DerivAPICalls):
         return response
 
     def send_and_get_source(self, request: dict) -> Subject:
+        """
+        Send message and returns Subject
+
+        Parameters
+        ----------
+        request : dict
+            API request
+
+        Returns
+        -------
+            Returns the Subject
+        """
         pending = Subject()
         if 'req_id' not in request:
             self.req_id += 1
@@ -221,15 +279,16 @@ class DerivAPI(DerivAPICalls):
                 await self.wsconnection.send(json.dumps(request))
             except Exception as err:
                 pending.on_error(err)
+
         self.add_task(send_message(), 'send_message')
         return pending
 
-    async def subscribe(self, request:dict) -> Observable:
+    async def subscribe(self, request: dict) -> Observable:
         """
         Subscribe to a given request
 
-        Parameter
-        --------
+        Parameters
+        ----------
             request : dict
                 Subscribe request
 
@@ -244,12 +303,12 @@ class DerivAPI(DerivAPICalls):
 
         return await self.subscription_manager.subscribe(request)
 
-    async def forget(self, subs_id: str):
+    async def forget(self, subs_id: str) -> dict:
         """
         Forget / unsubscribe the specific subscription.
 
-        Parameter
-        ---------
+        Parameters
+        ----------
             subs_id : str
                 subscription id
 
@@ -260,11 +319,11 @@ class DerivAPI(DerivAPICalls):
 
         return await self.subscription_manager.forget(subs_id)
 
-    async def forget_all(self, *types):
+    async def forget_all(self, *types) -> dict:
         """
         Forget / unsubscribe the subscriptions of given types.
 
-        Possible values are: 'ticks', 'candles', 'proposal', 'proposal_open_contract', 'balance', 'transaction', 'proposal_array', 'website_status'
+        Possible values are: 'ticks', 'candles', 'proposal', 'proposal_open_contract', 'balance', 'transaction'
 
         Parameter
         ---------
@@ -281,6 +340,10 @@ class DerivAPI(DerivAPICalls):
         return await self.subscription_manager.forget_all(*types)
 
     async def disconnect(self) -> None:
+        """
+        Disconnect the websockets connection
+
+        """
         if not self.connected.is_resolved():
             return
         self.connected = EasyFuture().reject(ConnectionClosedOK(1000, 'Closed by disconnect'))
@@ -292,8 +355,10 @@ class DerivAPI(DerivAPICalls):
 
     def expect_response(self, *msg_types):
         """
-        Parameter
-        ---------
+        Expect specific message types
+
+        Parameters
+        ----------
             *msg_types : variable number of non-key string argument
                 Expect these types to be received by the API
         Returns
@@ -321,7 +386,15 @@ class DerivAPI(DerivAPICalls):
 
         return asyncio.gather(map(lambda t: self.expect_response_types[t], msg_types))
 
-    def delete_from_expect_response(self, request):
+    def delete_from_expect_response(self, request: dict):
+        """
+        Delete the given request message type from expect_response_types
+
+        Parameters
+        ----------
+        request : dict
+
+        """
         response_type = None
         for k in self.expect_response_types.keys():
             if k in request:
@@ -333,6 +406,17 @@ class DerivAPI(DerivAPICalls):
             del self.expect_response_types[response_type]
 
     def add_task(self, coroutine: Coroutine, name: str) -> None:
+        """
+        Add coroutine object to execution
+
+        Parameters
+        ----------
+        coroutine : Coroutine
+            Coroutine object
+        name: str
+            name of the Coroutine
+
+        """
         name = 'deriv_api:' + name
 
         async def wrap_coro(coru: Coroutine, pname: str) -> None:

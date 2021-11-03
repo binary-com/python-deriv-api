@@ -3,8 +3,8 @@
 ## Short examples
 
 ```python
-from deriv_api import DerivAPI
-api = DerivAPI(app_id=app_id)
+    from deriv_api import DerivAPI
+    api = DerivAPI(app_id=app_id)
 ```
 
 ### Authenticate to an account using token
