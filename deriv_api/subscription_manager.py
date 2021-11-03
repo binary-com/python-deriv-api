@@ -7,7 +7,7 @@ from typing import Optional, Union
 
 # streams_list is the list of subscriptions msg_types available.
 # Please add / remove based on current available streams in api.
-# Refer https: // developers.binary.com /
+# Refer https://developers.binary.com/
 # TODO NEXT auto generate this one
 streams_list = ['balance', 'candles', 'p2p_advertiser', 'p2p_order', 'proposal',
                 'proposal_array', 'proposal_open_contract', 'ticks', 'ticks_history', 'transaction',
@@ -47,6 +47,7 @@ class SubscriptionManager:
         >>> source_tick_50: Observable  = await api.subscribe({'ticks': 'R_50'})
         >>> subscription_id = 0
         >>> def tick_50_callback(data):
+        >>>     global subscription_id
         >>>     subscription_id = data['subscription']['id']
         >>>     print(data)
         >>> source_tick_50.subscribe(tick_50_callback)
@@ -77,8 +78,8 @@ class SubscriptionManager:
         >>> ticks = api.subscribe({ 'ticks': 'R_100' })
         >>> ticks.subscribe(call_back_function)
 
-        Parameter
-        ---------
+        Parameters
+        ----------
         request : dict
             A request object acceptable by the API
 
@@ -98,6 +99,18 @@ class SubscriptionManager:
         return await self.create_new_source(new_request)
 
     def get_source(self, request: dict) -> Optional[Subject]:
+        """
+        To get the source from the source list stored in sources
+
+        Parameters
+        ----------
+        request : dict
+            Request object
+
+        Returns
+        -------
+            Returns source observable if exists, otherwise returns None
+        """
         key: bytes = dict_to_cache_key(request)
         if key in self.sources:
             return self.sources[key]
@@ -110,9 +123,34 @@ class SubscriptionManager:
         return None
 
     def source_exists(self, request: dict):
+        """
+        Get the source by request
+
+        Parameters
+        ----------
+        request : dict
+            A request object
+
+        Returns
+        -------
+            Returns source observable if exists in source list, otherwise None
+
+        """
         return self.get_source(request)
 
     async def create_new_source(self, request: dict) -> Observable:
+        """
+        Create new source observable, stores it in source list and returns
+
+        Parameters
+        ----------
+        request : dict
+            A request object
+
+        Returns
+        -------
+            Returns source observable
+        """
         key: bytes = dict_to_cache_key(request)
 
         def forget_old_source() -> None:
@@ -150,10 +188,35 @@ class SubscriptionManager:
         return source
 
     async def forget(self, subs_id: str) -> dict:
+        """
+        Delete the source from source list, clears the subscription detail from subs_id_to_key and key_to_subs_id and
+        make api call to unsubscribe the subscription
+        Parameters
+        ----------
+        subs_id : str
+            Subscription id
+
+        Returns
+        -------
+            Returns dict - api response for forget call
+        """
         self.complete_subs_by_ids(subs_id)
         return await self.api.send({'forget': subs_id})
 
     async def forget_all(self, *types) -> dict:
+        """
+        Unsubscribe all subscription's of given type. For each subscription, it deletes the source from source list,
+        clears the subscription detail from subs_id_to_key and key_to_subs_id. Make api call to unsubscribe all the
+        subscriptions of given types.
+        Parameters
+        ----------
+        types : Positional argument
+            subscription stream types example : ticks, candles
+
+        Returns
+        -------
+            Response from API call
+        """
         # To include subscriptions that were automatically unsubscribed
         # for example a proposal subscription is auto-unsubscribed after buy
 
@@ -164,12 +227,33 @@ class SubscriptionManager:
         return await self.api.send({'forget_all': list(types)})
 
     def complete_subs_by_ids(self, *subs_ids):
+        """
+        Completes the subscription for the given subscription id's - delete the source from source list, clears the
+        subscription detail from subs_id_to_key and key_to_subs_id. Mark the original source as complete.
+
+        Parameters
+        ----------
+        subs_ids : Positional argument
+            subscription ids
+
+        """
         for subs_id in subs_ids:
             if subs_id in self.subs_id_to_key:
                 key = self.subs_id_to_key[subs_id]
                 self.complete_subs_by_key(key)
 
     def save_subs_id(self, key: bytes, subscription: Union[dict, None]):
+        """
+        Saves the subscription detail in subs_id_to_key and key_to_subs_id
+
+        Parameters
+        ----------
+        key : bytes
+            API call request key. Key for key_to_subs_id
+        subscription : dict or None
+            subscription details - subscription id
+
+        """
         if not subscription:
             return self.complete_subs_by_key(key)
 
@@ -181,6 +265,17 @@ class SubscriptionManager:
         return None
 
     def save_subs_per_msg_type(self, request: dict, key: bytes):
+        """
+        Save the request's key in subscription per message type
+
+        Parameters
+        ----------
+        request : dict
+            API request object
+        key : bytes
+            API request key
+
+        """
         msg_type = get_msg_type(request)
         if msg_type:
             self.subs_per_msg_type[msg_type] = self.subs_per_msg_type.get(msg_type) or []
@@ -189,9 +284,29 @@ class SubscriptionManager:
             self.api.sanity_errors.next(APIError('Subscription type is not found in deriv-api'))
 
     def remove_key_on_error(self, key: bytes):
+        """
+        Remove ths source from source list,  clears the subscription detail from subs_id_to_key and key_to_subs_id.
+        Mark the original source as complete.
+
+        Parameters
+        ----------
+        key : bytes
+            Request object key in bytes. Used to identify the subscription stored in key_to_subs_id
+
+        """
         return lambda: self.complete_subs_by_key(key)
 
     def complete_subs_by_key(self, key: bytes):
+        """
+        Identify the source from source list based on request object key and removes it. Clears the subscription detail
+        from subs_id_to_key and key_to_subs_id. Mark the original source as complete.
+
+        Parameters
+        ----------
+        key : bytes
+            Request object key to identify the subscription stored in key_to_subs_id
+
+        """
         if not key or not self.sources[key]:
             return
 
@@ -218,4 +333,16 @@ class SubscriptionManager:
 
 
 def get_msg_type(request: dict) -> str:
+    """
+    Get message type by request
+
+    Parameters
+    ----------
+    request : dict
+        Request
+
+    Returns
+    -------
+        Returns the next item from the iterator
+    """
     return next((x for x in streams_list if x in request), None)

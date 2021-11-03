@@ -52,7 +52,17 @@ class Cache(DerivAPICalls):
 
     async def send(self, request: dict) -> dict:
         """Check if there is a cache for the request. If so then return that value.
-        Otherwise send the request by the api"""
+        Otherwise send the request by the api
+
+        Parameters
+        ----------
+        request : dict
+            API request
+
+        Returns
+        -------
+            API Response
+        """
         if await self.has(request):
             return await self.get(request)
 
@@ -61,17 +71,55 @@ class Cache(DerivAPICalls):
         return response
 
     async def has(self, request: dict) -> bool:
-        """Redirected to the method defined by the storage"""
+        """Redirected to the method defined by the storage
+
+        Parameters
+        ----------
+        request : dict
+            API request
+
+        Returns
+        -------
+            Returns true if the request exists
+        """
         return self.storage.has(dict_to_cache_key(request))
 
     async def get(self, request: dict) -> dict:
-        """Redirected to the method defined by the storage"""
+        """Redirected to the method defined by the storage
+
+        Parameters
+        ----------
+        request : dict
+            API request
+
+        Returns
+        -------
+            API response stored in
+        """
         return self.storage.get(dict_to_cache_key(request))
 
     async def get_by_msg_type(self, msg_type: str) -> dict:
-        """Redirected to the method defined by the storage"""
+        """Redirected to the method defined by the storage
+
+        Parameters
+        ----------
+        msg_type : str
+            Request msg_type
+
+        Returns
+        -------
+            Returns response stored in
+        """
         return self.storage.get_by_msg_type(msg_type)
 
     def set(self, request: dict, response: dict) -> None:
-        """Redirected to the method defined by the storage"""
+        """Redirected to the method defined by the storage
+
+        Parameters
+        ----------
+        request : dict
+            API request
+        response : dict
+            API response
+        """
         return self.storage.set(dict_to_cache_key(request), response)
