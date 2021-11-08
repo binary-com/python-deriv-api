@@ -1,7 +1,7 @@
 [[source]]
-url = "https://pypi.org/simple"
+url = "https://pypi.org/project/python_deriv_api"
 verify_ssl = true
-name = "pypi"
+name = "python-driv-api"
 
 [packages]
 websockets = "==9.1"
