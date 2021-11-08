@@ -5,7 +5,7 @@ setup(
     packages=find_packages(include=['deriv_api']),
     version='0.1.0',
     description='Python bindings for deriv.com websocket API',
-    author='deriv.com',
+    author='Deriv Group Services Ltd',
     author_email='learning+python@deriv.com',
     license='MIT',
     install_requires=['websockets==9.1', 'asyncio==3.4.3', 'rx==3.1.1'],
