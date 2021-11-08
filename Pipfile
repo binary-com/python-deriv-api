@@ -1,8 +1,3 @@
-[[source]]
-url = "https://pypi.org/project/python_deriv_api"
-verify_ssl = true
-name = "python-driv-api"
-
 [packages]
 websockets = "==9.1"
 asyncio = ">=3.4.3"
