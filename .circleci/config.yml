@@ -61,7 +61,7 @@ jobs:
             npm install -g --silent gh-pages@2.0.1
       - run:
           name: Deploy docs to gh-pages branch
-          command: gh-pages --dotfiles --message "[skip ci] Updates" --dist docs/html/deriv_api
+          command: gh-pages --message "[skip ci] Updates" --dist docs/html/deriv_api
 
 workflows:
   version: 2
@@ -69,7 +69,7 @@ workflows:
     jobs:
       - test
       - docs-build
-      - docs-deploy
+      - docs-deploy:
           requires:
             - test
             - docs-build
