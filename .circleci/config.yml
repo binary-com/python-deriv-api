@@ -43,7 +43,7 @@ jobs:
             - "venv"
       - run:
           command: |
-            make docs
+            make doc
       - persist_to_workspace:
           root: docs/html
           paths: html
