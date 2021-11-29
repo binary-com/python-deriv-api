@@ -44,9 +44,10 @@ jobs:
       - run:
           command: |
             make doc
+	    pwd
       - persist_to_workspace:
           root: docs/html
-          paths: html
+          paths: deriv_api
 
 workflows:
   version: 2
