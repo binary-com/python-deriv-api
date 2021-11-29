@@ -1,6 +1,6 @@
 version: 2
 jobs:
-  build:
+  test:
     docker:
       - image: circleci/python:3.9.6
         environment: # environment variables for primary container
@@ -24,3 +24,32 @@ jobs:
       - run:
           command: |
             make coverage
+  docs-build:
+    docker:
+      - image: circleci/python:3.9.6
+        environment: # environment variables for primary container
+          PIPENV_VENV_IN_PROJECT: true
+    steps:
+      - checkout
+      - run: sudo chown -R circleci:circleci /usr/local/bin
+      - restore_cache:
+          key: deps9-{{ .Branch }}-{{ checksum "Pipfile.lock" }}
+      - run:
+         command: |
+           make setup
+      - save_cache:
+          key: deps9-{{ .Branch }}-{{ checksum "Pipfile.lock" }}
+          paths:
+            - "venv"
+      - run:
+          command: |
+            make docs
+      - persist_to_workspace:
+          root: docs/html
+          paths: html
+
+workflows:
+  build:
+    jobs:
+      - test
+      - docs-build
