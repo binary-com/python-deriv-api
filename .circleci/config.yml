@@ -62,6 +62,8 @@ jobs:
           name: Install and configure dependencies
           command: |
             npm install -g --silent gh-pages@2.0.1
+            git config --local user.email "sysadmin@binary.com"
+            git config --local user.name "Automated gh-pages deploy"
       - run:
           name: Deploy docs to gh-pages branch
           command: gh-pages --message "[skip ci] Updates" --dist docs/html/deriv_api
