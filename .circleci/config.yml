@@ -57,7 +57,7 @@ jobs:
           at: docs/html
       - add_ssh_keys:
           fingerprints:
-          - 26:72:b1:08:0f:c1:3b:2b:2d:ea:61:7d:d6:11:63:fb
+          - c4:6f:35:b6:b6:fa:17:56:19:eb:ab:6b:86:1e:22:f4
       - run:
           name: Install and configure dependencies
           command: |
