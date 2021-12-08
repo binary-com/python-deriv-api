@@ -66,7 +66,7 @@ jobs:
             git config --local user.name "Automated gh-pages deploy"
       - run:
           name: Deploy docs to gh-pages branch
-          command: sudo gh-pages --message "[skip ci] Updates" --dist docs/html/deriv_api
+          command: sudo gh-pages --message "[skip ci] Updates" --dist docs/html/deriv_api -y
 
 workflows:
   version: 2
