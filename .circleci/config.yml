@@ -6,9 +6,6 @@ jobs:
         environment: # environment variables for primary container
           PIPENV_VENV_IN_PROJECT: true
     steps: # steps that comprise the `build` job
-      - add_ssh_keys:
-          fingerprints:
-            - "c4:6f:35:b6:b6:fa:17:56:19:eb:ab:6b:86:1e:22:f4"
       - checkout # check out source code to working directory
       - run: sudo chown -R circleci:circleci /usr/local/bin
       - restore_cache:
@@ -53,7 +50,7 @@ jobs:
           paths: deriv_api
   docs-deploy:
     docker:
-      - image: node:8.10.0
+      - image: circleci/node:14.18.1-bullseye
     steps:
       - add_ssh_keys:
           fingerprints:
