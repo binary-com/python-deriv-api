@@ -67,7 +67,7 @@ jobs:
       - run:
           name: Deploy docs to gh-pages branch
           command: |
-            npm_config_yes=true npx gh-pages --message "[skip ci] Updates" --dist docs/html/deriv_api
+            npx gh-pages --message "[skip ci] Updates" --dist docs/html/deriv_api
 
 workflows:
   version: 2
