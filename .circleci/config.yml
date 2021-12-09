@@ -61,12 +61,12 @@ jobs:
       - run:
           name: Install and configure dependencies
           command: |
-            sudo npm install -g --silent gh-pages@2.0.1
+            npm install --silent gh-pages@2.0.1
             git config --local user.email "sysadmin@binary.com"
             git config --local user.name "Automated gh-pages deploy"
       - run:
           name: Deploy docs to gh-pages branch
-          command: sudo npx --yes gh-pages --message "[skip ci] Updates" --dist docs/html/deriv_api
+          command: npx --yes gh-pages --message "[skip ci] Updates" --dist docs/html/deriv_api
 
 workflows:
   version: 2
