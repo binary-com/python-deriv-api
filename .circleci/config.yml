@@ -46,6 +46,8 @@ jobs:
             - "venv"
       - run:
           command: |
+            git config --local user.email "sysadmin@binary.com"
+            git config --local user.name "Automated gh-pages deploy"
             make gh-pages
 workflows:
   version: 2
