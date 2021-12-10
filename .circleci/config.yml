@@ -24,7 +24,7 @@ jobs:
       - run:
           command: |
             make coverage
-  docs-build:
+  docs-build-deploy:
     docker:
       - image: circleci/python:3.9.6
         environment: # environment variables for primary container
@@ -45,36 +45,13 @@ jobs:
           command: |
             make doc
             pwd
+            make gh-pages
       - persist_to_workspace:
           root: docs/html
           paths: deriv_api
-  docs-deploy:
-    docker:
-      - image: circleci/python:3.9.6
-    steps:
-      - add_ssh_keys:
-          fingerprints:
-            - "c4:6f:35:b6:b6:fa:17:56:19:eb:ab:6b:86:1e:22:f4"
-      - checkout
-      - attach_workspace:
-          at: docs/html
-      - run:
-          name: Setup git credentials
-          command: |
-            git config --local user.email "sysadmin@binary.com"
-            git config --local user.name "Automated gh-pages deploy"
-      - run:
-          name: Deploy docs to gh-pages branch
-          command: |
-            make gh-pages
-
 workflows:
   version: 2
   build:
     jobs:
       - test
-      - docs-build
-      - docs-deploy:
-          requires:
-            - test
-            - docs-build
+      - docs-build-deploy
