@@ -44,11 +44,7 @@ jobs:
       - run:
           command: |
             make doc
-            pwd
             make gh-pages
-      - persist_to_workspace:
-          root: docs/html
-          paths: deriv_api
 workflows:
   version: 2
   build:
