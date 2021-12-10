@@ -46,7 +46,6 @@ jobs:
             - "venv"
       - run:
           command: |
-            make doc
             make gh-pages
 workflows:
   version: 2
