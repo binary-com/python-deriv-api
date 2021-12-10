@@ -30,6 +30,9 @@ jobs:
         environment: # environment variables for primary container
           PIPENV_VENV_IN_PROJECT: true
     steps:
+      - add_ssh_keys:
+        fingerprints:
+          - "c4:6f:35:b6:b6:fa:17:56:19:eb:ab:6b:86:1e:22:f4"
       - checkout
       - run: sudo chown -R circleci:circleci /usr/local/bin
       - restore_cache:
