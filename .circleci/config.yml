@@ -47,7 +47,7 @@ jobs:
       - run:
           command: |
             git config --local user.email "sysadmin@binary.com"
-            git config --local user.name "Automated gh-pages deploy"
+            git config --local user.name "gh-pages deploy bot"
             make gh-pages
 workflows:
   version: 2
