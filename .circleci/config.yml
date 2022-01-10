@@ -34,7 +34,7 @@ jobs:
     steps:
       - add_ssh_keys:
           fingerprints:
-            - "e1:66:81:dc:98:10:09:21:51:0a:bf:0d:27:be:28:e4"
+            - "f2:39:9a:e8:27:1a:9c:ab:cd:18:14:aa:00:e8:b0:73"
       - checkout
       - run: sudo chown -R circleci:circleci /usr/local/bin
       - restore_cache:
