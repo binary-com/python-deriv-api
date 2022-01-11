@@ -1,0 +1,317 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
+<meta name="generator" content="pdoc 0.10.0" />
+<title>deriv_api API documentation</title>
+<meta name="description" content="python-deriv-api
+A python implementation of deriv api library …" />
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/sanitize.min.css" integrity="sha256-PK9q560IAAa6WVRRh76LtCaI8pjTJ2z11v0miyNNjrs=" crossorigin>
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/typography.min.css" integrity="sha256-7l/o7C8jubJiy74VsKTidCy1yBkRtiUGbVkYBylBqUg=" crossorigin>
+<link rel="stylesheet preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/styles/github.min.css" crossorigin>
+<style>:root{--highlight-color:#fe9}.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:30px;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:1em 0 .50em 0}h3{font-size:1.4em;margin:25px 0 10px 0}h4{margin:0;font-size:105%}h1:target,h2:target,h3:target,h4:target,h5:target,h6:target{background:var(--highlight-color);padding:.2em 0}a{color:#058;text-decoration:none;transition:color .3s ease-in-out}a:hover{color:#e82}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900}pre code{background:#f8f8f8;font-size:.8em;line-height:1.4em}code{background:#f2f2f1;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{background:#f8f8f8;border:0;border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0;padding:1ex}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-weight:bold;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}dt:target .name{background:var(--highlight-color)}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}td{padding:0 .5em}.admonition{padding:.1em .5em;margin-bottom:1em}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.item .name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul{padding-left:1.5em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js" integrity="sha256-Uv3H6lx7dJmRfRvH8TH6kJD1TSK1aFcwgx+mdg3epi8=" crossorigin></script>
+<script>window.addEventListener('DOMContentLoaded', () => {hljs.configure({languages:[]}); hljs.initHighlighting(); })</script>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Package <code>deriv_api</code></h1>
+</header>
+<section id="section-intro">
+<h1 id="python-deriv-api">python-deriv-api</h1>
+<p>A python implementation of deriv api library.</p>
+<p><a href="https://pypi.org/project/python_deriv_api/"><img alt="PyPI" src="https://img.shields.io/pypi/v/python_deriv_api.svg?style=flat-square"></a>
+<a href="https://www.python.org/download/releases/3.9.6/"><img alt="Python 3.9.6" src="https://img.shields.io/badge/python-3.9.6-blue.svg"></a>
+<a href="https://app.circleci.com/pipelines/github/binary-com/python-deriv-api"><img alt="Test status" src="https://circleci.com/gh/binary-com/python-deriv-api.svg?style=shield&amp;circle-token=8b7c7b39615ea83053044854105bf90975b18126"></a></p>
+<p>Go through <a href="https://api.deriv.com/">api.deriv.com</a> to know simple easy steps on how to register and get access.
+Use this all-in-one python library to set up and make your app running or you can extend it.</p>
+<h3 id="requirement">Requirement</h3>
+<p>Python (3.9.6 or higher is recommended) and pip3</p>
+<p>Note: There is bug in 'websockets' package with python 3.9.7, hope that will be fixed in 3.9.8 as mentioned in
+<a href="https://github.com/aaugustin/websockets/issues/1051.">https://github.com/aaugustin/websockets/issues/1051.</a> Please exclude python 3.9.7.</p>
+<h1 id="installation">Installation</h1>
+<p><code>python3 -m pip install python_deriv_api</code></p>
+<h1 id="usage">Usage</h1>
+<p>This is basic deriv-api python library which helps to make websockets connection and
+deal the API calls (including subscription).</p>
+<p>Import the module</p>
+<pre><code>from deriv_api import DerivAPI
+</code></pre>
+<p>Access </p>
+<pre><code>api = DerivAPI(endpoint='ws://...', app_id=1234);
+response = await api.ping({'ping': 1})
+print(response) 
+</code></pre>
+<h2 id="creating-a-websockets-connection-and-api-instantiation">Creating a websockets connection and API instantiation</h2>
+<p>You can either create an instance of websockets and pass it as connection
+or
+pass the endpoint and app_id to the constructor to create the connection for you.</p>
+<p>If you pass the connection it's up to you to reconnect in case the connection drops (cause API doesn't know how to create the same connection).</p>
+<ul>
+<li>Pass the arguments needed to create a connection:</li>
+</ul>
+<pre><code>   api = DerivAPI(endpoint='ws://...', app_id=1234);
+</code></pre>
+<ul>
+<li>create and use a previously opened connection:</li>
+</ul>
+<pre><code>   connection = await websockets.connect('ws://...')
+   api = DerivAPI(connection=connection)
+</code></pre>
+<h1 id="documentation">Documentation</h1>
+<h4 id="api-reference">API reference</h4>
+<p>The complete API reference is hosted <a href="https://binary-com.github.io/python-deriv-api/">here</a></p>
+<p>Examples <a href="https://github.com/binary-com/python-deriv-api/examples">here</a></p>
+<h1 id="development">Development</h1>
+<pre><code>git clone https://github.com/binary-com/python-deriv-api
+cd python-deriv-api
+</code></pre>
+<p>Setup environment</p>
+<pre><code>make setup
+</code></pre>
+<p>Setup environment and run test</p>
+<pre><code>make all
+</code></pre>
+<h4 id="run-test">Run test</h4>
+<pre><code>python setup.py pytest
+</code></pre>
+<p>or</p>
+<pre><code>pytest
+</code></pre>
+<p>or</p>
+<pre><code>make test
+</code></pre>
+<h4 id="generate-documentations">Generate documentations</h4>
+<p>Generate html version of the docs and publish it to gh-pages</p>
+<pre><code>make gh-pages
+</code></pre>
+<h4 id="build-the-package">Build the package</h4>
+<pre><code>make build
+</code></pre>
+<h4 id="run-examples">Run examples</h4>
+<p>set token and run example</p>
+<pre><code>export DERIV_TOKEN=xxxTokenxxx
+PYTHONPATH=. python3 examples/simple_bot1.py
+</code></pre>
+<h1 id="usage-examples">Usage examples</h1>
+<h2 id="short-examples">Short examples</h2>
+<pre><code class="language-python">    from deriv_api import DerivAPI
+    api = DerivAPI(app_id=app_id)
+</code></pre>
+<h3 id="authenticate-to-an-account-using-token">Authenticate to an account using token</h3>
+<pre><code class="language-python">    authorize = await api.authorize(api_token)
+    print(authorize)
+</code></pre>
+<h3 id="get-balance">Get Balance</h3>
+<pre><code class="language-python">    account = await api.balance()
+    print(account) 
+</code></pre>
+<h3 id="get-all-the-assets-info">Get all the assets info</h3>
+<pre><code class="language-python">    assets = await api.asset_index({&quot;asset_index&quot;: 1})
+    print(assets)
+</code></pre>
+<p>To get assets info from cache</p>
+<pre><code class="language-python">    assets = await api.cache.asset_index({&quot;asset_index&quot;: 1})
+    print(assets)
+</code></pre>
+<h3 id="get-all-active-symbols">Get all active symbols</h3>
+<pre><code class="language-python">    active_symbols = await api.active_symbols({&quot;active_symbols&quot;: &quot;full&quot;})
+    print(active_symbols)
+</code></pre>
+<p>To get active symbols from cache</p>
+<pre><code class="language-python">    active_symbols = await api.cache.active_symbols({&quot;active_symbols&quot;: &quot;full&quot;})
+    print(active_symbols)
+</code></pre>
+<h3 id="get-proposal">Get proposal</h3>
+<pre><code class="language-python">    proposal = await api.proposal({&quot;proposal&quot;: 1, &quot;amount&quot;: 100, &quot;barrier&quot;: &quot;+0.1&quot;, &quot;basis&quot;: &quot;payout&quot;,
+                                   &quot;contract_type&quot;: &quot;CALL&quot;, &quot;currency&quot;: &quot;USD&quot;, &quot;duration&quot;: 60, &quot;duration_unit&quot;: &quot;s&quot;,
+                                   &quot;symbol&quot;: &quot;R_100&quot;
+    })
+    print(proposal) 
+</code></pre>
+<p>subscribe the proposal stream</p>
+<pre><code class="language-python">    source_proposal: Observable = await api.subscribe({&quot;proposal&quot;: 1, &quot;amount&quot;: 100, &quot;barrier&quot;: &quot;+0.1&quot;, &quot;basis&quot;: &quot;payout&quot;,
+                                           &quot;contract_type&quot;: &quot;CALL&quot;, &quot;currency&quot;: &quot;USD&quot;, &quot;duration&quot;: 160,
+                                           &quot;duration_unit&quot;: &quot;s&quot;,
+                                           &quot;symbol&quot;: &quot;R_100&quot;,
+                                           &quot;subscribe&quot;: 1
+                                           })
+    source_proposal.subscribe(lambda proposal: print(proposal))
+</code></pre>
+<h3 id="buy">Buy</h3>
+<pre><code class="language-python">    proposal_id = proposal.get('proposal').get('id')
+    buy = await api.buy({&quot;buy&quot;: proposal_id, &quot;price&quot;: 100})
+    print(buy)
+</code></pre>
+<h3 id="open-contract-detail">open contract detail</h3>
+<pre><code class="language-python">    contract_id = buy.get('buy').get('contract_id')
+    poc = await api.proposal_open_contract(
+        {&quot;proposal_open_contract&quot;: 1, &quot;contract_id&quot;: contract_id })
+    print(poc)
+</code></pre>
+<p>subscribe the open contract stream</p>
+<pre><code>    source_poc: Observable = await api.subscribe({&quot;proposal_open_contract&quot;: 1, &quot;contract_id&quot;: contract_id})
+    source_poc.subscribe(lambda poc: print(poc)
+</code></pre>
+<h3 id="sell">Sell</h3>
+<pre><code class="language-python">    contract_id = buy.get('buy').get('contract_id')
+    sell = await api.sell({&quot;sell&quot;: contract_id, &quot;price&quot;: 40})
+    print(sell)
+</code></pre>
+<h3 id="profit-table">Profit table</h3>
+<pre><code class="language-python">    profit_table = await api.profit_table({&quot;profit_table&quot;: 1, &quot;description&quot;: 1, &quot;sort&quot;: &quot;ASC&quot;})
+    print(profit_table)
+</code></pre>
+<h3 id="transaction-statement">Transaction statement</h3>
+<pre><code class="language-python">    statement = await api.statement({&quot;statement&quot;: 1, &quot;description&quot;: 1, &quot;limit&quot;: 100, &quot;offset&quot;: 25})
+    print(statement)
+</code></pre>
+<h3 id="subscribe-a-stream">Subscribe a stream</h3>
+<p>We are using rxpy to maintain our deriv api subscriptions. Please distinguish api subscription from rxpy sequence subscription</p>
+<pre><code class="language-python">    # creating a rxpy sequence object to represent deriv api streams
+    source_tick_50 = await api.subscribe({'ticks': 'R_50'})
+
+    # subscribe the rxpy sequence with a callback function,
+    # when the data received, the call back function will be called
+    source_tick_50.subscribe(lambda tick: print(tick))
+</code></pre>
+<h3 id="unsubscribe-the-rxpy-sequence">unsubscribe the rxpy sequence</h3>
+<pre><code class="language-python">    seq_sub = source_tick_50.subscribe(lambda tick: print(tick))
+    seq_sub.dispose()
+</code></pre>
+<h3 id="unsubscribe-the-deriv-api-stream">unsubscribe the deriv api stream</h3>
+<p>There are 2 ways to unsubscribe deriv api stream</p>
+<ul>
+<li>by <code>dispose</code> all sequence subscriptions</li>
+</ul>
+<pre><code class="language-python">    # creating a rxpy sequence object to represent deriv api streams
+    source_tick_50 = await api.subscribe({'ticks': 'R_50'})
+    # subscribe the rxpy sequence with a callback function,
+    # when the data received , the call back function will be called
+    seq_sub1 = source_tick_50.subscribe(lambda tick: print(f&quot;get tick from sub1 {tick}&quot;))
+    seq_sub2 = source_tick_50.subscribe(lambda tick: print(f&quot;get tick from sub2 {tick}&quot;))
+    seq_sub1.dispose()
+    seq_sub2.dispose()
+    # When all seq subscriptions of one sequence are disposed. Then a `forget` will be called and that deriv api stream will be unsubscribed
+</code></pre>
+<ul>
+<li>by <code>forget</code> that deriv stream</li>
+</ul>
+<pre><code class="language-python">    # get a datum first
+    from rx import operators as op
+    tick = await source_tick_50.pipe(op.first(), op.to_future)
+    api.forget(tick['R_50']['subscription']['id'])
+</code></pre>
+<h3 id="print-errors">print errors</h3>
+<pre><code class="language-python">    api.sanity_errors.subscribe(lambda err: print(err))
+</code></pre>
+<h3 id="do-something-when-one-type-of-message-coming">do something when one type of message coming</h3>
+<pre><code class="language-python">    async def print_hello_after_authorize():
+        auth_data = await api.expect_response('authorize')
+        print(f&quot;Hello {auth_data['authorize']['fullname']}&quot;)
+    asyncio.create_task(print_hello_after_authorize())
+    api.authorize({'authorize': 'AVALIDTOKEN'})
+</code></pre>
+</section>
+<section>
+<h2 class="section-title" id="header-submodules">Sub-modules</h2>
+<dl>
+<dt><code class="name"><a title="deriv_api.cache" href="cache.html">deriv_api.cache</a></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt><code class="name"><a title="deriv_api.deriv_api" href="deriv_api.html">deriv_api.deriv_api</a></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt><code class="name"><a title="deriv_api.deriv_api_calls" href="deriv_api_calls.html">deriv_api.deriv_api_calls</a></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt><code class="name"><a title="deriv_api.in_memory" href="in_memory.html">deriv_api.in_memory</a></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt><code class="name"><a title="deriv_api.subscription_manager" href="subscription_manager.html">deriv_api.subscription_manager</a></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+</section>
+</article>
+<nav id="sidebar">
+<h1>Index</h1>
+<div class="toc">
+<ul>
+<li><a href="#python-deriv-api">python-deriv-api</a><ul>
+<li><a href="#requirement">Requirement</a></li>
+</ul>
+</li>
+<li><a href="#installation">Installation</a></li>
+<li><a href="#usage">Usage</a><ul>
+<li><a href="#creating-a-websockets-connection-and-api-instantiation">Creating a websockets connection and API instantiation</a></li>
+</ul>
+</li>
+<li><a href="#documentation">Documentation</a><ul>
+<li><a href="#api-reference">API reference</a></li>
+</ul>
+</li>
+<li><a href="#development">Development</a><ul>
+<li><a href="#run-test">Run test</a></li>
+<li><a href="#generate-documentations">Generate documentations</a></li>
+<li><a href="#build-the-package">Build the package</a></li>
+<li><a href="#run-examples">Run examples</a></li>
+</ul>
+</li>
+<li><a href="#usage-examples">Usage examples</a><ul>
+<li><a href="#short-examples">Short examples</a><ul>
+<li><a href="#authenticate-to-an-account-using-token">Authenticate to an account using token</a></li>
+<li><a href="#get-balance">Get Balance</a></li>
+<li><a href="#get-all-the-assets-info">Get all the assets info</a></li>
+<li><a href="#get-all-active-symbols">Get all active symbols</a></li>
+<li><a href="#get-proposal">Get proposal</a></li>
+<li><a href="#buy">Buy</a></li>
+<li><a href="#open-contract-detail">open contract detail</a></li>
+<li><a href="#sell">Sell</a></li>
+<li><a href="#profit-table">Profit table</a></li>
+<li><a href="#transaction-statement">Transaction statement</a></li>
+<li><a href="#subscribe-a-stream">Subscribe a stream</a></li>
+<li><a href="#unsubscribe-the-rxpy-sequence">unsubscribe the rxpy sequence</a></li>
+<li><a href="#unsubscribe-the-deriv-api-stream">unsubscribe the deriv api stream</a></li>
+<li><a href="#print-errors">print errors</a></li>
+<li><a href="#do-something-when-one-type-of-message-coming">do something when one type of message coming</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+<ul id="index">
+<li><h3><a href="#header-submodules">Sub-modules</a></h3>
+<ul>
+<li><code><a title="deriv_api.cache" href="cache.html">deriv_api.cache</a></code></li>
+<li><code><a title="deriv_api.deriv_api" href="deriv_api.html">deriv_api.deriv_api</a></code></li>
+<li><code><a title="deriv_api.deriv_api_calls" href="deriv_api_calls.html">deriv_api.deriv_api_calls</a></code></li>
+<li><code><a title="deriv_api.in_memory" href="in_memory.html">deriv_api.in_memory</a></code></li>
+<li><code><a title="deriv_api.subscription_manager" href="subscription_manager.html">deriv_api.subscription_manager</a></code></li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc" title="pdoc: Python API documentation generator"><cite>pdoc</cite> 0.10.0</a>.</p>
+</footer>
+</body>
+</html>
