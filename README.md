@@ -60,7 +60,7 @@ If you pass the connection it's up to you to reconnect in case the connection dr
 #### API reference
 The complete API reference is hosted [here](https://binary-com.github.io/python-deriv-api/)
 
-Examples [here](https://github.com/binary-com/python-deriv-api/examples)
+Examples [here](https://github.com/binary-com/python-deriv-api/tree/master/examples)
 
 # Development
 ```

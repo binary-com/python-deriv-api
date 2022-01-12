@@ -1,11 +1,14 @@
 version: 2
 jobs:
-  build:
+  test:
     docker:
       - image: circleci/python:3.9.6
         environment: # environment variables for primary container
           PIPENV_VENV_IN_PROJECT: true
     steps: # steps that comprise the `build` job
+      - add_ssh_keys:
+          fingerprints:
+            - "c8:f7:fc:a0:0d:2c:43:93:e3:c7:b6:cf:16:93:98:e1"
       - checkout # check out source code to working directory
       - run: sudo chown -R circleci:circleci /usr/local/bin
       - restore_cache:
@@ -24,3 +27,38 @@ jobs:
       - run:
           command: |
             make coverage
+  docs-build-deploy:
+    docker:
+      - image: circleci/python:3.9.6
+        environment: # environment variables for primary container
+          PIPENV_VENV_IN_PROJECT: true
+    steps:
+      - add_ssh_keys:
+          fingerprints:
+            - "c8:f7:fc:a0:0d:2c:43:93:e3:c7:b6:cf:16:93:98:e1"
+      - checkout
+      - run: sudo chown -R circleci:circleci /usr/local/bin
+      - restore_cache:
+          key: deps9-{{ .Branch }}-{{ checksum "Pipfile.lock" }}
+      - run:
+         command: |
+           make setup
+      - save_cache:
+          key: deps9-{{ .Branch }}-{{ checksum "Pipfile.lock" }}
+          paths:
+            - "venv"
+      - run:
+          command: |
+            git config --local user.email "sysadmin@binary.com"
+            git config --local user.name "gh-pages deploy bot"
+            make gh-pages
+workflows:
+  version: 2
+  build:
+    jobs:
+      - test
+      - docs-build-deploy:
+          filters:
+            branches:
+              only:
+              - master
