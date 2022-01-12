@@ -8,7 +8,7 @@ jobs:
     steps: # steps that comprise the `build` job
       - add_ssh_keys:
           fingerprints:
-            - "c8:f7:fc:a0:0d:2c:43:93:e3:c7:b6:cf:16:93:98:e1"
+            - "6c:1b:98:21:51:78:f9:69:e5:c2:eb:6b:1c:c5:5f:a6"
       - checkout # check out source code to working directory
       - run: sudo chown -R circleci:circleci /usr/local/bin
       - restore_cache:
@@ -37,7 +37,7 @@ jobs:
     steps:
       - add_ssh_keys:
           fingerprints:
-            - "c8:f7:fc:a0:0d:2c:43:93:e3:c7:b6:cf:16:93:98:e1"
+            - "6c:1b:98:21:51:78:f9:69:e5:c2:eb:6b:1c:c5:5f:a6"
       - checkout
       - run: sudo chown -R circleci:circleci /usr/local/bin
       - restore_cache:
