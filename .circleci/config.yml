@@ -6,6 +6,9 @@ jobs:
         environment: # environment variables for primary container
           PIPENV_VENV_IN_PROJECT: true
     steps: # steps that comprise the `build` job
+      - add_ssh_keys:
+          fingerprints:
+            - "c8:f7:fc:a0:0d:2c:43:93:e3:c7:b6:cf:16:93:98:e1"
       - checkout # check out source code to working directory
       - run: sudo chown -R circleci:circleci /usr/local/bin
       - restore_cache:
@@ -34,7 +37,7 @@ jobs:
     steps:
       - add_ssh_keys:
           fingerprints:
-            - "f2:39:9a:e8:27:1a:9c:ab:cd:18:14:aa:00:e8:b0:73"
+            - "c8:f7:fc:a0:0d:2c:43:93:e3:c7:b6:cf:16:93:98:e1"
       - checkout
       - run: sudo chown -R circleci:circleci /usr/local/bin
       - restore_cache:
