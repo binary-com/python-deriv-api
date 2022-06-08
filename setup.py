@@ -17,7 +17,7 @@ setup(
         'Source Code': "https://github.com/binary-com/python-deriv-api"
 
     },
-    python_requires="==3.9.6",
+    python_requires=">=3.9.6, !=3.9.7",
     classifiers=[
         "Programming Language :: Python :: 3",
         "Operating System :: OS Independent",
