@@ -118,63 +118,41 @@
 <span>async def <span class="ident">affiliate_account_add</span></span>(<span>self, args=None)</span>
 </code></dt>
 <dd>
-<div class="desc"><p>This call opens a new affiliate account. This call can be used as as sign up endpoint.</p>
+<div class="desc"><p>Register a new affiliate</p>
 <h2 id="parameters">Parameters:</h2>
 <pre><code>args : dict with following keys
-    account_opening_reason : str
-        [Optional] Purpose and reason for requesting the account opening.
-    account_turnover : str
-        [Optional] The anticipated account turnover.
     address_city : str
-        [Optional] Within 100 characters.
+        City name within 50 characters.
     address_line_1 : str
         Within 70 characters, with no leading whitespaces and may contain letters/numbers and/or any of following characters '.,:;()@#/-
     address_line_2 : str
         [Optional] Within 70 characters.
     address_postcode : str
-        [Optional] Within 20 characters and may not contain '+'.
+        Within 20 characters and may not contain '+'.
     address_state : str
-        [Optional] Possible value receive from states_list call.
+        Possible value receive from states_list call.
     affiliate_account_add : int
-        Must be 1
-    affiliate_plan : str
-        The affiliate plan the account will subscribe to
-    affiliate_token : str
-        [Optional] Affiliate token, within 32 characters.
-    citizen : Any
-        [Optional] Country of legal citizenship, 2-letter country code.
-    client_type : str
-        [Optional] Indicates whether this is for a client requesting an account with professional status.
-    currency : str
-        [Optional] To set currency of the account. List of supported currencies can be acquired with payout_currencies call.
-    date_of_birth : str
-        Date of birth format: yyyy-mm-dd.
+        [Required] Must be 1
+    country : str
+        Country of legal citizenship, 2-letter country code.
     first_name : str
-        Within 2-50 characters, use only letters, spaces, hyphens, full-stops or apostrophes.
+        The official first name of the affiliate. Within 2-50 characters, use only letters, spaces, hyphens, full-stops or apostrophes.
     last_name : str
-        Within 2-50 characters, use only letters, spaces, hyphens, full-stops or apostrophes.
+        The official last name of the affiliate. Within 2-50 characters, use only letters, spaces, hyphens, full-stops or apostrophes.
     non_pep_declaration : int
-        [Optional] Indicates client's self-declaration of not being a PEP/RCA (Politically Exposed Person/Relatives and Close Associates).
+        Indicates client's self-declaration of not being a PEP/RCA (Politically Exposed Person/Relatives and Close Associates).
     passthrough : Any
         [Optional] Used to pass data through the websocket, which may be retrieved via the echo_req output field.
-    phone : Any
-        [Optional] Starting with + followed by 9-35 digits, hyphens or space.
-    place_of_birth : str
-        [Optional] Place of birth, 2-letter country code.
+    password : str
+        Password for the affiliate account. (Accepts any printable ASCII character. Must be between 6-50 characters, and include numbers, lowercase and uppercase letters.).
+    phone : str
+        Registered phone number of the affiliate. Starting with + followed by 8-35 digits, allowing hyphens or space.
     req_id : int
         [Optional] Used to map request to response.
-    residence : str
-        2-letter country code, possible value receive from residence_list call.
-    salutation : str
-        [Optional] Accept any value in enum list.
-    secret_answer : str
-        [Optional] Answer to secret question, within 4-50 characters. Required for new account and existing client details will be used if client open another account.
-    secret_question : str
-        [Optional] Accept any value in enum list. Required for new account and existing client details will be used if client open another account.
-    tax_identification_number : str
-        [Optional] Tax identification number. Only applicable for real money account. Required for maltainvest landing company.
-    tax_residence : str
-        [Optional] Residence for tax purpose. Comma separated iso country code if multiple jurisdictions. Only applicable for real money account. Required for maltainvest landing company.
+    tnc_accepted : int
+        Indicates client has agreed to the terms and conditions.
+    username : str
+        Desired username for the affiliate account. Within 2-50 characters, use only letters, spaces, hyphens, full-stops or apostrophes.
 </code></pre></div>
 </dd>
 <dt id="deriv_api.deriv_api_calls.DerivAPICalls.api_token"><code class="name flex">
@@ -517,6 +495,27 @@
         [Optional] Used to map request to response.
 </code></pre></div>
 </dd>
+<dt id="deriv_api.deriv_api_calls.DerivAPICalls.change_email"><code class="name flex">
+<span>async def <span class="ident">change_email</span></span>(<span>self, args=None)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Change Email.</p>
+<h2 id="parameters">Parameters:</h2>
+<pre><code>args : dict with following keys
+    change_email : str
+        Must be verify or update.
+    new_email : str
+        Email address to be verified.
+    new_password : str
+        [Optional] New password (Accepts any printable ASCII character. Must be within 8-25 characters, and include numbers, lowercase and uppercase letters. Must not be the same as the user's email address). Mandatory if change_email is update and user has social login.
+    passthrough : Any
+        [Optional] Used to pass data through the websocket, which may be retrieved via the echo_req output field.
+    req_id : int
+        [Optional] Used to map request to response.
+    verification_code : str
+        Email verification code (received from a verify_email call, which must be done first)
+</code></pre></div>
+</dd>
 <dt id="deriv_api.deriv_api_calls.DerivAPICalls.change_password"><code class="name flex">
 <span>async def <span class="ident">change_password</span></span>(<span>self, args=None)</span>
 </code></dt>
@@ -664,6 +663,23 @@
         The ID of the target trader.
 </code></pre></div>
 </dd>
+<dt id="deriv_api.deriv_api_calls.DerivAPICalls.crypto_config"><code class="name flex">
+<span>async def <span class="ident">crypto_config</span></span>(<span>self, args=None)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>The request for cryptocurrencies configuration.</p>
+<h2 id="parameters">Parameters:</h2>
+<pre><code>args : dict with following keys
+    crypto_config : int
+        Must be 1
+    currency_code : str
+        [Optional] Cryptocurrency code. Sending request with currency_code provides crypto config for the sent cryptocurrency code only.
+    passthrough : Any
+        [Optional] Used to pass data through the websocket, which may be retrieved via the echo_req output field.
+    req_id : int
+        [Optional] Used to map request to response.
+</code></pre></div>
+</dd>
 <dt id="deriv_api.deriv_api_calls.DerivAPICalls.document_upload"><code class="name flex">
 <span>async def <span class="ident">document_upload</span></span>(<span>self, args=None)</span>
 </code></dt>
@@ -693,6 +709,7 @@
         [Optional] To determine document side
     passthrough : Any
         [Optional] Used to pass data through the websocket, which may be retrieved via the echo_req output field.
+    proof_of_ownership : Any
     req_id : int
         [Optional] Used to map request to response.
 </code></pre></div>
@@ -733,6 +750,10 @@
         [Optional] Used to pass data through the websocket, which may be retrieved via the echo_req output field.
     req_id : int
         [Optional] Used to map request to response.
+    subscribe : int
+        [Optional] 1 - to initiate a realtime stream of exchange rates relative to base currency.
+    target_currency : str
+        [Optional] Local currency
 </code></pre></div>
 </dd>
 <dt id="deriv_api.deriv_api_calls.DerivAPICalls.forget"><code class="name flex">
@@ -774,6 +795,38 @@
 <pre><code>args : dict with following keys
     get_account_status : int
         Must be 1
+    passthrough : Any
+        [Optional] Used to pass data through the websocket, which may be retrieved via the echo_req output field.
+    req_id : int
+        [Optional] Used to map request to response.
+</code></pre></div>
+</dd>
+<dt id="deriv_api.deriv_api_calls.DerivAPICalls.get_account_types"><code class="name flex">
+<span>async def <span class="ident">get_account_types</span></span>(<span>self, args=None)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Types of accounts available to create or link to.</p>
+<h2 id="parameters">Parameters:</h2>
+<pre><code>args : dict with following keys
+    get_account_types : Number
+        Must be 1
+    passthrough : Any
+        [Optional] Used to pass data through the websocket, which may be retrieved via the echo_req output field.
+    req_id : int
+        [Optional] Used to map request to response.
+</code></pre></div>
+</dd>
+<dt id="deriv_api.deriv_api_calls.DerivAPICalls.get_available_accounts_to_transfer"><code class="name flex">
+<span>async def <span class="ident">get_available_accounts_to_transfer</span></span>(<span>self, args=None)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Get Available Accounts to Transfer.</p>
+<h2 id="parameters">Parameters:</h2>
+<pre><code>args : dict with following keys
+    get_available_accounts_to_transfer : Number
+        Must be 1
+    loginid : str
+        The unique identifier for this trading/wallet account.
     passthrough : Any
         [Optional] Used to pass data through the websocket, which may be retrieved via the echo_req output field.
     req_id : int
@@ -1025,7 +1078,7 @@
     mainPassword : str
         The master password of the account. For validation (Accepts any printable ASCII character. Must be within 8-25 characters, and include numbers, lowercase and uppercase letters. Must not be the same as the user's email address). This field is required.
     mt5_account_category : str
-        [Optional] To choose whether account is conventional or swap_free. Unavailable for financial_stp MT5_account_type
+        [Optional] To choose whether account is conventional or not. Unavailable for financial_stp MT5_account_type
     mt5_account_type : str
         [Optional] Financial: Variable spreads, High leverage. Financial STP: Variable spreads, Medium Leverage, more products. If 'account_type' set to 'financial', setting 'mt5_account_type' is also required.
     mt5_new_account : int
@@ -1173,6 +1226,8 @@
         [Optional] Country of legal citizenship, 2-letter country code. Possible value receive from residence_list call.
     client_type : str
         [Optional] Indicates whether this is for a client requesting an account with professional status.
+    currency : str
+        [Optional] To set currency of the account. List of supported currencies can be acquired with payout_currencies call.
     date_of_birth : str
         Date of birth format: yyyy-mm-dd.
     education_level : str
@@ -1425,44 +1480,48 @@
 <span>async def <span class="ident">p2p_advert_create</span></span>(<span>self, args=None)</span>
 </code></dt>
 <dd>
-<div class="desc"><p>Creates a P2P (Peer to Peer) advert. Can only be used by an approved P2P advertiser. <strong>This API call is still in Beta.</strong></p>
+<div class="desc"><p>Creates a P2P (Peer to Peer) advert. Can only be used by an approved P2P advertiser.</p>
 <h2 id="parameters">Parameters:</h2>
 <pre><code>args : dict with following keys
     amount : Number
         The total amount of the advert, in advertiser's account currency.
     contact_info : str
-        [Optional] Advertiser contact information. Only applicable for 'sell adverts'.
+        [Optional] Advertiser contact information.
     description : str
         [Optional] General information about the advert.
     local_currency : str
         [Optional] Local currency for this advert. If not provided, will use the currency of client's residence by default.
     max_order_amount : Number
-        Maximum allowed amount for the orders of this advert, in advertiser's account_currency. Should be less than or equal to total amount of the advert.
+        Maximum allowed amount for the orders of this advert, in advertiser's account_currency. Should be more than or equal to min_order_amount
     min_order_amount : Number
-        Minimum allowed amount for the orders of this advert, in advertiser's account_currency. Should be less than max_order_amount.
+        Minimum allowed amount for the orders of this advert, in advertiser's account_currency. Should be less than or equal to max_order_amount.
     p2p_advert_create : int
         Must be 1
     passthrough : Any
         [Optional] Used to pass data through the websocket, which may be retrieved via the echo_req output field.
     payment_info : str
-        [Optional] Payment instructions. Only applicable for 'sell adverts'.
+        [Optional] Payment instructions.
     payment_method : str
-        Supported payment methods. Separate multiple values with a comma, maximum 3.
+        [Optional] Payment method name (deprecated).
     payment_method_ids : Any
-        IDs of payment methods, only applicable for sell ads.
+        IDs of previously saved payment methods as returned from p2p_advertiser_payment_methods, only applicable for sell ads.
+    payment_method_names : Any
+        Payment method identifiers as returned from p2p_payment_methods, only applicable for buy ads.
     rate : Number
-        Conversion rate from advertiser's account currency to local_currency.
+        Conversion rate from advertiser's account currency to local_currency. An absolute rate value (fixed), or percentage offset from current market rate (floating).
+    rate_type : str
+        Type of rate, fixed or floating.
     req_id : int
         [Optional] Used to map request to response.
     type : str
-        Whether this is a buy or a sell.
+        The advertisement represents the intention to perform this action on your Deriv account funds.
 </code></pre></div>
 </dd>
 <dt id="deriv_api.deriv_api_calls.DerivAPICalls.p2p_advert_info"><code class="name flex">
 <span>async def <span class="ident">p2p_advert_info</span></span>(<span>self, args=None)</span>
 </code></dt>
 <dd>
-<div class="desc"><p>Retrieve information about a P2P advert. <strong>This API call is still in Beta.</strong></p>
+<div class="desc"><p>Retrieve information about a P2P advert.</p>
 <h2 id="parameters">Parameters:</h2>
 <pre><code>args : dict with following keys
     id : str
@@ -1483,7 +1542,7 @@
 <span>async def <span class="ident">p2p_advert_list</span></span>(<span>self, args=None)</span>
 </code></dt>
 <dd>
-<div class="desc"><p>Returns available adverts for use with <code>p2p_order_create</code>. <strong>This API call is still in Beta.</strong></p>
+<div class="desc"><p>Returns available adverts for use with <code>p2p_order_create</code> .</p>
 <h2 id="parameters">Parameters:</h2>
 <pre><code>args : dict with following keys
     advertiser_id : str
@@ -1511,7 +1570,7 @@
     req_id : int
         [Optional] Used to map request to response.
     sort_by : str
-        [Optional] How the results are sorted: best rate, or advertiser completion rate.
+        [Optional] How the results are sorted.
     use_client_limits : int
         [Optional] If set to 1, ads that exceed this account's balance or turnover limits will not be shown.
 </code></pre></div>
@@ -1520,23 +1579,41 @@
 <span>async def <span class="ident">p2p_advert_update</span></span>(<span>self, args=None)</span>
 </code></dt>
 <dd>
-<div class="desc"><p>Updates a P2P advert. Can only be used by the advertiser. <strong>This API call is still in Beta.</strong></p>
+<div class="desc"><p>Updates a P2P advert. Can only be used by the advertiser.</p>
 <h2 id="parameters">Parameters:</h2>
 <pre><code>args : dict with following keys
+    contact_info : str
+        [Optional] Advertiser contact information.
     delete : int
         [Optional] If set to 1, permanently deletes the advert.
+    description : str
+        [Optional] General information about the advert.
     id : str
         The unique identifier for this advert.
     is_active : int
         [Optional] Activate or deactivate the advert.
+    local_currency : str
+        [Optional] Local currency for this advert.
+    max_order_amount : Number
+        [Optional] Maximum allowed amount for the orders of this advert, in advertiser's account_currency. Should be more than or equal to min_order_amount.
+    min_order_amount : Number
+        [Optional] Minimum allowed amount for the orders of this advert, in advertiser's account_currency. Should be less than or equal to max_order_amount.
     p2p_advert_update : int
         Must be 1
     passthrough : Any
         [Optional] Used to pass data through the websocket, which may be retrieved via the echo_req output field.
-    payment_method : str
-        [Optional] Supported payment methods. Separate multiple values with a comma, maximum 3.
+    payment_info : str
+        [Optional] Payment instructions.
     payment_method_ids : Any
-        [Optional] IDs of payment methods, only applicable for sell ads. Will replace exisiting methods.
+        [Optional] IDs of previously saved payment methods as returned from p2p_advertiser_payment_methods, only applicable for sell ads. Exisiting methods will be replaced.
+    payment_method_names : Any
+        [Optional] Payment method identifiers as returned from p2p_payment_methods, only applicable for buy ads. Exisiting methods will be replaced.
+    rate : Number
+        [Optional] Conversion rate from advertiser's account currency to local_currency. An absolute rate value (fixed), or percentage offset from current market rate (floating).
+    rate_type : str
+        [Optional] Type of rate, fixed or floating.
+    remaining_amount : Number
+        [Optional] The total available amount of the advert, in advertiser's account currency.
     req_id : int
         [Optional] Used to map request to response.
 </code></pre></div>
@@ -1545,7 +1622,7 @@
 <span>async def <span class="ident">p2p_advertiser_adverts</span></span>(<span>self, args=None)</span>
 </code></dt>
 <dd>
-<div class="desc"><p>Returns all P2P adverts created by the authorized client. Can only be used by a registered P2P advertiser. <strong>This API call is still in Beta.</strong></p>
+<div class="desc"><p>Returns all P2P adverts created by the authorized client. Can only be used by a registered P2P advertiser.</p>
 <h2 id="parameters">Parameters:</h2>
 <pre><code>args : dict with following keys
     limit : int
@@ -1564,7 +1641,7 @@
 <span>async def <span class="ident">p2p_advertiser_create</span></span>(<span>self, args=None)</span>
 </code></dt>
 <dd>
-<div class="desc"><p>Registers the client as a P2P advertiser. <strong>This API call is still in Beta.</strong></p>
+<div class="desc"><p>Registers the client as a P2P advertiser.</p>
 <h2 id="parameters">Parameters:</h2>
 <pre><code>args : dict with following keys
     contact_info : str
@@ -1589,7 +1666,7 @@
 <span>async def <span class="ident">p2p_advertiser_info</span></span>(<span>self, args=None)</span>
 </code></dt>
 <dd>
-<div class="desc"><p>Retrieve information about a P2P advertiser. <strong>This API call is still in Beta.</strong></p>
+<div class="desc"><p>Retrieve information about a P2P advertiser.</p>
 <h2 id="parameters">Parameters:</h2>
 <pre><code>args : dict with following keys
     id : str
@@ -1652,7 +1729,7 @@
 <span>async def <span class="ident">p2p_advertiser_update</span></span>(<span>self, args=None)</span>
 </code></dt>
 <dd>
-<div class="desc"><p>Update the information of the P2P advertiser for the current account. Can only be used by an approved P2P advertiser. <strong>This API call is still in Beta.</strong></p>
+<div class="desc"><p>Update the information of the P2P advertiser for the current account. Can only be used by an approved P2P advertiser.</p>
 <h2 id="parameters">Parameters:</h2>
 <pre><code>args : dict with following keys
     contact_info : str
@@ -1677,7 +1754,7 @@
 <span>async def <span class="ident">p2p_chat_create</span></span>(<span>self, args=None)</span>
 </code></dt>
 <dd>
-<div class="desc"><p>Creates a P2P chat for the specified order. <strong>This API call is still in Beta.</strong></p>
+<div class="desc"><p>Creates a P2P chat for the specified order.</p>
 <h2 id="parameters">Parameters:</h2>
 <pre><code>args : dict with following keys
     order_id : str
@@ -1694,7 +1771,7 @@
 <span>async def <span class="ident">p2p_order_cancel</span></span>(<span>self, args=None)</span>
 </code></dt>
 <dd>
-<div class="desc"><p>Cancel a P2P order. <strong>This API call is still in Beta.</strong></p>
+<div class="desc"><p>Cancel a P2P order.</p>
 <h2 id="parameters">Parameters:</h2>
 <pre><code>args : dict with following keys
     id : str
@@ -1711,7 +1788,7 @@
 <span>async def <span class="ident">p2p_order_confirm</span></span>(<span>self, args=None)</span>
 </code></dt>
 <dd>
-<div class="desc"><p>Confirm a P2P order. <strong>This API call is still in Beta.</strong></p>
+<div class="desc"><p>Confirm a P2P order.</p>
 <h2 id="parameters">Parameters:</h2>
 <pre><code>args : dict with following keys
     id : str
@@ -1728,7 +1805,7 @@
 <span>async def <span class="ident">p2p_order_create</span></span>(<span>self, args=None)</span>
 </code></dt>
 <dd>
-<div class="desc"><p>Creates a P2P order for the specified advert. <strong>This API call is still in Beta.</strong></p>
+<div class="desc"><p>Creates a P2P order for the specified advert.</p>
 <h2 id="parameters">Parameters:</h2>
 <pre><code>args : dict with following keys
     advert_id : str
@@ -1745,6 +1822,8 @@
         [Optional] Payment instructions, only applicable for sell orders.
     payment_method_ids : Any
         IDs of payment methods, only applicable for sell orders.
+    rate : Number
+        [Optional] Conversion rate from account currency to local currency, only applicable for floating rate adverts.
     req_id : int
         [Optional] Used to map request to response.
     subscribe : int
@@ -1755,7 +1834,7 @@
 <span>async def <span class="ident">p2p_order_dispute</span></span>(<span>self, args=None)</span>
 </code></dt>
 <dd>
-<div class="desc"><p>Dispute a P2P order. <strong>This API call is still in Beta.</strong></p>
+<div class="desc"><p>Dispute a P2P order.</p>
 <h2 id="parameters">Parameters:</h2>
 <pre><code>args : dict with following keys
     dispute_reason : str
@@ -1774,7 +1853,7 @@
 <span>async def <span class="ident">p2p_order_info</span></span>(<span>self, args=None)</span>
 </code></dt>
 <dd>
-<div class="desc"><p>Retrieves the information about a P2P order. <strong>This API call is still in Beta.</strong></p>
+<div class="desc"><p>Retrieves the information about a P2P order.</p>
 <h2 id="parameters">Parameters:</h2>
 <pre><code>args : dict with following keys
     id : str
@@ -1793,7 +1872,7 @@
 <span>async def <span class="ident">p2p_order_list</span></span>(<span>self, args=None)</span>
 </code></dt>
 <dd>
-<div class="desc"><p>List active orders. <strong>This API call is still in Beta.</strong></p>
+<div class="desc"><p>List active orders.</p>
 <h2 id="parameters">Parameters:</h2>
 <pre><code>args : dict with following keys
     active : Number
@@ -1814,6 +1893,27 @@
         [Optional] If set to 1, will send updates whenever there is a change to any order belonging to you.
 </code></pre></div>
 </dd>
+<dt id="deriv_api.deriv_api_calls.DerivAPICalls.p2p_order_review"><code class="name flex">
+<span>async def <span class="ident">p2p_order_review</span></span>(<span>self, args=None)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Creates a review for the specified order.</p>
+<h2 id="parameters">Parameters:</h2>
+<pre><code>args : dict with following keys
+    order_id : str
+        The order identification number.
+    p2p_order_review : int
+        Must be 1
+    passthrough : Any
+        [Optional] Used to pass data through the websocket, which may be retrieved via the echo_req output field.
+    rating : int
+        Rating for the transaction, 1 to 5.
+    recommended : Any
+        [Optional] 1 if the counterparty is recommendable to others, otherwise 0.
+    req_id : int
+        [Optional] Used to map request to response.
+</code></pre></div>
+</dd>
 <dt id="deriv_api.deriv_api_calls.DerivAPICalls.p2p_payment_methods"><code class="name flex">
 <span>async def <span class="ident">p2p_payment_methods</span></span>(<span>self, args=None)</span>
 </code></dt>
@@ -1822,6 +1922,21 @@
 <h2 id="parameters">Parameters:</h2>
 <pre><code>args : dict with following keys
     p2p_payment_methods : int
+        Must be 1
+    passthrough : Any
+        [Optional] Used to pass data through the websocket, which may be retrieved via the echo_req output field.
+    req_id : int
+        [Optional] Used to map request to response.
+</code></pre></div>
+</dd>
+<dt id="deriv_api.deriv_api_calls.DerivAPICalls.p2p_ping"><code class="name flex">
+<span>async def <span class="ident">p2p_ping</span></span>(<span>self, args=None)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Keeps the connection alive and updates the P2P advertiser's online status. The advertiser will be considered offline 60 seconds after a call is made.</p>
+<h2 id="parameters">Parameters:</h2>
+<pre><code>args : dict with following keys
+    p2p_ping : int
         Must be 1
     passthrough : Any
         [Optional] Used to pass data through the websocket, which may be retrieved via the echo_req output field.
@@ -1871,14 +1986,14 @@
         The name with which the payment agent is going to be identified.
     paymentagent_create : int
         Must be 1
-    phone : str
-        Payment agent's phone number with coutry code.
+    phone_numbers : Any
+        Payment agent's phone number(s) with country code.
     req_id : int
         [Optional] Used to map request to response.
     supported_payment_methods : Any
         A list of supported payment methods.
-    url : str
-        The URL of payment agent's website.
+    urls : Any
+        The URL(s) of payment agent's website(s).
 </code></pre></div>
 </dd>
 <dt id="deriv_api.deriv_api_calls.DerivAPICalls.paymentagent_details"><code class="name flex">
@@ -2054,6 +2169,8 @@
         [Optional] Barrier for the contract (or last digit prediction for digit contracts). Contracts less than 24 hours in duration would need a relative barrier (barriers which need +/-), where entry spot would be adjusted accordingly with that amount to define a barrier, except for Synthetic Indices as they support both relative and absolute barriers. Not needed for lookbacks.
     barrier2 : str
         [Optional] Low barrier for the contract (for contracts with two barriers). Contracts less than 24 hours in duration would need a relative barrier (barriers which need +/-), where entry spot would be adjusted accordingly with that amount to define a barrier, except for Synthetic Indices as they support both relative and absolute barriers. Not needed for lookbacks.
+    barrier_range : str
+        [Optional] Barrier range for callputspread.
     basis : str
         [Optional] Indicates type of the amount.
     cancellation : str
@@ -2758,6 +2875,25 @@ Short symbol name (obtained from the active_symbols call).</li>
         Email verification code (received from a verify_email call, which must be done first)
 </code></pre></div>
 </dd>
+<dt id="deriv_api.deriv_api_calls.DerivAPICalls.trading_platform_product_listing"><code class="name flex">
+<span>async def <span class="ident">trading_platform_product_listing</span></span>(<span>self, args=None)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Get list of Trading Platform products for client</p>
+<h2 id="parameters">Parameters:</h2>
+<pre><code>args : dict with following keys
+    app_id : Any
+        [Optional] Specific application app_id.
+    country_code : str
+        [Optional] Country of legal citizenship, 2-letter country code.
+    passthrough : Any
+        [Optional] Used to pass data through the websocket, which may be retrieved via the echo_req output field.
+    req_id : int
+        [Optional] Used to map request to response.
+    trading_platform_product_listing : int
+        Must be 1.
+</code></pre></div>
+</dd>
 <dt id="deriv_api.deriv_api_calls.DerivAPICalls.trading_platform_withdrawal"><code class="name flex">
 <span>async def <span class="ident">trading_platform_withdrawal</span></span>(<span>self, args=None)</span>
 </code></dt>
@@ -2938,6 +3074,7 @@ Short symbol name (obtained from the active_symbols call).</li>
 <li><code><a title="deriv_api.deriv_api_calls.DerivAPICalls.cashier" href="#deriv_api.deriv_api_calls.DerivAPICalls.cashier">cashier</a></code></li>
 <li><code><a title="deriv_api.deriv_api_calls.DerivAPICalls.cashier_payments" href="#deriv_api.deriv_api_calls.DerivAPICalls.cashier_payments">cashier_payments</a></code></li>
 <li><code><a title="deriv_api.deriv_api_calls.DerivAPICalls.cashier_withdrawal_cancel" href="#deriv_api.deriv_api_calls.DerivAPICalls.cashier_withdrawal_cancel">cashier_withdrawal_cancel</a></code></li>
+<li><code><a title="deriv_api.deriv_api_calls.DerivAPICalls.change_email" href="#deriv_api.deriv_api_calls.DerivAPICalls.change_email">change_email</a></code></li>
 <li><code><a title="deriv_api.deriv_api_calls.DerivAPICalls.change_password" href="#deriv_api.deriv_api_calls.DerivAPICalls.change_password">change_password</a></code></li>
 <li><code><a title="deriv_api.deriv_api_calls.DerivAPICalls.contract_update" href="#deriv_api.deriv_api_calls.DerivAPICalls.contract_update">contract_update</a></code></li>
 <li><code><a title="deriv_api.deriv_api_calls.DerivAPICalls.contract_update_history" href="#deriv_api.deriv_api_calls.DerivAPICalls.contract_update_history">contract_update_history</a></code></li>
@@ -2946,12 +3083,15 @@ Short symbol name (obtained from the active_symbols call).</li>
 <li><code><a title="deriv_api.deriv_api_calls.DerivAPICalls.copy_stop" href="#deriv_api.deriv_api_calls.DerivAPICalls.copy_stop">copy_stop</a></code></li>
 <li><code><a title="deriv_api.deriv_api_calls.DerivAPICalls.copytrading_list" href="#deriv_api.deriv_api_calls.DerivAPICalls.copytrading_list">copytrading_list</a></code></li>
 <li><code><a title="deriv_api.deriv_api_calls.DerivAPICalls.copytrading_statistics" href="#deriv_api.deriv_api_calls.DerivAPICalls.copytrading_statistics">copytrading_statistics</a></code></li>
+<li><code><a title="deriv_api.deriv_api_calls.DerivAPICalls.crypto_config" href="#deriv_api.deriv_api_calls.DerivAPICalls.crypto_config">crypto_config</a></code></li>
 <li><code><a title="deriv_api.deriv_api_calls.DerivAPICalls.document_upload" href="#deriv_api.deriv_api_calls.DerivAPICalls.document_upload">document_upload</a></code></li>
 <li><code><a title="deriv_api.deriv_api_calls.DerivAPICalls.economic_calendar" href="#deriv_api.deriv_api_calls.DerivAPICalls.economic_calendar">economic_calendar</a></code></li>
 <li><code><a title="deriv_api.deriv_api_calls.DerivAPICalls.exchange_rates" href="#deriv_api.deriv_api_calls.DerivAPICalls.exchange_rates">exchange_rates</a></code></li>
 <li><code><a title="deriv_api.deriv_api_calls.DerivAPICalls.forget" href="#deriv_api.deriv_api_calls.DerivAPICalls.forget">forget</a></code></li>
 <li><code><a title="deriv_api.deriv_api_calls.DerivAPICalls.forget_all" href="#deriv_api.deriv_api_calls.DerivAPICalls.forget_all">forget_all</a></code></li>
 <li><code><a title="deriv_api.deriv_api_calls.DerivAPICalls.get_account_status" href="#deriv_api.deriv_api_calls.DerivAPICalls.get_account_status">get_account_status</a></code></li>
+<li><code><a title="deriv_api.deriv_api_calls.DerivAPICalls.get_account_types" href="#deriv_api.deriv_api_calls.DerivAPICalls.get_account_types">get_account_types</a></code></li>
+<li><code><a title="deriv_api.deriv_api_calls.DerivAPICalls.get_available_accounts_to_transfer" href="#deriv_api.deriv_api_calls.DerivAPICalls.get_available_accounts_to_transfer">get_available_accounts_to_transfer</a></code></li>
 <li><code><a title="deriv_api.deriv_api_calls.DerivAPICalls.get_financial_assessment" href="#deriv_api.deriv_api_calls.DerivAPICalls.get_financial_assessment">get_financial_assessment</a></code></li>
 <li><code><a title="deriv_api.deriv_api_calls.DerivAPICalls.get_limits" href="#deriv_api.deriv_api_calls.DerivAPICalls.get_limits">get_limits</a></code></li>
 <li><code><a title="deriv_api.deriv_api_calls.DerivAPICalls.get_self_exclusion" href="#deriv_api.deriv_api_calls.DerivAPICalls.get_self_exclusion">get_self_exclusion</a></code></li>
@@ -2993,7 +3133,9 @@ Short symbol name (obtained from the active_symbols call).</li>
 <li><code><a title="deriv_api.deriv_api_calls.DerivAPICalls.p2p_order_dispute" href="#deriv_api.deriv_api_calls.DerivAPICalls.p2p_order_dispute">p2p_order_dispute</a></code></li>
 <li><code><a title="deriv_api.deriv_api_calls.DerivAPICalls.p2p_order_info" href="#deriv_api.deriv_api_calls.DerivAPICalls.p2p_order_info">p2p_order_info</a></code></li>
 <li><code><a title="deriv_api.deriv_api_calls.DerivAPICalls.p2p_order_list" href="#deriv_api.deriv_api_calls.DerivAPICalls.p2p_order_list">p2p_order_list</a></code></li>
+<li><code><a title="deriv_api.deriv_api_calls.DerivAPICalls.p2p_order_review" href="#deriv_api.deriv_api_calls.DerivAPICalls.p2p_order_review">p2p_order_review</a></code></li>
 <li><code><a title="deriv_api.deriv_api_calls.DerivAPICalls.p2p_payment_methods" href="#deriv_api.deriv_api_calls.DerivAPICalls.p2p_payment_methods">p2p_payment_methods</a></code></li>
+<li><code><a title="deriv_api.deriv_api_calls.DerivAPICalls.p2p_ping" href="#deriv_api.deriv_api_calls.DerivAPICalls.p2p_ping">p2p_ping</a></code></li>
 <li><code><a title="deriv_api.deriv_api_calls.DerivAPICalls.payment_methods" href="#deriv_api.deriv_api_calls.DerivAPICalls.payment_methods">payment_methods</a></code></li>
 <li><code><a title="deriv_api.deriv_api_calls.DerivAPICalls.paymentagent_create" href="#deriv_api.deriv_api_calls.DerivAPICalls.paymentagent_create">paymentagent_create</a></code></li>
 <li><code><a title="deriv_api.deriv_api_calls.DerivAPICalls.paymentagent_details" href="#deriv_api.deriv_api_calls.DerivAPICalls.paymentagent_details">paymentagent_details</a></code></li>
@@ -3034,6 +3176,7 @@ Short symbol name (obtained from the active_symbols call).</li>
 <li><code><a title="deriv_api.deriv_api_calls.DerivAPICalls.trading_platform_new_account" href="#deriv_api.deriv_api_calls.DerivAPICalls.trading_platform_new_account">trading_platform_new_account</a></code></li>
 <li><code><a title="deriv_api.deriv_api_calls.DerivAPICalls.trading_platform_password_change" href="#deriv_api.deriv_api_calls.DerivAPICalls.trading_platform_password_change">trading_platform_password_change</a></code></li>
 <li><code><a title="deriv_api.deriv_api_calls.DerivAPICalls.trading_platform_password_reset" href="#deriv_api.deriv_api_calls.DerivAPICalls.trading_platform_password_reset">trading_platform_password_reset</a></code></li>
+<li><code><a title="deriv_api.deriv_api_calls.DerivAPICalls.trading_platform_product_listing" href="#deriv_api.deriv_api_calls.DerivAPICalls.trading_platform_product_listing">trading_platform_product_listing</a></code></li>
 <li><code><a title="deriv_api.deriv_api_calls.DerivAPICalls.trading_platform_withdrawal" href="#deriv_api.deriv_api_calls.DerivAPICalls.trading_platform_withdrawal">trading_platform_withdrawal</a></code></li>
 <li><code><a title="deriv_api.deriv_api_calls.DerivAPICalls.trading_servers" href="#deriv_api.deriv_api_calls.DerivAPICalls.trading_servers">trading_servers</a></code></li>
 <li><code><a title="deriv_api.deriv_api_calls.DerivAPICalls.trading_times" href="#deriv_api.deriv_api_calls.DerivAPICalls.trading_times">trading_times</a></code></li>
