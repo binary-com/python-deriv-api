@@ -76,6 +76,7 @@ class DerivAPI(DerivAPICalls):
     storage : Cache
         If specified, uses a more persistent cache (local storage, etc.)
     events: Observable
+        An Observable object that will send data when events like 'connect', 'send', 'message' happen
     """
 
     storage: None
