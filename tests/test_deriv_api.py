@@ -11,6 +11,9 @@ import pickle
 import json
 from websockets.exceptions import ConnectionClosedOK, ConnectionClosedError
 
+from deriv_api.middlewares import MiddleWares
+
+
 class MockedWs:
     def __init__(self):
         self.data = []
@@ -169,7 +172,7 @@ async def test_middleware():
         nonlocal send_is_called_return
         return send_is_called_return
 
-    api = deriv_api.DerivAPI(connection = wsconnection, middleware = {'sendWillBeCalled': send_will_be_called, 'sendIsCalled': send_is_called})
+    api = deriv_api.DerivAPI(connection = wsconnection, middlewares = MiddleWares({'sendWillBeCalled': send_will_be_called, 'sendIsCalled': send_is_called}))
     req1 = {"ping": 2}
 
     # test sendWillBeCalled return true value, sendIsCalled will be not called and the request will not be sent to ws

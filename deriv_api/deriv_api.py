@@ -19,6 +19,7 @@ from deriv_api.errors import APIError, ConstructionError, ResponseError, AddedTa
 from deriv_api.in_memory import InMemory
 from deriv_api.subscription_manager import SubscriptionManager
 from deriv_api.utils import is_valid_url
+from deriv_api.middlewares import MiddleWares
 
 # TODO NEXT subscribe is not calling deriv_api_calls. that's , args not verified. can we improve it ?
 # TODO list these features missed
@@ -70,7 +71,7 @@ class DerivAPI(DerivAPICalls):
                 Language of the API communication
             brand : String
                 Brand name
-            middleware : dict
+            middleware : MiddleWares
                 middlewares to call on certain API actions. Now two middlewares are supported: sendWillBeCalled and
                 sendIsCalled
     Properties
@@ -89,7 +90,7 @@ class DerivAPI(DerivAPICalls):
         brand = options.get('brand', '')
         cache = options.get('cache', InMemory())
         storage: any = options.get('storage')
-        self.middleware: dict = options.get('middleware', {})
+        self.middlewares: MiddleWares = options.get('middlewares', MiddleWares())
         self.wsconnection: Optional[WebSocketClientProtocol] = None
         self.wsconnection_from_inside = True
         self.shouldReconnect = False
@@ -251,7 +252,7 @@ class DerivAPI(DerivAPICalls):
             API response
         """
 
-        send_will_be_called = self._call_middleware('sendWillBeCalled', {'request': request})
+        send_will_be_called = self.middlewares.call('sendWillBeCalled', {'request': request})
         if send_will_be_called:
             return send_will_be_called
 
@@ -261,29 +262,11 @@ class DerivAPI(DerivAPICalls):
         self.cache.set(request, response)
         if self.storage:
             self.storage.set(request, response)
-        send_is_called = self._call_middleware('sendIsCalled', {'response': response, 'request': request})
+        send_is_called = self.middlewares.call('sendIsCalled', {'response': response, 'request': request})
         if send_is_called:
             return send_is_called
         return response
 
-    def _call_middleware(self, name: str, args: dict) -> Union[None, dict]:
-        """
-        Call middleware and return the result if there is such middleware
-
-        Parameters
-        ----------
-        name: string
-        args: list
-            the args that will feed to middleware
-
-        Returns
-        -------
-            If there is such middleware, then return the result of middleware
-            else return None
-        """
-        if name not in self.middleware:
-            return None
-        return self.middleware[name](args)
 
     def send_and_get_source(self, request: dict) -> Subject:
         """
