@@ -4,7 +4,21 @@ _implemented_middlewares = ['sendWillBeCalled', 'sendIsCalled']
 
 
 class MiddleWares:
-    """A class that help to manage middlewares"""
+    """
+    A class that help to manage middlewares
+
+    Examples:
+        middlewares = MiddleWares()
+        middlewares.add('sendWillBeCalled', lanmbda req: print(req))
+        middlewares = Middlewares({'sendWillBeCalled': lambda req: print(req)})
+        middleware->call('sendWillBeCalled', arg1, arg2)
+
+    Parameters:
+        options:
+            dict with following key value pairs
+            key: string, middleware name
+            value: function, middleware code
+    """
 
     def __init__(self, middlewares: dict = {}):
         self.middlewares = {}
@@ -12,6 +26,15 @@ class MiddleWares:
             self.add(name, middlewares[name])
 
     def add(self, name: str, code: Callable[..., bool]) -> None:
+        """
+        Add middleware
+
+        Parameters:
+            name: Str
+                middleware name
+            code: function
+                middleware code
+        """
         if not isinstance(name, str):
             raise Exception(f"name {name} should be a string")
         if not isinstance(code, Callable):
