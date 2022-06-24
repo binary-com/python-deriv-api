@@ -471,3 +471,21 @@ def add_req_id(response, req_id):
     response['echo_req']['req_id'] = req_id
     response['req_id'] = req_id
     return response
+
+@pytest.mark.asyncio
+async def test_eventgs():
+    wsconnection = MockedWs()
+    api = deriv_api.DerivAPI(connection=wsconnection)
+    event_data = []
+
+    def on_next(data):
+        nonlocal event_data
+        event_data.append(data)
+
+    api.events.subscribe(on_next=on_next )
+    wsdata = {'ping': 'pong', 'msg_type': 'ping', 'echo_req': {'ping': 1}}
+    wsconnection.add_data(wsdata)
+    await api.ping({'ping': 1})
+    assert event_data == [{'name': 'send', 'data': {'ping': 1, 'req_id': 1}}, {'name': 'message', 'data': wsdata}]
+    wsconnection.clear()
+    await api.clear()

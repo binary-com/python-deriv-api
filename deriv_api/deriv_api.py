@@ -22,8 +22,6 @@ from deriv_api.utils import is_valid_url
 from deriv_api.middlewares import MiddleWares
 
 # TODO NEXT subscribe is not calling deriv_api_calls. that's , args not verified. can we improve it ?
-# TODO list these features missed
-# events is missed
 
 logging.basicConfig(
     format="%(asctime)s %(message)s",
@@ -80,6 +78,8 @@ class DerivAPI(DerivAPICalls):
         Temporary cache default to InMemory
     storage : Cache
         If specified, uses a more persistent cache (local storage, etc.)
+    events: Observable
+        An Observable object that will send data when events like 'connect', 'send', 'message' happen
     """
 
     storage: None
@@ -94,6 +94,7 @@ class DerivAPI(DerivAPICalls):
         self.wsconnection: Optional[WebSocketClientProtocol] = None
         self.wsconnection_from_inside = True
         self.shouldReconnect = False
+        self.events: Subject = Subject()
         if options.get('connection'):
             self.wsconnection: Optional[WebSocketClientProtocol] = options.get('connection')
             self.wsconnection_from_inside = False
@@ -142,8 +143,8 @@ class DerivAPI(DerivAPICalls):
                 self.sanity_errors.on_next(err)
                 continue
             response = json.loads(data)
-            # TODO NEXT add self.events stream
 
+            self.events.on_next({'name': 'message', 'data': response})
             # TODO NEXT onopen onclose, can be set by await connection
             req_id = response.get('req_id', None)
             if not req_id or req_id not in self.pending_requests:
@@ -231,6 +232,7 @@ class DerivAPI(DerivAPICalls):
             Returns websockets.WebSocketClientProtocol
         """
         if not self.wsconnection and self.shouldReconnect:
+            self.events.on_text({'name': 'connect'})
             self.wsconnection = await websockets.connect(self.api_url)
         if self.connected.is_pending():
             self.connected.resolve(True)
@@ -256,6 +258,7 @@ class DerivAPI(DerivAPICalls):
         if send_will_be_called:
             return send_will_be_called
 
+        self.events.on_next({'name': 'send', 'data': request})
         response_future = self.send_and_get_source(request).pipe(op.first(), op.to_future())
 
         response = await response_future
@@ -365,6 +368,7 @@ class DerivAPI(DerivAPICalls):
         if self.wsconnection_from_inside:
             # TODO NEXT reconnect feature
             self.shouldReconnect = False
+            self.events.on_next({'name': 'close'})
             await self.wsconnection.close()
 
     def expect_response(self, *msg_types):
