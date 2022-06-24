@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.1.2
+
+Added middleware support
+
 ## 0.1.1
 
 ### Fixed:

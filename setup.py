@@ -3,7 +3,7 @@ from setuptools import find_packages, setup
 setup(
     name='python_deriv_api',
     packages=find_packages(include=['deriv_api']),
-    version='0.1.1',
+    version='0.1.2',
     description='Python bindings for deriv.com websocket API',
     author='Deriv Group Services Ltd',
     author_email='learning+python@deriv.com',
