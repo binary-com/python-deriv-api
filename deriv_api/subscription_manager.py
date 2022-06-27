@@ -1,18 +1,10 @@
 from deriv_api.utils import dict_to_cache_key
 from deriv_api.errors import APIError
+from deriv_api.streams_list import streams_list
 from rx import operators as op
 from rx.subject import Subject
 from rx import Observable
 from typing import Optional, Union
-
-# streams_list is the list of subscriptions msg_types available.
-# Please add / remove based on current available streams in api.
-# Refer https://developers.binary.com/
-# TODO NEXT auto generate this one
-streams_list = ['balance', 'candles', 'p2p_advertiser', 'p2p_order', 'proposal',
-                'proposal_array', 'proposal_open_contract', 'ticks', 'ticks_history', 'transaction',
-                'website_status', 'buy']
-
 __pdoc__ = {
     'deriv_api.subscription_manager.SubscriptionManager.complete_subs_by_ids': False,
     'deriv_api.subscription_manager.SubscriptionManager.complete_subs_by_key': False,
