@@ -1,5 +1,5 @@
 [packages]
-websockets = "==9.1"
+websockets = "==10.3"
 rx = "==3.1.1"
 deriv-api = {editable = true, path = "."}
 
