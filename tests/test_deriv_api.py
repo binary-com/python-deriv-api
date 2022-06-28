@@ -3,14 +3,14 @@ import sys
 import traceback
 import pytest
 import pytest_mock
-import rx
+import reactivex
 from websockets.frames import Close
 
 import deriv_api
 from deriv_api.errors import APIError, ConstructionError, ResponseError
 from deriv_api.easy_future import EasyFuture
-from rx.subject import Subject
-import rx.operators as op
+from reactivex.subject import Subject
+import reactivex.operators as op
 import pickle
 import json
 from websockets.exceptions import ConnectionClosedOK, ConnectionClosedError

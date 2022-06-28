@@ -1,6 +1,6 @@
 [packages]
 websockets = "==10.3"
-rx = "==3.1.1"
+reactivex = "==4.0.*"
 deriv-api = {editable = true, path = "."}
 
 [dev-packages]
