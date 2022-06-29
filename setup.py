@@ -8,7 +8,7 @@ setup(
     author='Deriv Group Services Ltd',
     author_email='learning+python@deriv.com',
     license='MIT',
-    install_requires=['websockets==9.1', 'rx==3.1.1'],
+    install_requires=['websockets==10.3', 'reactivex==4.0.*'],
     test_suite='tests',
     url='https://github.com/binary-com/python-deriv-api',
     project_urls={

@@ -1,8 +1,8 @@
 import pytest
 
 from deriv_api.subscription_manager import SubscriptionManager, get_msg_type
-from rx.subject import Subject
-from rx import Observable
+from reactivex.subject import Subject
+from reactivex import Observable
 import asyncio
 from deriv_api.errors import APIError
 

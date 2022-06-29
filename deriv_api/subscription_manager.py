@@ -1,8 +1,8 @@
 from deriv_api.utils import dict_to_cache_key
 from deriv_api.errors import APIError
-from rx import operators as op
-from rx.subject import Subject
-from rx import Observable
+from reactivex import operators as op
+from reactivex.subject import Subject
+from reactivex import Observable
 from typing import Optional, Union
 
 # streams_list is the list of subscriptions msg_types available.
