@@ -20,10 +20,9 @@ from deriv_api.errors import APIError, ConstructionError, ResponseError, AddedTa
 from deriv_api.in_memory import InMemory
 from deriv_api.subscription_manager import SubscriptionManager
 from deriv_api.utils import is_valid_url
+from deriv_api.middlewares import MiddleWares
 
 # TODO NEXT subscribe is not calling deriv_api_calls. that's , args not verified. can we improve it ?
-# TODO list these features missed
-# middleware is missed
 
 logging.basicConfig(
     format="%(asctime)s %(message)s",
@@ -39,7 +38,7 @@ __pdoc__ = {
     'deriv_api.deriv_api.DerivAPI.disconnect': False,
     'deriv_api.deriv_api.DerivAPI.send': False,
     'deriv_api.deriv_api.DerivAPI.wsconnection': False,
-    'deriv_api.deriv_api.DerivAPI.storage': False
+    'deriv_api.deriv_api.DerivAPI.storage': False,
 }
 
 
@@ -70,10 +69,13 @@ class DerivAPI(DerivAPICalls):
                 Language of the API communication
             brand : String
                 Brand name
-            middleware : String
-                A middleware to call on certain API actions
+            middleware : MiddleWares
+                middlewares to call on certain API actions. Now two middlewares are supported: sendWillBeCalled and
+                sendIsCalled
     Properties
     ----------
+    cache: Cache
+        Temporary cache default to InMemory
     storage : Cache
         If specified, uses a more persistent cache (local storage, etc.)
     events: Observable
@@ -88,6 +90,7 @@ class DerivAPI(DerivAPICalls):
         brand = options.get('brand', '')
         cache = options.get('cache', InMemory())
         storage: any = options.get('storage')
+        self.middlewares: MiddleWares = options.get('middlewares', MiddleWares())
         self.wsconnection: Optional[WebSocketClientProtocol] = None
         self.wsconnection_from_inside = True
         self.shouldReconnect = False
@@ -251,6 +254,10 @@ class DerivAPI(DerivAPICalls):
             API response
         """
 
+        send_will_be_called = self.middlewares.call('sendWillBeCalled', {'request': request})
+        if send_will_be_called:
+            return send_will_be_called
+
         self.events.on_next({'name': 'send', 'data': request})
         response_future = self.send_and_get_source(request).pipe(op.first(), op.to_future())
 
@@ -258,7 +265,11 @@ class DerivAPI(DerivAPICalls):
         self.cache.set(request, response)
         if self.storage:
             self.storage.set(request, response)
+        send_is_called = self.middlewares.call('sendIsCalled', {'response': response, 'request': request})
+        if send_is_called:
+            return send_is_called
         return response
+
 
     def send_and_get_source(self, request: dict) -> Subject:
         """
