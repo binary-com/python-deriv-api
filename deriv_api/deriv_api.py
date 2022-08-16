@@ -6,11 +6,12 @@ from asyncio import Future
 from typing import Dict, Optional, Union, Coroutine
 
 import websockets
-from rx import operators as op
-from rx.subject import Subject
-from rx import Observable
+from reactivex import operators as op
+from reactivex.subject import Subject
+from reactivex import Observable
 from websockets.legacy.client import WebSocketClientProtocol
 from websockets.exceptions import ConnectionClosedOK, ConnectionClosed
+from websockets.frames import Close
 
 from deriv_api.cache import Cache
 from deriv_api.easy_future import EasyFuture
@@ -363,7 +364,7 @@ class DerivAPI(DerivAPICalls):
         """
         if not self.connected.is_resolved():
             return
-        self.connected = EasyFuture().reject(ConnectionClosedOK(1000, 'Closed by disconnect'))
+        self.connected = EasyFuture().reject(ConnectionClosedOK(None, Close(1000, 'Closed by disconnect')))
         self.connected.exception()  # fetch exception to avoid the warning of 'exception never retrieved'
         if self.wsconnection_from_inside:
             # TODO NEXT reconnect feature
