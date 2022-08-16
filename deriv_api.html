@@ -63,11 +63,14 @@
         Language of the API communication
     brand : String
         Brand name
-    middleware : String
-        A middleware to call on certain API actions
+    middleware : MiddleWares
+        middlewares to call on certain API actions. Now two middlewares are supported: sendWillBeCalled and
+        sendIsCalled
 </code></pre>
 <h2 id="properties">Properties</h2>
-<p>storage : Cache
+<p>cache: Cache
+Temporary cache default to InMemory
+storage : Cache
 If specified, uses a more persistent cache (local storage, etc.)
 events: Observable
 An Observable object that will send data when events like 'connect', 'send', 'message' happen</p></div>
