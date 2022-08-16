@@ -39,7 +39,6 @@ __pdoc__ = {
     'deriv_api.deriv_api.DerivAPI.send': False,
     'deriv_api.deriv_api.DerivAPI.wsconnection': False,
     'deriv_api.deriv_api.DerivAPI.storage': False,
-    'deriv_api.deriv_api.DerivAPI._call_middleware': False
 }
 
 
