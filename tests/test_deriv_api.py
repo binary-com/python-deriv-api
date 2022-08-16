@@ -3,13 +3,14 @@ import sys
 import traceback
 import pytest
 import pytest_mock
-import rx
+import reactivex
+from websockets.frames import Close
 
 import deriv_api
 from deriv_api.errors import APIError, ConstructionError, ResponseError
 from deriv_api.easy_future import EasyFuture
-from rx.subject import Subject
-import rx.operators as op
+from reactivex.subject import Subject
+import reactivex.operators as op
 import pickle
 import json
 from websockets.exceptions import ConnectionClosedOK, ConnectionClosedError
@@ -362,7 +363,7 @@ async def test_ws_disconnect():
     class MockedWs2(MockedWs):
         def __init__(self):
             self.closed = EasyFuture()
-            self.exception = ConnectionClosedOK(1000, 'test disconnect')
+            self.exception = ConnectionClosedOK(Close(1000, 'test disconnect'), None, None)
             super().__init__()
         async def close(self):
             self.closed.resolve(self.exception)
@@ -376,7 +377,7 @@ async def test_ws_disconnect():
 
     # closed by api
     wsconnection = MockedWs2()
-    wsconnection.exception = ConnectionClosedOK(1000, 'Closed by api')
+    wsconnection.exception = ConnectionClosedOK(Close(1000, 'Closed by api'), None, None)
     api = deriv_api.DerivAPI(connection=wsconnection)
     await asyncio.sleep(0.1)
     api.wsconnection_from_inside = True
@@ -399,7 +400,7 @@ async def test_ws_disconnect():
     # closed by remote
     wsconnection = MockedWs2()
     api = deriv_api.DerivAPI(connection=wsconnection)
-    wsconnection.exception = ConnectionClosedError(1234, 'Closed by remote')
+    wsconnection.exception = ConnectionClosedError(Close(1234, 'Closed by remote'), None, None)
     last_error = api.sanity_errors.pipe(op.first(), op.to_future())
     await asyncio.sleep(0.1) # waiting for init finished
     await wsconnection.close() # it will set connected as 'Closed by disconnect', and cause MockedWs2 raising `test disconnect`
