@@ -3,12 +3,12 @@ from setuptools import find_packages, setup
 setup(
     name='python_deriv_api',
     packages=find_packages(include=['deriv_api']),
-    version='0.1.1',
+    version='0.1.2',
     description='Python bindings for deriv.com websocket API',
     author='Deriv Group Services Ltd',
     author_email='learning+python@deriv.com',
     license='MIT',
-    install_requires=['websockets==9.1', 'rx==3.1.1'],
+    install_requires=['websockets==10.3', 'reactivex==4.0.*'],
     test_suite='tests',
     url='https://github.com/binary-com/python-deriv-api',
     project_urls={

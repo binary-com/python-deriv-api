@@ -1,18 +1,20 @@
 import asyncio
-import sys
-import traceback
 import pytest
 import pytest_mock
-import rx
+import reactivex
+from websockets.frames import Close
 
 import deriv_api
 from deriv_api.errors import APIError, ConstructionError, ResponseError
 from deriv_api.easy_future import EasyFuture
-from rx.subject import Subject
-import rx.operators as op
+from reactivex.subject import Subject
+import reactivex.operators as op
 import pickle
 import json
 from websockets.exceptions import ConnectionClosedOK, ConnectionClosedError
+
+from deriv_api.middlewares import MiddleWares
+
 
 class MockedWs:
     def __init__(self):
@@ -150,6 +152,55 @@ async def test_simple_send():
     assert await api.send(data1['echo_req']) == res1
     assert await api.ticks(data2['echo_req']) == res2
     assert len(wsconnection.called['send']) == 2
+    wsconnection.clear()
+    await api.clear()
+
+@pytest.mark.asyncio
+async def test_middleware():
+    wsconnection = MockedWs()
+    send_will_be_called_args = None
+    send_is_called_args = None
+    send_will_be_called_return = None
+    send_is_called_return = None
+    def send_will_be_called(args):
+        nonlocal send_will_be_called_args
+        send_will_be_called_args = args
+        nonlocal send_will_be_called_return
+        return send_will_be_called_return
+
+    def send_is_called(args):
+        nonlocal send_is_called_args
+        send_is_called_args = args
+        nonlocal send_is_called_return
+        return send_is_called_return
+
+    api = deriv_api.DerivAPI(connection = wsconnection, middlewares = MiddleWares({'sendWillBeCalled': send_will_be_called, 'sendIsCalled': send_is_called}))
+    req1 = {"ping": 2}
+
+    # test sendWillBeCalled return true value, sendIsCalled will be not called and the request will not be sent to ws
+    data1 = {"echo_req":req1,"msg_type": "ping", "pong": 1,}
+    wsconnection.add_data(data1)
+    send_will_be_called_return = {'value': 1} # middleware sendWillBeCalled will return a dict
+    response = await api.send(req1)
+    assert response == send_will_be_called_return # api will return the value of sendWillBeCalled returned
+    assert send_will_be_called_args == {'request': req1}
+    assert len(wsconnection.called['send']) == 0 # ws send is not called
+
+    # test sendWillBeCalled return false value, ws send will be called and sendIsCalled will be called
+    send_will_be_called_return = None
+    send_is_called_return = None # middleware sendIsCalled will return false
+    response = await api.send(req1)
+    expected_response = data1.copy()
+    expected_response['req_id'] = 1
+    assert response == expected_response # response is the value that ws returned
+    assert send_is_called_args == {'response': expected_response, 'request': req1}
+
+    # test sendWillBeCalled return false , and sendIsCalled return a true value
+    send_is_called_return = {'value': 2}
+    wsconnection.add_data(data1)
+    response = await api.send(req1)
+    assert response == {'value': 2} # will get what sendIsCalled return
+
     wsconnection.clear()
     await api.clear()
 
@@ -362,7 +413,7 @@ async def test_ws_disconnect():
     class MockedWs2(MockedWs):
         def __init__(self):
             self.closed = EasyFuture()
-            self.exception = ConnectionClosedOK(1000, 'test disconnect')
+            self.exception = ConnectionClosedOK(Close(1000, 'test disconnect'), None, None)
             super().__init__()
         async def close(self):
             self.closed.resolve(self.exception)
@@ -376,30 +427,25 @@ async def test_ws_disconnect():
 
     # closed by api
     wsconnection = MockedWs2()
-    wsconnection.exception = ConnectionClosedOK(1000, 'Closed by api')
+    wsconnection.exception = ConnectionClosedOK(Close(1000, 'Closed by api'), None, None)
     api = deriv_api.DerivAPI(connection=wsconnection)
     await asyncio.sleep(0.1)
     api.wsconnection_from_inside = True
     last_error = api.sanity_errors.pipe(op.first(), op.to_future())
     await asyncio.sleep(0.1) # waiting for init finished
-    print("here 382")
     await api.disconnect() # it will set connected as 'Closed by disconnect', and cause MockedWs2 raising `test disconnect`
-    print("here 384")
     assert isinstance((await last_error), ConnectionClosedOK), 'sanity error get errors'
-    print("here 386")
     with pytest.raises(ConnectionClosedOK, match='Closed by disconnect'):
         await api.send({'ping': 1})  # send will get same error
-    print("here 389")
     with pytest.raises(ConnectionClosedOK, match='Closed by disconnect'):
         await api.connected # send will get same error
     wsconnection.clear()
-    print("here 391")
     await api.clear()
 
     # closed by remote
     wsconnection = MockedWs2()
     api = deriv_api.DerivAPI(connection=wsconnection)
-    wsconnection.exception = ConnectionClosedError(1234, 'Closed by remote')
+    wsconnection.exception = ConnectionClosedError(Close(1234, 'Closed by remote'), None, None)
     last_error = api.sanity_errors.pipe(op.first(), op.to_future())
     await asyncio.sleep(0.1) # waiting for init finished
     await wsconnection.close() # it will set connected as 'Closed by disconnect', and cause MockedWs2 raising `test disconnect`
