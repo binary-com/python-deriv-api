@@ -232,7 +232,7 @@ class DerivAPI(DerivAPICalls):
             Returns websockets.WebSocketClientProtocol
         """
         if not self.wsconnection and self.shouldReconnect:
-            self.events.on_text({'name': 'connect'})
+            self.events.on_next({'name': 'connect'})
             self.wsconnection = await websockets.connect(self.api_url)
         if self.connected.is_pending():
             self.connected.resolve(True)
