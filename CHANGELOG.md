@@ -1,5 +1,8 @@
 # Changelog
 
+## 0.1.3
+
+Fix a typo, which cause ws connection no response
 ## 0.1.2
 
 Added middleware support
