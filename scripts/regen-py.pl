@@ -19,19 +19,15 @@ my $json = JSON::MaybeXS->new(
 );
 
 my $distroot = dirname(__DIR__);
-my $path     = "$distroot/scripts/py";
-my $api_calls_filename = "$path/deriv_api_calls.py";
-my $streams_list_filename = "$path/streams_list.py";
-
-mkdir($path) unless -d $path;
+my $api_calls_filename = "$distroot/deriv_api/deriv_api_calls.py";
+my $streams_list_filename = "$distroot/deriv_api/streams_list.py";
 
 chomp(my $date = qx( date +%Y%m%d-%H%M%S ));
 
 my @methods;
 
 sub emit_functions {
-    my ($root, $api) = @_;
-    $api //= "Binary::API::Generated";
+    my ($root) = @_;
 
     $root = path($root);
 
@@ -118,7 +114,7 @@ sub needs_method_arg {
     return 1;
 }
 
-emit_functions($ENV{BINARYCOM_API_SCHEMA_PATH} // '/home/git/regentmarkets/binary-websocket-api/config/v3');
+emit_functions($ENV{BINARYCOM_API_SCHEMA_PATH} // '/home/git/binary-com/deriv-developers-portal/config/v3');
 
 my $template = Template->new(
     INCLUDE_PATH => "$distroot/scripts/templates",
