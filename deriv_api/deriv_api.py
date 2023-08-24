@@ -85,7 +85,7 @@ class DerivAPI(DerivAPICalls):
     storage: None
 
     def __init__(self, **options: str) -> None:
-        endpoint = options.get('endpoint', 'frontend.binaryws.com')
+        endpoint = options.get('endpoint', 'ws.derivws.com')
         lang = options.get('lang', 'EN')
         brand = options.get('brand', '')
         cache = options.get('cache', InMemory())
