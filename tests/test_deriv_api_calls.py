@@ -10,10 +10,10 @@ class DerivedDerivAPICalls(DerivAPICalls):
 async def test_deriv_api_calls(mocker):
     api = DerivedDerivAPICalls()
     assert isinstance(api, DerivAPICalls)
-    assert (await api.account_closure({'account_closure': 1, 'reason': 'want'})) == {'account_closure': 1,
-                                                                                    'reason': 'want'}, 'account_closure can get right result'
-    with pytest.raises(ValueError, match='Required parameters missing: reason'):
-        await api.account_closure({})
+    assert (await api.exchange_rates({'exchange_rates': 1, 'base_currency': 'USD'})) == {'exchange_rates': 1,
+                                                                                    'base_currency': 'USD'}, 'exchange_rates can get right result'
+    with pytest.raises(ValueError, match='Required parameters missing: base_currency'):
+        await api.exchange_rates({})
 
 
 def test_parse_parse_args():
