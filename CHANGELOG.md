@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.1.5
+
+Change default ws server
+
 ## 0.1.4
 
 Sync API
