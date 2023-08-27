@@ -80,7 +80,7 @@ jobs:
               echo "Schama updated"
               git add .
               git commit -m 'update schema automatically'
-              git push
+              git push -u origin
             fi
 
 workflows:
