@@ -60,10 +60,10 @@ jobs:
     <<: *default
     steps:
       - run:
-        command: |
-          git clone https://github.com/binary-com/deriv-developers-portal.git /tmp/deriv-developers-portal
-          BINARYCOM_API_SCHEMA_PATH=/tmp/deriv-developers-portal/config/v3 perl scripts/regen-py.pl
-          git status
+          command: |
+            git clone https://github.com/binary-com/deriv-developers-portal.git /tmp/deriv-developers-portal
+            BINARYCOM_API_SCHEMA_PATH=/tmp/deriv-developers-portal/config/v3 perl scripts/regen-py.pl
+            git status
 
 workflows:
   build:
