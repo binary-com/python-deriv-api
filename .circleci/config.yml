@@ -59,6 +59,7 @@ jobs:
   update_schema:
     <<: *default
     steps:
+      - checkout
       - run:
           command: |
             git clone https://github.com/binary-com/deriv-developers-portal.git /tmp/deriv-developers-portal
