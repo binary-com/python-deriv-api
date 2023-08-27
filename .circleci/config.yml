@@ -61,6 +61,11 @@ jobs:
     steps:
       - checkout
       - run:
+          name: config git
+          command: |
+            git config --global user.email "nobody@deriv.com"
+            git config --global user.name "Nobody"
+      - run:
           name: update schema
           command: |
             git clone https://github.com/binary-com/deriv-developers-portal.git /tmp/deriv-developers-portal
