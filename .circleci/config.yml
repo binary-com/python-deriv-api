@@ -61,6 +61,11 @@ jobs:
     steps:
       - checkout
       - run:
+          name: check git message
+          command: |
+            GIT_COMMIT_DESC="$(git log --format=oneline -n 1 $CIRCLE_SHA1)";
+            if echo $GIT_COMMIT_DESC | grep -E "\[\s*\bci\b.*]"; then exit 0; else echo "need tag [ci] to trigger tests"; exit 1; fi
+      - run:
           name: update schema
           command: |
             git clone https://github.com/binary-com/deriv-developers-portal.git /tmp/deriv-developers-portal
@@ -69,9 +74,13 @@ jobs:
             BINARYCOM_API_SCHEMA_PATH=/tmp/deriv-developers-portal/config/v3 perl scripts/regen-py.pl
             if [[ $(git diff --shortstat) == ' 2 files changed, 2 insertions(+), 2 deletions(-)' ]]
             then
-            echo 'no change'
+              echo 'Schema no change'
+              exit 0
             else
-            echo "has change"
+              echo "Schama updated"
+              git add .
+              git commit -m 'update schema automatically'
+              git push
             fi
 
 workflows:
