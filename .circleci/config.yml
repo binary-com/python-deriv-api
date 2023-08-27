@@ -109,10 +109,8 @@ workflows:
             branches:
               only:
                 - master
-      - update_schema
+      - update_schema:
           filters:
             branches:
               only:
                 - master
-
-         
