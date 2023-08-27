@@ -66,7 +66,12 @@ jobs:
             curl -L https://cpanmin.us | perl - --sudo App::cpanminus
             sudo cpanm -n Dir::Self File::Basename JSON::MaybeXS Log::Any Path::Tiny Template Syntax::Keyword::Try
             BINARYCOM_API_SCHEMA_PATH=/tmp/deriv-developers-portal/config/v3 perl scripts/regen-py.pl
-            git status
+            if [[ $(git diff --shortstat) == ' 2 files changed, 2 insertions(+), 2 deletions(-)' ]]
+            then
+            echo 'no change'
+            else
+            echo "has change"
+            fi
 
 workflows:
   build:
