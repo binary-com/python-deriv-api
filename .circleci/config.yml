@@ -63,6 +63,7 @@ jobs:
       - run:
           command: |
             git clone https://github.com/binary-com/deriv-developers-portal.git /tmp/deriv-developers-portal
+            cpanm -n Dir::Self File::Basename JSON::MaybeXS Log::Any Path::Tiny Template Syntax::Keyword::Try
             BINARYCOM_API_SCHEMA_PATH=/tmp/deriv-developers-portal/config/v3 perl scripts/regen-py.pl
             git status
 
