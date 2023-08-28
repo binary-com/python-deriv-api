@@ -133,6 +133,15 @@ workflows:
                 - "3.10.4"
                 - "3.10.10"
       - docs-build-deploy:
+          requires:
+            - release
+          filters:
+            branches:
+              only:
+                - master
+      - release:
+          requires:
+            - test
           filters:
             branches:
               only:
