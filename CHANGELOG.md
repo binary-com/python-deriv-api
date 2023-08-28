@@ -1,5 +1,4 @@
 # Changelog
-## NEXTVER
 
 ## 0.1.5
 
