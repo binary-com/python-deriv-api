@@ -94,6 +94,11 @@ jobs:
             echo "username=__token__" >> ~/.pypirc
             echo "password=$PYPI_TOKEN" >> ~/.pypirc
       - run:
+          name: config git
+          command: |
+            git config --global user.email "nobody@deriv.com"
+            git config --global user.name "Nobody"
+      - run:
           name: update version
           command: |
             if ! grep -q 'NEXTVER' CHANGELOG.md
