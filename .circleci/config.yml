@@ -88,8 +88,6 @@ jobs:
     <<: *default
     steps:
       - checkout
-      - run:
-        if ! grep 'NEXTVER' CHANGELOG.md
 workflows:
   build:
     jobs:
