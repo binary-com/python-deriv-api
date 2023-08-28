@@ -96,21 +96,19 @@ jobs:
       - run:
           name: update version
           command: |
-            name: update version
-            command: |
-              if ! grep -q 'NEXTVER' CHANGELOG.md
-              then
-                echo "No NEXTVER in CHANGELOG.md, no need release"
-                exit 0
-              fi
-              pip3 install bump
-              NEXT_VER=$(bump)
-              sed -i "s/NEXTVER/$NEXT_VER/g" CHANGELOG.md
-              git add .
-              git commit -m 'release $NEXT_VER'
-              python3 -m pip install --upgrade twine
-              make build
-              python3 -m twine upload --repository testpypi dist/*
+            if ! grep -q 'NEXTVER' CHANGELOG.md
+            then
+              echo "No NEXTVER in CHANGELOG.md, no need release"
+              exit 0
+            fi
+            pip3 install bump
+            NEXT_VER=$(bump)
+            sed -i "s/NEXTVER/$NEXT_VER/g" CHANGELOG.md
+            git add .
+            git commit -m 'release $NEXT_VER'
+            python3 -m pip install --upgrade twine
+            make build
+            python3 -m twine upload --repository testpypi dist/*
 workflows:
   build:
     jobs:
