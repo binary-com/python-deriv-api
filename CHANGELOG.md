@@ -1,5 +1,9 @@
 # Changelog
 
+## NEXTVER
+
+Sync API
+
 ## 0.1.5
 
 Change default ws server
