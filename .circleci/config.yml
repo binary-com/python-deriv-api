@@ -148,8 +148,8 @@ workflows:
           branches:
             only:
               - master
-      - release:
-          filters:
-            branches:
-              only:
-                - master
+   release:
+      filters:
+        branches:
+          only:
+          - master
