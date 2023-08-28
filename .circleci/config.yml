@@ -139,8 +139,11 @@ workflows:
                 - master
   update_schema_flow:
     jobs:
-      - test
-      - update_schema:
-          requires:
-            - test
-
+      - update_schema
+    triggers:
+      - schedule:
+          cron: "0 0 * * *"
+          filters:
+            branches:
+              only:
+                - master
