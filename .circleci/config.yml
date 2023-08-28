@@ -83,10 +83,34 @@ jobs:
               git commit -m 'update schema automatically'
               git push -u origin
             fi
-  deploy_pypi:
+  release:
     <<: *default
     steps:
       - checkout
+      - run:
+          name: setup pypi
+          command: |
+            echo "[testpypi]" >> ~/.pypirc
+            echo "username=__token__" >> ~/.pypirc
+            echo "password=$PYPI_TOKEN" >> ~/.pypirc
+      - run:
+        name: update version
+        command: |
+            name: update version
+            command: |
+              if ! grep -q 'NEXTVER' CHANGELOG.md
+              then
+                echo "No NEXTVER in CHANGELOG.md, no need release"
+                exit 0
+              fi
+              pip3 install bump
+              NEXT_VER=$(bump)
+              sed -i "s/NEXTVER/$NEXT_VER/g" CHANGELOG.md
+              git add .
+              git commit -m 'release $NEXT_VER'
+              python3 -m pip install --upgrade twine
+              make build
+              python3 -m twine upload --repository testpypi dist/*
 workflows:
   build:
     jobs:
@@ -115,15 +139,16 @@ workflows:
                 - master
   update_schema:
     jobs:
+      - test
       - update_schema
     triggers:
       - schedule:
-        cron: * * * * *
+        cron: 0 0 * * *
           filters:
             branches:
               only:
                 - master
-      - deploy_pypi:
+      - release:
           filters:
             branches:
               only:
