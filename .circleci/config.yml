@@ -78,7 +78,7 @@ jobs:
               exit 0
             else
               echo "Schama updated"
-              sed -i '/# Changelog/a ## NEXTVER' CHANGELOG.md
+              sed -i '/# Changelog/{s/$/\n\n## NEXTVER\n\nSync API/}' CHANGELOG.md
               git add .
               git commit -m 'update schema automatically'
               git push -u origin
