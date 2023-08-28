@@ -113,7 +113,12 @@ workflows:
             branches:
               only:
                 - master
-      - update_schema:
+  update_schema:
+    jobs:
+      - update_schema
+    triggers:
+      - schedule:
+        cron: * * * * *
           filters:
             branches:
               only:
