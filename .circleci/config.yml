@@ -94,8 +94,8 @@ jobs:
             echo "username=__token__" >> ~/.pypirc
             echo "password=$PYPI_TOKEN" >> ~/.pypirc
       - run:
-        name: update version
-        command: |
+          name: update version
+          command: |
             name: update version
             command: |
               if ! grep -q 'NEXTVER' CHANGELOG.md
@@ -141,15 +141,3 @@ workflows:
     jobs:
       - test
       - update_schema
-    triggers:
-    - schedule:
-      cron: 0 0 * * *
-      filters:
-        branches:
-          only:
-            - master
-   release:
-      filters:
-        branches:
-          only:
-          - master
