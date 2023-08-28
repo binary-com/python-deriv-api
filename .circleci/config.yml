@@ -140,7 +140,7 @@ workflows:
   update_schema_flow:
     jobs:
       - test
-      - update_schema
-        requires:
-          - check_git_message
+      - update_schema:
+          requires:
+            - test
 
