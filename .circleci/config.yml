@@ -79,6 +79,7 @@ jobs:
             else
               echo "Schama updated"
               sed -i '/# CHANGE LOG/a NEXTVER' CHANGELOG.md
+              git status
               git add .
               git commit -m 'update schema automatically'
               git push -u origin
@@ -87,7 +88,8 @@ jobs:
     <<: *default
     steps:
       - checkout
-
+      - run:
+        if ! grep 'NEXTVER' CHANGELOG.md
 workflows:
   build:
     jobs:
