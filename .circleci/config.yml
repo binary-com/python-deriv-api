@@ -78,10 +78,15 @@ jobs:
               exit 0
             else
               echo "Schama updated"
+              sed -i '/# CHANGE LOG/a NEXTVER' CHANGELOG.md
               git add .
               git commit -m 'update schema automatically'
               git push -u origin
             fi
+  deploy_pypi:
+    <<: *default
+    steps:
+      - checkout
 
 workflows:
   build:
@@ -110,6 +115,11 @@ workflows:
               only:
                 - master
       - update_schema:
+          filters:
+            branches:
+              only:
+                - master
+      - deploy_pypi:
           filters:
             branches:
               only:
