@@ -142,12 +142,12 @@ workflows:
       - test
       - update_schema
     triggers:
-      - schedule:
-        cron: 0 0 * * *
-          filters:
-            branches:
-              only:
-                - master
+    - schedule:
+      cron: 0 0 * * *
+        filters:
+          branches:
+            only:
+              - master
       - release:
           filters:
             branches:
