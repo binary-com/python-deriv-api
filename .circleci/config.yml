@@ -96,11 +96,11 @@ jobs:
             echo "username=__token__" >> ~/.pypirc
             echo "password=$PYPI_TOKEN" >> ~/.pypirc
       - run:
-          name: update version
+          name: release
           command: |
             python3 -m pip install --upgrade twine
             make build
-            # python3 -m twine upload --repository testpypi dist/*
+            python3 -m twine upload --repository testpypi dist/*
             echo "deployed to pypi"
 workflows:
   build:
@@ -142,7 +142,7 @@ workflows:
       - update_schema
     triggers:
       - schedule:
-          cron: "* * * * *"
+          cron: "0 0 * * *"
           filters:
             branches:
               only:
