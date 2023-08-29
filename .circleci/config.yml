@@ -76,13 +76,15 @@ jobs:
             then
               echo 'Schema no change'
               exit 0
-            else
-              echo "Schama updated"
-              sed -i '/# Changelog/{s/$/\n\n## NEXTVER\n\nSync API/}' CHANGELOG.md
-              git add .
-              git commit -m 'update schema automatically'
-              git push -u origin
             fi
+            echo "Schama updated"
+            pip3 install bump
+            NEXT_VER=$(bump)
+            sed -i '/# Changelog/{s/$/\n\n## NEXTVER\n\nSync API/}' CHANGELOG.md
+            sed -i "s/NEXTVER/$NEXT_VER/g" CHANGELOG.md
+            git add .
+            git commit -m 'update schema automatically'
+            git push -u origin
   release:
     <<: *default
     steps:
@@ -90,31 +92,15 @@ jobs:
       - run:
           name: setup pypi
           command: |
-            echo "[testpypi]" >> ~/.pypirc
+            echo "[pypi]" >> ~/.pypirc
             echo "username=__token__" >> ~/.pypirc
             echo "password=$PYPI_TOKEN" >> ~/.pypirc
       - run:
-          name: config git
-          command: |
-            git config --global user.email "nobody@deriv.com"
-            git config --global user.name "Nobody"
-      - run:
           name: update version
           command: |
-            if ! grep -q 'NEXTVER' CHANGELOG.md
-            then
-              echo "No NEXTVER in CHANGELOG.md, no need release"
-              exit 0
-            fi
-            pip3 install bump
-            NEXT_VER=$(bump)
-            sed -i "s/NEXTVER/$NEXT_VER/g" CHANGELOG.md
-            git add .
-            git commit -m 'release $NEXT_VER'
             python3 -m pip install --upgrade twine
             make build
             # python3 -m twine upload --repository testpypi dist/*
-            git push origin master
 workflows:
   build:
     jobs:
@@ -153,10 +139,10 @@ workflows:
   update_schema_flow:
     jobs:
       - update_schema
-    triggers:
-      - schedule:
-          cron: "0 0 * * *"
-          filters:
-            branches:
-              only:
-                - master
+    #triggers:
+    #  - schedule:
+    #      cron: "0 0 * * *"
+    #      filters:
+    #        branches:
+    #          only:
+    #            - master
