@@ -142,7 +142,7 @@ workflows:
       - update_schema
     triggers:
       - schedule:
-          cron: "* * * * *"
+          cron: "*/5 * * * *"
           filters:
             branches:
               only:
