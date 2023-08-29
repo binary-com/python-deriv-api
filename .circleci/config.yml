@@ -87,8 +87,7 @@ jobs:
             sed -i "s/NEXTVER/$NEXT_VER/g" CHANGELOG.md
             git add .
             git commit -m 'update schema automatically'
-            git remote -v
-            git push  origin HEAD:test_branch
+            git push origin HEAD:master
   release:
     <<: *default
     steps:
@@ -144,10 +143,10 @@ workflows:
   update_schema_flow:
     jobs:
       - update_schema
-    #triggers:
-    #  - schedule:
-    #      cron: "0 0 * * *"
-    #      filters:
-    #        branches:
-    #          only:
-    #            - master
+    triggers:
+      - schedule:
+          cron: "0 0 * * *"
+          filters:
+            branches:
+              only:
+                - master
