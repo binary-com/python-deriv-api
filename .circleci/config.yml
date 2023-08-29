@@ -101,6 +101,7 @@ jobs:
             python3 -m pip install --upgrade twine
             make build
             # python3 -m twine upload --repository testpypi dist/*
+            echo "deployed to pypi"
 workflows:
   build:
     jobs:
@@ -139,10 +140,10 @@ workflows:
   update_schema_flow:
     jobs:
       - update_schema
-    #triggers:
-    #  - schedule:
-    #      cron: "0 0 * * *"
-    #      filters:
-    #        branches:
-    #          only:
-    #            - master
+    triggers:
+      - schedule:
+          cron: "* * * * *"
+          filters:
+            branches:
+              only:
+                - master
