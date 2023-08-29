@@ -59,6 +59,9 @@ jobs:
   update_schema:
     <<: *default
     steps:
+      - add_ssh_keys:
+          fingerprints:
+            - "c8:f7:fc:a0:0d:2c:43:93:e3:c7:b6:cf:16:93:98:e1"
       - checkout
       - run:
           name: config git
@@ -84,7 +87,7 @@ jobs:
             sed -i "s/NEXTVER/$NEXT_VER/g" CHANGELOG.md
             git add .
             git commit -m 'update schema automatically'
-            git push  origin master
+            git push  origin test_branch
   release:
     <<: *default
     steps:
