@@ -113,7 +113,8 @@ jobs:
             git commit -m 'release $NEXT_VER'
             python3 -m pip install --upgrade twine
             make build
-            python3 -m twine upload --repository testpypi dist/*
+            # python3 -m twine upload --repository testpypi dist/*
+            git push origin master
 workflows:
   build:
     jobs:
