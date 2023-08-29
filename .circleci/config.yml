@@ -84,7 +84,7 @@ jobs:
             sed -i "s/NEXTVER/$NEXT_VER/g" CHANGELOG.md
             git add .
             git commit -m 'update schema automatically'
-            git push -u origin
+            git push  origin master
   release:
     <<: *default
     steps:
