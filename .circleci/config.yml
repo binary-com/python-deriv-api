@@ -88,7 +88,7 @@ jobs:
             git add .
             git commit -m 'update schema automatically'
             git remote -v
-            git push  origin test_branch
+            git push  origin HEAD:test_branch
   release:
     <<: *default
     steps:
