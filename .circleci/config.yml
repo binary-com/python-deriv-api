@@ -100,7 +100,7 @@ jobs:
           command: |
             python3 -m pip install --upgrade twine
             make build
-            python3 -m twine upload --repository testpypi dist/*
+            python3 -m twine upload --repository pypi dist/*
             echo "deployed to pypi"
 workflows:
   build:
