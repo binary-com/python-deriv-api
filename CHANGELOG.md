@@ -1,6 +1,6 @@
 # Changelog
 
-## NEXTVER
+## 0.1.6
 
 Sync API
 
