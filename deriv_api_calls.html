@@ -58,7 +58,7 @@
     landing_company_short : str
         [Optional] If you specify this field, only symbols available for trading by that landing company will be returned. If you are logged in, only symbols available for trading by your landing company will be returned regardless of what you specify in this field.
     passthrough : Any
-        [Optional] Used to pass data through the websocket, which may be retrieved via the echo_req output field.
+        [Optional] Used to pass data through the websocket, which may be retrieved via the echo_req output field. Maximum size is 3500 bytes.
     product_type : str
         [Optional] If you specify this field, only symbols that can be traded through that product type will be returned.
     req_id : int
@@ -81,7 +81,7 @@
     new_token_scopes : Any
         [Optional] List of permission scopes to provide with the token.
     passthrough : Any
-        [Optional] Used to pass data through the websocket, which may be retrieved via the echo_req output field.
+        [Optional] Used to pass data through the websocket, which may be retrieved via the echo_req output field. Maximum size is 3500 bytes.
     req_id : int
         [Optional] Used to map request to response.
     valid_for_current_ip_only : int
@@ -98,7 +98,7 @@
     app_delete : int
         Application app_id
     passthrough : Any
-        [Optional] Used to pass data through the websocket, which may be retrieved via the echo_req output field.
+        [Optional] Used to pass data through the websocket, which may be retrieved via the echo_req output field. Maximum size is 3500 bytes.
     req_id : int
         [Optional] Used to map request to response.
 </code></pre></div>
@@ -113,7 +113,7 @@
     app_get : int
         Application app_id
     passthrough : Any
-        [Optional] Used to pass data through the websocket, which may be retrieved via the echo_req output field.
+        [Optional] Used to pass data through the websocket, which may be retrieved via the echo_req output field. Maximum size is 3500 bytes.
     req_id : int
         [Optional] Used to map request to response.
 </code></pre></div>
@@ -128,7 +128,7 @@
     app_list : int
         Must be 1
     passthrough : Any
-        [Optional] Used to pass data through the websocket, which may be retrieved via the echo_req output field.
+        [Optional] Used to pass data through the websocket, which may be retrieved via the echo_req output field. Maximum size is 3500 bytes.
     req_id : int
         [Optional] Used to map request to response.
 </code></pre></div>
@@ -157,7 +157,7 @@
     offset : int
         [Optional] Number of transactions to skip.
     passthrough : Any
-        [Optional] Used to pass data through the websocket, which may be retrieved via the echo_req output field.
+        [Optional] Used to pass data through the websocket, which may be retrieved via the echo_req output field. Maximum size is 3500 bytes.
     req_id : int
         [Optional] Used to map request to response.
     sort : str
@@ -180,7 +180,7 @@
     date_to : str
         End date (epoch or YYYY-MM-DD HH::MM::SS). Results are inclusive of this time.
     passthrough : Any
-        [Optional] Used to pass data through the websocket, which may be retrieved via the echo_req output field.
+        [Optional] Used to pass data through the websocket, which may be retrieved via the echo_req output field. Maximum size is 3500 bytes.
     req_id : int
         [Optional] Used to map request to response.
 </code></pre></div>
@@ -207,7 +207,7 @@
     name : str
         Application name.
     passthrough : Any
-        [Optional] Used to pass data through the websocket, which may be retrieved via the echo_req output field.
+        [Optional] Used to pass data through the websocket, which may be retrieved via the echo_req output field. Maximum size is 3500 bytes.
     redirect_uri : str
         [Optional] The URL to redirect to after a successful login. Required if charging markup percentage
     req_id : int
@@ -240,7 +240,7 @@
     name : str
         Application name.
     passthrough : Any
-        [Optional] Used to pass data through the websocket, which may be retrieved via the echo_req output field.
+        [Optional] Used to pass data through the websocket, which may be retrieved via the echo_req output field. Maximum size is 3500 bytes.
     redirect_uri : str
         [Optional] The URL to redirect to after a successful login. Required if charging markup percentage.
     req_id : int
@@ -265,7 +265,7 @@
     landing_company_short : str
         [Optional] If specified, will return only the underlyings for the specified landing company.
     passthrough : Any
-        [Optional] Used to pass data through the websocket, which may be retrieved via the echo_req output field.
+        [Optional] Used to pass data through the websocket, which may be retrieved via the echo_req output field. Maximum size is 3500 bytes.
     req_id : int
         [Optional] Used to map request to response.
 </code></pre></div>
@@ -282,7 +282,7 @@
     authorize : str
         Authentication token. May be retrieved from &lt;https://www.binary.com/en/user/security/api_tokenws.html&gt;
     passthrough : Any
-        [Optional] Used to pass data through the websocket, which may be retrieved via the echo_req output field.
+        [Optional] Used to pass data through the websocket, which may be retrieved via the echo_req output field. Maximum size is 3500 bytes.
     req_id : int
         [Optional] Used to map request to response.
 </code></pre></div>
@@ -299,7 +299,7 @@
     balance : int
         Must be 1
     passthrough : Any
-        [Optional] Used to pass data through the websocket, which may be retrieved via the echo_req output field.
+        [Optional] Used to pass data through the websocket, which may be retrieved via the echo_req output field. Maximum size is 3500 bytes.
     req_id : int
         [Optional] Used to map request to response.
     subscribe : int
@@ -317,7 +317,7 @@
         Either the ID received from a Price Proposal (proposal call), or 1 if contract buy parameters are passed in the parameters field.
     parameters : Any
     passthrough : Any
-        [Optional] Used to pass data through the websocket, which may be retrieved via the echo_req output field.
+        [Optional] Used to pass data through the websocket, which may be retrieved via the echo_req output field. Maximum size is 3500 bytes.
     price : Number
         Maximum price at which to purchase the contract.
     req_id : int
@@ -337,7 +337,7 @@
         Either the ID received from a Price Proposal (proposal call), or 1 if contract buy parameters are passed in the parameters field.
     parameters : Any
     passthrough : Any
-        [Optional] Used to pass data through the websocket, which may be retrieved via the echo_req output field.
+        [Optional] Used to pass data through the websocket, which may be retrieved via the echo_req output field. Maximum size is 3500 bytes.
     price : Number
         Maximum price at which to purchase the contract.
     req_id : int
@@ -356,7 +356,7 @@
     cancel : int
         Value should be the contract_id which received from the portfolio call.
     passthrough : Any
-        [Optional] Used to pass data through the websocket, which may be retrieved via the echo_req output field.
+        [Optional] Used to pass data through the websocket, which may be retrieved via the echo_req output field. Maximum size is 3500 bytes.
     req_id : int
         [Optional] Used to map request to response.
 </code></pre></div>
@@ -377,7 +377,7 @@
     dry_run : int
         [Optional] If set to 1, only validation is performed. Only applicable for withdraw using crypto provider and api type.
     passthrough : Any
-        [Optional] Used to pass data through the websocket, which may be retrieved via the echo_req output field.
+        [Optional] Used to pass data through the websocket, which may be retrieved via the echo_req output field. Maximum size is 3500 bytes.
     provider : str
         [Optional] Cashier provider. crypto will be default option for crypto currency accounts.
     req_id : int
@@ -401,7 +401,7 @@
         Must be 1
     limit_order : Any
     passthrough : Any
-        [Optional] Used to pass data through the websocket, which may be retrieved via the echo_req output field.
+        [Optional] Used to pass data through the websocket, which may be retrieved via the echo_req output field. Maximum size is 3500 bytes.
     req_id : int
         [Optional] Used to map request to response.
 </code></pre></div>
@@ -420,7 +420,7 @@
     limit : Number
         [Optional] Maximum number of historical updates to receive.
     passthrough : Any
-        [Optional] Used to pass data through the websocket, which may be retrieved via the echo_req output field.
+        [Optional] Used to pass data through the websocket, which may be retrieved via the echo_req output field. Maximum size is 3500 bytes.
     req_id : int
         [Optional] Used to map request to response.
 </code></pre></div>
@@ -441,7 +441,7 @@
     landing_company_short : str
         [Optional] Indicates which landing company to get a list of contracts for. If you are logged in, your account's landing company will override this field. Note that when landing_company_short is set to 'virtual', landing_company will take precendce until the deprecated field is removed from the api.
     passthrough : Any
-        [Optional] Used to pass data through the websocket, which may be retrieved via the echo_req output field.
+        [Optional] Used to pass data through the websocket, which may be retrieved via the echo_req output field. Maximum size is 3500 bytes.
     product_type : str
         [Optional] If you specify this field, only contracts tradable through that contract type will be returned.
     req_id : int
@@ -464,7 +464,7 @@
     min_trade_stake : Number
         [Optional] Used to set minimal trade stake to be copied.
     passthrough : Any
-        [Optional] Used to pass data through the websocket, which may be retrieved via the echo_req output field.
+        [Optional] Used to pass data through the websocket, which may be retrieved via the echo_req output field. Maximum size is 3500 bytes.
     req_id : int
         [Optional] Used to map request to response.
     trade_types : Any
@@ -481,7 +481,7 @@
     copy_stop : str
         API tokens identifying the accounts which needs not to be copied
     passthrough : Any
-        [Optional] Used to pass data through the websocket, which may be retrieved via the echo_req output field.
+        [Optional] Used to pass data through the websocket, which may be retrieved via the echo_req output field. Maximum size is 3500 bytes.
     req_id : int
         [Optional] Used to map request to response.
 </code></pre></div>
@@ -496,7 +496,7 @@
     copytrading_list : int
         Must be 1
     passthrough : Any
-        [Optional] Used to pass data through the websocket, which may be retrieved via the echo_req output field.
+        [Optional] Used to pass data through the websocket, which may be retrieved via the echo_req output field. Maximum size is 3500 bytes.
     req_id : int
         [Optional] Used to map request to response.
 </code></pre></div>
@@ -511,7 +511,7 @@
     copytrading_statistics : int
         Must be 1
     passthrough : Any
-        [Optional] Used to pass data through the websocket, which may be retrieved via the echo_req output field.
+        [Optional] Used to pass data through the websocket, which may be retrieved via the echo_req output field. Maximum size is 3500 bytes.
     req_id : int
         [Optional] Used to map request to response.
     trader_id : str
@@ -530,7 +530,7 @@
     currency_code : str
         [Optional] Cryptocurrency code. Sending request with currency_code provides crypto config for the sent cryptocurrency code only.
     passthrough : Any
-        [Optional] Used to pass data through the websocket, which may be retrieved via the echo_req output field.
+        [Optional] Used to pass data through the websocket, which may be retrieved via the echo_req output field. Maximum size is 3500 bytes.
     req_id : int
         [Optional] Used to map request to response.
 </code></pre></div>
@@ -563,7 +563,7 @@
     page_type : str
         [Optional] To determine document side
     passthrough : Any
-        [Optional] Used to pass data through the websocket, which may be retrieved via the echo_req output field.
+        [Optional] Used to pass data through the websocket, which may be retrieved via the echo_req output field. Maximum size is 3500 bytes.
     proof_of_ownership : Any
     req_id : int
         [Optional] Used to map request to response.
@@ -583,7 +583,7 @@
     end_date : int
         [Optional] End date.
     passthrough : Any
-        [Optional] Used to pass data through the websocket, which may be retrieved via the echo_req output field.
+        [Optional] Used to pass data through the websocket, which may be retrieved via the echo_req output field. Maximum size is 3500 bytes.
     req_id : int
         [Optional] Used to map request to response.
     start_date : int
@@ -602,7 +602,7 @@
     exchange_rates : int
         Must be 1
     passthrough : Any
-        [Optional] Used to pass data through the websocket, which may be retrieved via the echo_req output field.
+        [Optional] Used to pass data through the websocket, which may be retrieved via the echo_req output field. Maximum size is 3500 bytes.
     req_id : int
         [Optional] Used to map request to response.
     subscribe : int
@@ -621,7 +621,7 @@
     forget : str
         ID of the real-time stream of messages to cancel.
     passthrough : Any
-        [Optional] Used to pass data through the websocket, which may be retrieved via the echo_req output field.
+        [Optional] Used to pass data through the websocket, which may be retrieved via the echo_req output field. Maximum size is 3500 bytes.
     req_id : int
         [Optional] Used to map request to response.
 </code></pre></div>
@@ -636,7 +636,7 @@
     forget_all : Any
         Cancel all streams by type. The value can be either a single type e.g. "ticks", or an array of multiple types e.g. ["candles", "ticks"].
     passthrough : Any
-        [Optional] Used to pass data through the websocket, which may be retrieved via the echo_req output field.
+        [Optional] Used to pass data through the websocket, which may be retrieved via the echo_req output field. Maximum size is 3500 bytes.
     req_id : int
         [Optional] Used to map request to response.
 </code></pre></div>
@@ -651,7 +651,7 @@
     get_account_status : int
         Must be 1
     passthrough : Any
-        [Optional] Used to pass data through the websocket, which may be retrieved via the echo_req output field.
+        [Optional] Used to pass data through the websocket, which may be retrieved via the echo_req output field. Maximum size is 3500 bytes.
     req_id : int
         [Optional] Used to map request to response.
 </code></pre></div>
@@ -666,7 +666,7 @@
     get_financial_assessment : int
         Must be 1
     passthrough : Any
-        [Optional] Used to pass data through the websocket, which may be retrieved via the echo_req output field.
+        [Optional] Used to pass data through the websocket, which may be retrieved via the echo_req output field. Maximum size is 3500 bytes.
     req_id : int
         [Optional] Used to map request to response.
 </code></pre></div>
@@ -681,7 +681,7 @@
     get_limits : int
         Must be 1
     passthrough : Any
-        [Optional] Used to pass data through the websocket, which may be retrieved via the echo_req output field.
+        [Optional] Used to pass data through the websocket, which may be retrieved via the echo_req output field. Maximum size is 3500 bytes.
     req_id : int
         [Optional] Used to map request to response.
 </code></pre></div>
@@ -696,7 +696,7 @@
     get_self_exclusion : int
         Must be 1
     passthrough : Any
-        [Optional] Used to pass data through the websocket, which may be retrieved via the echo_req output field.
+        [Optional] Used to pass data through the websocket, which may be retrieved via the echo_req output field. Maximum size is 3500 bytes.
     req_id : int
         [Optional] Used to map request to response.
 </code></pre></div>
@@ -711,7 +711,7 @@
     get_settings : int
         Must be 1
     passthrough : Any
-        [Optional] Used to pass data through the websocket, which may be retrieved via the echo_req output field.
+        [Optional] Used to pass data through the websocket, which may be retrieved via the echo_req output field. Maximum size is 3500 bytes.
     req_id : int
         [Optional] Used to map request to response.
 </code></pre></div>
@@ -734,7 +734,22 @@
     issuing_country : str
         2-letter country code (can obtained from residence_list call).
     passthrough : Any
-        [Optional] Used to pass data through the websocket, which may be retrieved via the echo_req output field.
+        [Optional] Used to pass data through the websocket, which may be retrieved via the echo_req output field. Maximum size is 3500 bytes.
+    req_id : int
+        [Optional] Used to map request to response.
+</code></pre></div>
+</dd>
+<dt id="deriv_api.deriv_api_calls.DerivAPICalls.kyc_auth_status"><code class="name flex">
+<span>async def <span class="ident">kyc_auth_status</span></span>(<span>self, args=None)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Get KYC Authentication Status</p>
+<h2 id="parameters">Parameters:</h2>
+<pre><code>args : dict with following keys
+    kyc_auth_status : int
+        Must be 1
+    passthrough : Any
+        [Optional] Used to pass data through the websocket, which may be retrieved via the echo_req output field. Maximum size is 3500 bytes.
     req_id : int
         [Optional] Used to map request to response.
 </code></pre></div>
@@ -749,7 +764,7 @@
     landing_company : str
         Client's 2-letter country code (obtained from residence_list call).
     passthrough : Any
-        [Optional] Used to pass data through the websocket, which may be retrieved via the echo_req output field.
+        [Optional] Used to pass data through the websocket, which may be retrieved via the echo_req output field. Maximum size is 3500 bytes.
     req_id : int
         [Optional] Used to map request to response.
 </code></pre></div>
@@ -766,7 +781,7 @@
     landing_company_details : str
         Landing company shortcode.
     passthrough : Any
-        [Optional] Used to pass data through the websocket, which may be retrieved via the echo_req output field.
+        [Optional] Used to pass data through the websocket, which may be retrieved via the echo_req output field. Maximum size is 3500 bytes.
     req_id : int
         [Optional] Used to map request to response.
 </code></pre></div>
@@ -783,7 +798,7 @@
     login_history : int
         Must be 1
     passthrough : Any
-        [Optional] Used to pass data through the websocket, which may be retrieved via the echo_req output field.
+        [Optional] Used to pass data through the websocket, which may be retrieved via the echo_req output field. Maximum size is 3500 bytes.
     req_id : int
         [Optional] Used to map request to response.
 </code></pre></div>
@@ -798,7 +813,7 @@
     logout : int
         Must be 1
     passthrough : Any
-        [Optional] Used to pass data through the websocket, which may be retrieved via the echo_req output field.
+        [Optional] Used to pass data through the websocket, which may be retrieved via the echo_req output field. Maximum size is 3500 bytes.
     req_id : int
         [Optional] Used to map request to response.
 </code></pre></div>
@@ -817,7 +832,7 @@
     mt5_deposit : int
         Must be 1
     passthrough : Any
-        [Optional] Used to pass data through the websocket, which may be retrieved via the echo_req output field.
+        [Optional] Used to pass data through the websocket, which may be retrieved via the echo_req output field. Maximum size is 3500 bytes.
     req_id : int
         [Optional] Used to map request to response.
     to_mt5 : str
@@ -836,7 +851,7 @@
     mt5_get_settings : int
         Must be 1
     passthrough : Any
-        [Optional] Used to pass data through the websocket, which may be retrieved via the echo_req output field.
+        [Optional] Used to pass data through the websocket, which may be retrieved via the echo_req output field. Maximum size is 3500 bytes.
     req_id : int
         [Optional] Used to map request to response.
 </code></pre></div>
@@ -851,7 +866,7 @@
     mt5_login_list : int
         Must be 1
     passthrough : Any
-        [Optional] Used to pass data through the websocket, which may be retrieved via the echo_req output field.
+        [Optional] Used to pass data through the websocket, which may be retrieved via the echo_req output field. Maximum size is 3500 bytes.
     req_id : int
         [Optional] Used to map request to response.
 </code></pre></div>
@@ -894,7 +909,7 @@
     name : str
         Client's name. The maximum length here is 101 characters.
     passthrough : Any
-        [Optional] Used to pass data through the websocket, which may be retrieved via the echo_req output field.
+        [Optional] Used to pass data through the websocket, which may be retrieved via the echo_req output field. Maximum size is 3500 bytes.
     phone : Any
         [Optional] User's phone number.
     phonePassword : str
@@ -927,7 +942,7 @@
     old_password : str
         Old password for validation (non-empty string, accepts any printable ASCII character)
     passthrough : Any
-        [Optional] Used to pass data through the websocket, which may be retrieved via the echo_req output field.
+        [Optional] Used to pass data through the websocket, which may be retrieved via the echo_req output field. Maximum size is 3500 bytes.
     password_type : str
         [Optional] Type of the password to change.
     req_id : int
@@ -946,7 +961,7 @@
     mt5_password_check : int
         Must be 1
     passthrough : Any
-        [Optional] Used to pass data through the websocket, which may be retrieved via the echo_req output field.
+        [Optional] Used to pass data through the websocket, which may be retrieved via the echo_req output field. Maximum size is 3500 bytes.
     password : str
         The password of the account.
     password_type : str
@@ -969,7 +984,7 @@
     new_password : str
         New password of the account. For validation (Accepts any printable ASCII character. Must be within 8-25 characters, and include numbers, lowercase and uppercase letters. Must not be the same as the user's email address).
     passthrough : Any
-        [Optional] Used to pass data through the websocket, which may be retrieved via the echo_req output field.
+        [Optional] Used to pass data through the websocket, which may be retrieved via the echo_req output field. Maximum size is 3500 bytes.
     password_type : str
         [Optional] Type of the password to reset.
     req_id : int
@@ -992,7 +1007,7 @@
     mt5_withdrawal : int
         Must be 1
     passthrough : Any
-        [Optional] Used to pass data through the websocket, which may be retrieved via the echo_req output field.
+        [Optional] Used to pass data through the websocket, which may be retrieved via the echo_req output field. Maximum size is 3500 bytes.
     req_id : int
         [Optional] Used to map request to response.
     to_binary : str
@@ -1065,7 +1080,7 @@
     occupation : str
         Occupation.
     passthrough : Any
-        [Optional] Used to pass data through the websocket, which may be retrieved via the echo_req output field.
+        [Optional] Used to pass data through the websocket, which may be retrieved via the echo_req output field. Maximum size is 3500 bytes.
     phone : Any
         [Optional] Starting with + followed by 9-35 digits, hyphens or space.
     place_of_birth : str
@@ -1138,7 +1153,7 @@
     non_pep_declaration : int
         [Optional] Indicates client's self-declaration of not being a PEP/RCA (Politically Exposed Person/Relatives and Close Associates).
     passthrough : Any
-        [Optional] Used to pass data through the websocket, which may be retrieved via the echo_req output field.
+        [Optional] Used to pass data through the websocket, which may be retrieved via the echo_req output field. Maximum size is 3500 bytes.
     phone : Any
         [Optional] Starting with + followed by 9-35 digits, hyphens or space.
     place_of_birth : str
@@ -1179,7 +1194,7 @@
     new_account_virtual : int
         Must be 1
     passthrough : Any
-        [Optional] Used to pass data through the websocket, which may be retrieved via the echo_req output field.
+        [Optional] Used to pass data through the websocket, which may be retrieved via the echo_req output field. Maximum size is 3500 bytes.
     req_id : int
         [Optional] Used to map request to response.
     residence : str
@@ -1226,7 +1241,7 @@
     oauth_apps : int
         Must be 1
     passthrough : Any
-        [Optional] Used to pass data through the websocket, which may be retrieved via the echo_req output field.
+        [Optional] Used to pass data through the websocket, which may be retrieved via the echo_req output field. Maximum size is 3500 bytes.
     req_id : int
         [Optional] Used to map request to response.
 </code></pre></div>
@@ -1255,7 +1270,7 @@
     p2p_advert_create : int
         Must be 1
     passthrough : Any
-        [Optional] Used to pass data through the websocket, which may be retrieved via the echo_req output field.
+        [Optional] Used to pass data through the websocket, which may be retrieved via the echo_req output field. Maximum size is 3500 bytes.
     payment_info : str
         [Optional] Payment instructions.
     payment_method : str
@@ -1286,7 +1301,7 @@
     p2p_advert_info : int
         Must be 1
     passthrough : Any
-        [Optional] Used to pass data through the websocket, which may be retrieved via the echo_req output field.
+        [Optional] Used to pass data through the websocket, which may be retrieved via the echo_req output field. Maximum size is 3500 bytes.
     req_id : int
         [Optional] Used to map request to response.
     subscribe : int
@@ -1323,7 +1338,7 @@
     p2p_advert_list : int
         Must be 1
     passthrough : Any
-        [Optional] Used to pass data through the websocket, which may be retrieved via the echo_req output field.
+        [Optional] Used to pass data through the websocket, which may be retrieved via the echo_req output field. Maximum size is 3500 bytes.
     payment_method : Any
         [Optional] Search by supported payment methods.
     req_id : int
@@ -1360,7 +1375,7 @@
     p2p_advert_update : int
         Must be 1
     passthrough : Any
-        [Optional] Used to pass data through the websocket, which may be retrieved via the echo_req output field.
+        [Optional] Used to pass data through the websocket, which may be retrieved via the echo_req output field. Maximum size is 3500 bytes.
     payment_info : str
         [Optional] Payment instructions.
     payment_method_ids : Any
@@ -1391,7 +1406,7 @@
     p2p_advertiser_adverts : int
         Must be 1
     passthrough : Any
-        [Optional] Used to pass data through the websocket, which may be retrieved via the echo_req output field.
+        [Optional] Used to pass data through the websocket, which may be retrieved via the echo_req output field. Maximum size is 3500 bytes.
     req_id : int
         [Optional] Used to map request to response.
 </code></pre></div>
@@ -1412,7 +1427,7 @@
     p2p_advertiser_create : int
         Must be 1
     passthrough : Any
-        [Optional] Used to pass data through the websocket, which may be retrieved via the echo_req output field.
+        [Optional] Used to pass data through the websocket, which may be retrieved via the echo_req output field. Maximum size is 3500 bytes.
     payment_info : str
         [Optional] Advertiser's payment information, to be used as a default for new sell adverts.
     req_id : int
@@ -1433,7 +1448,7 @@
     p2p_advertiser_info : int
         Must be 1
     passthrough : Any
-        [Optional] Used to pass data through the websocket, which may be retrieved via the echo_req output field.
+        [Optional] Used to pass data through the websocket, which may be retrieved via the echo_req output field. Maximum size is 3500 bytes.
     req_id : int
         [Optional] Used to map request to response.
     subscribe : int
@@ -1458,7 +1473,7 @@
     p2p_advertiser_list : int
         Must be 1
     passthrough : Any
-        [Optional] Used to pass data through the websocket, which may be retrieved via the echo_req output field.
+        [Optional] Used to pass data through the websocket, which may be retrieved via the echo_req output field. Maximum size is 3500 bytes.
     req_id : int
         [Optional] Used to map request to response.
     sort_by : str
@@ -1481,7 +1496,7 @@
     p2p_advertiser_payment_methods : int
         Must be 1
     passthrough : Any
-        [Optional] Used to pass data through the websocket, which may be retrieved via the echo_req output field.
+        [Optional] Used to pass data through the websocket, which may be retrieved via the echo_req output field. Maximum size is 3500 bytes.
     req_id : int
         [Optional] Used to map request to response.
     update : Any
@@ -1502,7 +1517,7 @@
     p2p_advertiser_relations : int
         Must be 1
     passthrough : Any
-        [Optional] Used to pass data through the websocket, which may be retrieved via the echo_req output field.
+        [Optional] Used to pass data through the websocket, which may be retrieved via the echo_req output field. Maximum size is 3500 bytes.
     remove_blocked : Any
         IDs of advertisers to remove from blocked.
     remove_favourites : Any
@@ -1527,7 +1542,7 @@
     p2p_advertiser_update : int
         Must be 1
     passthrough : Any
-        [Optional] Used to pass data through the websocket, which may be retrieved via the echo_req output field.
+        [Optional] Used to pass data through the websocket, which may be retrieved via the echo_req output field. Maximum size is 3500 bytes.
     payment_info : str
         [Optional] Advertiser's payment information, to be used as a default for new sell adverts.
     req_id : int
@@ -1550,7 +1565,7 @@
     p2p_chat_create : int
         Must be 1
     passthrough : Any
-        [Optional] Used to pass data through the websocket, which may be retrieved via the echo_req output field.
+        [Optional] Used to pass data through the websocket, which may be retrieved via the echo_req output field. Maximum size is 3500 bytes.
     req_id : int
         [Optional] Used to map request to response.
 </code></pre></div>
@@ -1567,7 +1582,7 @@
     p2p_order_cancel : int
         Must be 1
     passthrough : Any
-        [Optional] Used to pass data through the websocket, which may be retrieved via the echo_req output field.
+        [Optional] Used to pass data through the websocket, which may be retrieved via the echo_req output field. Maximum size is 3500 bytes.
     req_id : int
         [Optional] Used to map request to response.
 </code></pre></div>
@@ -1586,7 +1601,7 @@
     p2p_order_confirm : int
         Must be 1
     passthrough : Any
-        [Optional] Used to pass data through the websocket, which may be retrieved via the echo_req output field.
+        [Optional] Used to pass data through the websocket, which may be retrieved via the echo_req output field. Maximum size is 3500 bytes.
     req_id : int
         [Optional] Used to map request to response.
     verification_code : str
@@ -1609,7 +1624,7 @@
     p2p_order_create : int
         Must be 1
     passthrough : Any
-        [Optional] Used to pass data through the websocket, which may be retrieved via the echo_req output field.
+        [Optional] Used to pass data through the websocket, which may be retrieved via the echo_req output field. Maximum size is 3500 bytes.
     payment_info : str
         [Optional] Payment instructions, only applicable for sell orders.
     payment_method_ids : Any
@@ -1636,7 +1651,7 @@
     p2p_order_dispute : int
         Must be 1
     passthrough : Any
-        [Optional] Used to pass data through the websocket, which may be retrieved via the echo_req output field.
+        [Optional] Used to pass data through the websocket, which may be retrieved via the echo_req output field. Maximum size is 3500 bytes.
     req_id : int
         [Optional] Used to map request to response.
 </code></pre></div>
@@ -1653,7 +1668,7 @@
     p2p_order_info : int
         Must be 1
     passthrough : Any
-        [Optional] Used to pass data through the websocket, which may be retrieved via the echo_req output field.
+        [Optional] Used to pass data through the websocket, which may be retrieved via the echo_req output field. Maximum size is 3500 bytes.
     req_id : int
         [Optional] Used to map request to response.
     subscribe : int
@@ -1678,7 +1693,7 @@
     p2p_order_list : int
         Must be 1
     passthrough : Any
-        [Optional] Used to pass data through the websocket, which may be retrieved via the echo_req output field.
+        [Optional] Used to pass data through the websocket, which may be retrieved via the echo_req output field. Maximum size is 3500 bytes.
     req_id : int
         [Optional] Used to map request to response.
     subscribe : int
@@ -1697,7 +1712,7 @@
     p2p_order_review : int
         Must be 1
     passthrough : Any
-        [Optional] Used to pass data through the websocket, which may be retrieved via the echo_req output field.
+        [Optional] Used to pass data through the websocket, which may be retrieved via the echo_req output field. Maximum size is 3500 bytes.
     rating : int
         Rating for the transaction, 1 to 5.
     recommended : Any
@@ -1716,7 +1731,7 @@
     p2p_payment_methods : int
         Must be 1
     passthrough : Any
-        [Optional] Used to pass data through the websocket, which may be retrieved via the echo_req output field.
+        [Optional] Used to pass data through the websocket, which may be retrieved via the echo_req output field. Maximum size is 3500 bytes.
     req_id : int
         [Optional] Used to map request to response.
 </code></pre></div>
@@ -1731,7 +1746,7 @@
     p2p_ping : int
         Must be 1
     passthrough : Any
-        [Optional] Used to pass data through the websocket, which may be retrieved via the echo_req output field.
+        [Optional] Used to pass data through the websocket, which may be retrieved via the echo_req output field. Maximum size is 3500 bytes.
     req_id : int
         [Optional] Used to map request to response.
 </code></pre></div>
@@ -1746,7 +1761,7 @@
     country : str
         [Optional] 2-letter country code (ISO standard).
     passthrough : Any
-        [Optional] Used to pass data through the websocket, which may be retrieved via the echo_req output field.
+        [Optional] Used to pass data through the websocket, which may be retrieved via the echo_req output field. Maximum size is 3500 bytes.
     payment_methods : int
         Must be 1
     req_id : int
@@ -1773,7 +1788,7 @@
     information : str
         [Optional] Information about payment agent and their proposed service.
     passthrough : Any
-        [Optional] Used to pass data through the websocket, which may be retrieved via the echo_req output field.
+        [Optional] Used to pass data through the websocket, which may be retrieved via the echo_req output field. Maximum size is 3500 bytes.
     payment_agent_name : str
         The name with which the payment agent is going to be identified.
     paymentagent_create : int
@@ -1796,7 +1811,7 @@
 <h2 id="parameters">Parameters:</h2>
 <pre><code>args : dict with following keys
     passthrough : Any
-        [Optional] Used to pass data through the websocket, which may be retrieved via the echo_req output field.
+        [Optional] Used to pass data through the websocket, which may be retrieved via the echo_req output field. Maximum size is 3500 bytes.
     paymentagent_details : int
         Must be 1
     req_id : int
@@ -1813,7 +1828,7 @@
     currency : str
         [Optional] If specified, only payment agents that supports that currency will be returned (obtained from payout_currencies call).
     passthrough : Any
-        [Optional] Used to pass data through the websocket, which may be retrieved via the echo_req output field.
+        [Optional] Used to pass data through the websocket, which may be retrieved via the echo_req output field. Maximum size is 3500 bytes.
     paymentagent_list : str
         Client's 2-letter country code (obtained from residence_list call).
     req_id : int
@@ -1836,7 +1851,7 @@
     dry_run : int
         [Optional] If set to 1, just do validation.
     passthrough : Any
-        [Optional] Used to pass data through the websocket, which may be retrieved via the echo_req output field.
+        [Optional] Used to pass data through the websocket, which may be retrieved via the echo_req output field. Maximum size is 3500 bytes.
     paymentagent_transfer : int
         Must be 1
     req_id : int
@@ -1861,7 +1876,7 @@
     dry_run : int
         [Optional] If set to 1, just do validation.
     passthrough : Any
-        [Optional] Used to pass data through the websocket, which may be retrieved via the echo_req output field.
+        [Optional] Used to pass data through the websocket, which may be retrieved via the echo_req output field. Maximum size is 3500 bytes.
     paymentagent_loginid : str
         The payment agent loginid received from the paymentagent_list call.
     paymentagent_withdraw : int
@@ -1882,7 +1897,7 @@
     message : str
         Reasons for needing to withdraw using a Payment Agent.
     passthrough : Any
-        [Optional] Used to pass data through the websocket, which may be retrieved via the echo_req output field.
+        [Optional] Used to pass data through the websocket, which may be retrieved via the echo_req output field. Maximum size is 3500 bytes.
     paymentagent_withdraw_justification : int
         Must be 1
     req_id : int
@@ -1897,7 +1912,7 @@
 <h2 id="parameters">Parameters:</h2>
 <pre><code>args : dict with following keys
     passthrough : Any
-        [Optional] Used to pass data through the websocket, which may be retrieved via the echo_req output field.
+        [Optional] Used to pass data through the websocket, which may be retrieved via the echo_req output field. Maximum size is 3500 bytes.
     payout_currencies : int
         Must be 1
     req_id : int
@@ -1912,7 +1927,7 @@
 <h2 id="parameters">Parameters:</h2>
 <pre><code>args : dict with following keys
     passthrough : Any
-        [Optional] Used to pass data through the websocket, which may be retrieved via the echo_req output field.
+        [Optional] Used to pass data through the websocket, which may be retrieved via the echo_req output field. Maximum size is 3500 bytes.
     ping : int
         Must be 1
     req_id : int
@@ -1929,7 +1944,7 @@
     contract_type : Any
         Return only contracts of the specified types
     passthrough : Any
-        [Optional] Used to pass data through the websocket, which may be retrieved via the echo_req output field.
+        [Optional] Used to pass data through the websocket, which may be retrieved via the echo_req output field. Maximum size is 3500 bytes.
     portfolio : int
         Must be 1
     req_id : int
@@ -1956,7 +1971,7 @@
     offset : int
         [Optional] Number of transactions to skip.
     passthrough : Any
-        [Optional] Used to pass data through the websocket, which may be retrieved via the echo_req output field.
+        [Optional] Used to pass data through the websocket, which may be retrieved via the echo_req output field. Maximum size is 3500 bytes.
     profit_table : int
         Must be 1
     req_id : int
@@ -2002,7 +2017,7 @@
     multiplier : Number
         [Optional] The multiplier for non-binary options. E.g. lookbacks.
     passthrough : Any
-        [Optional] Used to pass data through the websocket, which may be retrieved via the echo_req output field.
+        [Optional] Used to pass data through the websocket, which may be retrieved via the echo_req output field. Maximum size is 3500 bytes.
     product_type : str
         [Optional] The product type.
     proposal : int
@@ -2029,7 +2044,7 @@
     contract_id : int
         [Optional] Contract ID received from a portfolio request. If not set, you will receive stream of all open contracts.
     passthrough : Any
-        [Optional] Used to pass data through the websocket, which may be retrieved via the echo_req output field.
+        [Optional] Used to pass data through the websocket, which may be retrieved via the echo_req output field. Maximum size is 3500 bytes.
     proposal_open_contract : int
         Must be 1
     req_id : int
@@ -2046,7 +2061,7 @@
 <h2 id="parameters">Parameters:</h2>
 <pre><code>args : dict with following keys
     passthrough : Any
-        [Optional] Used to pass data through the websocket, which may be retrieved via the echo_req output field.
+        [Optional] Used to pass data through the websocket, which may be retrieved via the echo_req output field. Maximum size is 3500 bytes.
     reality_check : int
         Must be 1
     req_id : int
@@ -2061,7 +2076,7 @@
 <h2 id="parameters">Parameters:</h2>
 <pre><code>args : dict with following keys
     passthrough : Any
-        [Optional] Used to pass data through the websocket, which may be retrieved via the echo_req output field.
+        [Optional] Used to pass data through the websocket, which may be retrieved via the echo_req output field. Maximum size is 3500 bytes.
     req_id : int
         [Optional] Used to map request to response.
     residence_list : int
@@ -2076,7 +2091,7 @@
 <h2 id="parameters">Parameters:</h2>
 <pre><code>args : dict with following keys
     passthrough : Any
-        [Optional] Used to pass data through the websocket, which may be retrieved via the echo_req output field.
+        [Optional] Used to pass data through the websocket, which may be retrieved via the echo_req output field. Maximum size is 3500 bytes.
     req_id : int
         [Optional] Used to map request to response.
     revoke_oauth_app : int
@@ -2091,7 +2106,7 @@
 <h2 id="parameters">Parameters:</h2>
 <pre><code>args : dict with following keys
     passthrough : Any
-        [Optional] Used to pass data through the websocket, which may be retrieved via the echo_req output field.
+        [Optional] Used to pass data through the websocket, which may be retrieved via the echo_req output field. Maximum size is 3500 bytes.
     price : Number
         Minimum price at which to sell the contract, or 0 for 'sell at market'.
     req_id : int
@@ -2108,7 +2123,7 @@
 <h2 id="parameters">Parameters:</h2>
 <pre><code>args : dict with following keys
     passthrough : Any
-        [Optional] Used to pass data through the websocket, which may be retrieved via the echo_req output field.
+        [Optional] Used to pass data through the websocket, which may be retrieved via the echo_req output field. Maximum size is 3500 bytes.
     price : Number
         Minimum price at which to sell the contract, or 0 for 'sell at market'.
     req_id : int
@@ -2129,7 +2144,7 @@
 <h2 id="parameters">Parameters:</h2>
 <pre><code>args : dict with following keys
     passthrough : Any
-        [Optional] Used to pass data through the websocket, which may be retrieved via the echo_req output field.
+        [Optional] Used to pass data through the websocket, which may be retrieved via the echo_req output field. Maximum size is 3500 bytes.
     req_id : int
         [Optional] Used to map request to response.
     sell_expired : int
@@ -2144,7 +2159,7 @@
 <h2 id="parameters">Parameters:</h2>
 <pre><code>args : dict with following keys
     passthrough : Any
-        [Optional] Used to pass data through the websocket, which may be retrieved via the echo_req output field.
+        [Optional] Used to pass data through the websocket, which may be retrieved via the echo_req output field. Maximum size is 3500 bytes.
     req_id : int
         [Optional] Used to map request to response.
     set_account_currency : str
@@ -2192,7 +2207,7 @@
     other_instruments_trading_frequency : str
         [Optional] Trading frequency in other financial instruments.
     passthrough : Any
-        [Optional] Used to pass data through the websocket, which may be retrieved via the echo_req output field.
+        [Optional] Used to pass data through the websocket, which may be retrieved via the echo_req output field. Maximum size is 3500 bytes.
     req_id : int
         [Optional] Used to map request to response.
     set_financial_assessment : int
@@ -2235,7 +2250,7 @@
     max_turnover : Any
         [Optional] Daily turnover limit.
     passthrough : Any
-        [Optional] Used to pass data through the websocket, which may be retrieved via the echo_req output field.
+        [Optional] Used to pass data through the websocket, which may be retrieved via the echo_req output field. Maximum size is 3500 bytes.
     req_id : int
         [Optional] Used to map request to response.
     session_duration_limit : Any
@@ -2285,7 +2300,7 @@
     non_pep_declaration : int
         [Optional] Indicates client's self-declaration of not being a PEP/RCA (Politically Exposed Person/Relatives and Close Associates). Effective for real accounts only.
     passthrough : Any
-        [Optional] Used to pass data through the websocket, which may be retrieved via the echo_req output field.
+        [Optional] Used to pass data through the websocket, which may be retrieved via the echo_req output field. Maximum size is 3500 bytes.
     phone : Any
         [Optional] Note: not applicable for virtual account. Starting with + followed by 9-35 digits, hyphens or space.
     place_of_birth : str
@@ -2334,7 +2349,7 @@
     offset : int
         [Optional] Number of transactions to skip.
     passthrough : Any
-        [Optional] Used to pass data through the websocket, which may be retrieved via the echo_req output field.
+        [Optional] Used to pass data through the websocket, which may be retrieved via the echo_req output field. Maximum size is 3500 bytes.
     req_id : int
         [Optional] Used to map request to response.
     statement : int
@@ -2349,7 +2364,7 @@
 <h2 id="parameters">Parameters:</h2>
 <pre><code>args : dict with following keys
     passthrough : Any
-        [Optional] Used to pass data through the websocket, which may be retrieved via the echo_req output field.
+        [Optional] Used to pass data through the websocket, which may be retrieved via the echo_req output field. Maximum size is 3500 bytes.
     req_id : int
         [Optional] Used to map request to response.
     states_list : str
@@ -2364,7 +2379,7 @@
 <h2 id="parameters">Parameters:</h2>
 <pre><code>args : dict with following keys
     passthrough : Any
-        [Optional] Used to pass data through the websocket, which may be retrieved via the echo_req output field.
+        [Optional] Used to pass data through the websocket, which may be retrieved via the echo_req output field. Maximum size is 3500 bytes.
     req_id : int
         [Optional] Used to map request to response.
     subscribe : int
@@ -2390,7 +2405,7 @@
             granularity : int
                 [Optional] Only applicable for style: candles. Candle time-dimension width setting. (default: 60).
             passthrough : Any
-                [Optional] Used to pass data through the websocket, which may be retrieved via the echo_req output field.
+                [Optional] Used to pass data through the websocket, which may be retrieved via the echo_req output field. Maximum size is 3500 bytes.
             req_id : int
                 [Optional] Used to map request to response.
             start : int
@@ -2415,7 +2430,7 @@ Short symbol name (obtained from the active_symbols call).</li>
 <h2 id="parameters">Parameters:</h2>
 <pre><code>args : dict with following keys
     passthrough : Any
-        [Optional] Used to pass data through the websocket, which may be retrieved via the echo_req output field.
+        [Optional] Used to pass data through the websocket, which may be retrieved via the echo_req output field. Maximum size is 3500 bytes.
     req_id : int
         [Optional] Used to map request to response.
     time : int
@@ -2432,7 +2447,7 @@ Short symbol name (obtained from the active_symbols call).</li>
     affiliate_coc_agreement : int
         [Optional] For Affiliate's Code of Conduct Agreement.
     passthrough : Any
-        [Optional] Used to pass data through the websocket, which may be retrieved via the echo_req output field.
+        [Optional] Used to pass data through the websocket, which may be retrieved via the echo_req output field. Maximum size is 3500 bytes.
     req_id : int
         [Optional] Used to map request to response.
     tnc_approval : Number
@@ -2449,7 +2464,7 @@ Short symbol name (obtained from the active_symbols call).</li>
 <h2 id="parameters">Parameters:</h2>
 <pre><code>args : dict with following keys
     passthrough : Any
-        [Optional] Used to pass data through the websocket, which may be retrieved via the echo_req output field.
+        [Optional] Used to pass data through the websocket, which may be retrieved via the echo_req output field. Maximum size is 3500 bytes.
     req_id : int
         [Optional] Used to map request to response.
     topup_virtual : int
@@ -2468,7 +2483,7 @@ Short symbol name (obtained from the active_symbols call).</li>
     landing_company_short : str
         [Optional] If specified, will return only the underlyings for the specified landing company.
     passthrough : Any
-        [Optional] Used to pass data through the websocket, which may be retrieved via the echo_req output field.
+        [Optional] Used to pass data through the websocket, which may be retrieved via the echo_req output field. Maximum size is 3500 bytes.
     req_id : int
         [Optional] Used to map request to response.
     trading_durations : int
@@ -2487,7 +2502,7 @@ Short symbol name (obtained from the active_symbols call).</li>
     new_password : str
         New password of the account. For validation (Accepts any printable ASCII character. Must be within 8-25 characters, and include numbers, lowercase and uppercase letters. Must not be the same as the user's email address).
     passthrough : Any
-        [Optional] Used to pass data through the websocket, which may be retrieved via the echo_req output field.
+        [Optional] Used to pass data through the websocket, which may be retrieved via the echo_req output field. Maximum size is 3500 bytes.
     platform : str
         Name of trading platform.
     req_id : int
@@ -2508,7 +2523,7 @@ Short symbol name (obtained from the active_symbols call).</li>
     new_password : str
         New password of the account. For validation (Accepts any printable ASCII character. Must be within 8-25 characters, and include numbers, lowercase and uppercase letters. Must not be the same as the user's email address).
     passthrough : Any
-        [Optional] Used to pass data through the websocket, which may be retrieved via the echo_req output field.
+        [Optional] Used to pass data through the websocket, which may be retrieved via the echo_req output field. Maximum size is 3500 bytes.
     platform : str
         Name of trading platform.
     req_id : int
@@ -2533,7 +2548,7 @@ Short symbol name (obtained from the active_symbols call).</li>
     market_type : str
         [Optional] Market type.
     passthrough : Any
-        [Optional] Used to pass data through the websocket, which may be retrieved via the echo_req output field.
+        [Optional] Used to pass data through the websocket, which may be retrieved via the echo_req output field. Maximum size is 3500 bytes.
     platform : str
         [Optional] Pass the trading platform name, default to mt5
     req_id : int
@@ -2550,7 +2565,7 @@ Short symbol name (obtained from the active_symbols call).</li>
 <h2 id="parameters">Parameters:</h2>
 <pre><code>args : dict with following keys
     passthrough : Any
-        [Optional] Used to pass data through the websocket, which may be retrieved via the echo_req output field.
+        [Optional] Used to pass data through the websocket, which may be retrieved via the echo_req output field. Maximum size is 3500 bytes.
     req_id : int
         [Optional] Used to map request to response.
     trading_times : str
@@ -2565,7 +2580,7 @@ Short symbol name (obtained from the active_symbols call).</li>
 <h2 id="parameters">Parameters:</h2>
 <pre><code>args : dict with following keys
     passthrough : Any
-        [Optional] Used to pass data through the websocket, which may be retrieved via the echo_req output field.
+        [Optional] Used to pass data through the websocket, which may be retrieved via the echo_req output field. Maximum size is 3500 bytes.
     req_id : int
         [Optional] Used to map request to response.
     subscribe : int
@@ -2592,7 +2607,7 @@ Short symbol name (obtained from the active_symbols call).</li>
     currency : str
         [Optional] Currency code.
     passthrough : Any
-        [Optional] Used to pass data through the websocket, which may be retrieved via the echo_req output field.
+        [Optional] Used to pass data through the websocket, which may be retrieved via the echo_req output field. Maximum size is 3500 bytes.
     req_id : int
         [Optional] Used to map request to response.
     transfer_between_accounts : int
@@ -2611,7 +2626,7 @@ Short symbol name (obtained from the active_symbols call).</li>
     checksum : str
         The generated checksum for the customer.
     passthrough : Any
-        [Optional] Used to pass data through the websocket, which may be retrieved via the echo_req output field.
+        [Optional] Used to pass data through the websocket, which may be retrieved via the echo_req output field. Maximum size is 3500 bytes.
     req_id : int
         [Optional] Used to map request to response.
     unsubscribe_email : int
@@ -2626,7 +2641,7 @@ Short symbol name (obtained from the active_symbols call).</li>
 <h2 id="parameters">Parameters:</h2>
 <pre><code>args : dict with following keys
     passthrough : Any
-        [Optional] Used to pass data through the websocket, which may be retrieved via the echo_req output field.
+        [Optional] Used to pass data through the websocket, which may be retrieved via the echo_req output field. Maximum size is 3500 bytes.
     req_id : int
         [Optional] Used to map request to response.
     type : str
@@ -2644,7 +2659,7 @@ Short symbol name (obtained from the active_symbols call).</li>
 <h2 id="parameters">Parameters:</h2>
 <pre><code>args : dict with following keys
     passthrough : Any
-        [Optional] Used to pass data through the websocket, which may be retrieved via the echo_req output field.
+        [Optional] Used to pass data through the websocket, which may be retrieved via the echo_req output field. Maximum size is 3500 bytes.
     req_id : int
         [Optional] Used to map request to response.
     type : str
@@ -2662,7 +2677,7 @@ Short symbol name (obtained from the active_symbols call).</li>
 <h2 id="parameters">Parameters:</h2>
 <pre><code>args : dict with following keys
     passthrough : Any
-        [Optional] Used to pass data through the websocket, which may be retrieved via the echo_req output field.
+        [Optional] Used to pass data through the websocket, which may be retrieved via the echo_req output field. Maximum size is 3500 bytes.
     req_id : int
         [Optional] Used to map request to response.
     subscribe : int
@@ -2727,6 +2742,7 @@ Short symbol name (obtained from the active_symbols call).</li>
 <li><code><a title="deriv_api.deriv_api_calls.DerivAPICalls.get_self_exclusion" href="#deriv_api.deriv_api_calls.DerivAPICalls.get_self_exclusion">get_self_exclusion</a></code></li>
 <li><code><a title="deriv_api.deriv_api_calls.DerivAPICalls.get_settings" href="#deriv_api.deriv_api_calls.DerivAPICalls.get_settings">get_settings</a></code></li>
 <li><code><a title="deriv_api.deriv_api_calls.DerivAPICalls.identity_verification_document_add" href="#deriv_api.deriv_api_calls.DerivAPICalls.identity_verification_document_add">identity_verification_document_add</a></code></li>
+<li><code><a title="deriv_api.deriv_api_calls.DerivAPICalls.kyc_auth_status" href="#deriv_api.deriv_api_calls.DerivAPICalls.kyc_auth_status">kyc_auth_status</a></code></li>
 <li><code><a title="deriv_api.deriv_api_calls.DerivAPICalls.landing_company" href="#deriv_api.deriv_api_calls.DerivAPICalls.landing_company">landing_company</a></code></li>
 <li><code><a title="deriv_api.deriv_api_calls.DerivAPICalls.landing_company_details" href="#deriv_api.deriv_api_calls.DerivAPICalls.landing_company_details">landing_company_details</a></code></li>
 <li><code><a title="deriv_api.deriv_api_calls.DerivAPICalls.login_history" href="#deriv_api.deriv_api_calls.DerivAPICalls.login_history">login_history</a></code></li>
