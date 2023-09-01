@@ -36,8 +36,8 @@ response = await api.ping({'ping': 1})
 print(response) 
 ```
 
-## Creating a websockets connection and API instantiation
-You can either create an instance of websockets and pass it as connection
+## Creating a web sockets connection and API instantiation
+You can either create an instance of WebSockets and pass it as a connection
     or
 pass the endpoint and app_id to the constructor to create the connection for you.
 
@@ -96,7 +96,7 @@ make test
 ```
 #### Generate documentations
 
-Generate html version of the docs and publish it to gh-pages
+Generate HTML version of the docs and publish it to gh-pages
 
 ```
 make gh-pages
