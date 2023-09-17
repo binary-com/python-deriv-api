@@ -1,0 +1,88 @@
+name: Build
+run-name: Build
+on:
+  push:
+    branches:
+    - master
+  pull_request:
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    container:
+      image: python:${{ matrix.python-version }}
+      env:
+        # environment variables for primary container
+        PIPENV_VENV_IN_PROJECT: true
+    strategy:
+      matrix:
+        python-version:
+        - 3.9.6
+        - 3.9.8
+        - 3.9.9
+        - 3.9.10
+        - 3.9.11
+        - 3.9.12
+        - 3.9.13
+        - 3.9.16
+        - 3.10.0
+        - 3.10.1
+        - 3.10.2
+        - 3.10.3
+        - 3.10.4
+        - 3.10.10
+    steps:
+    - uses: actions/checkout@v4.0.0
+    - run: sudo chown -R circleci:circleci /usr/local/bin
+    - name: restore_cache
+      uses: actions/cache@v3.3.1
+      with:
+        key: deps9-{{ .Branch }}-{{ checksum "Pipfile.lock" }}
+        path: venv
+    - run: make setup
+    - run: make test
+    - run: make coverage
+  # docs-build-deploy:
+  #   if: github.ref == 'refs/heads/master'
+  #   runs-on: ubuntu-latest
+  #   container:
+  #     image: python:${{ env.python-version }}
+  #     env:
+  #       PIPENV_VENV_IN_PROJECT: true
+  #   needs: release
+  #   steps:
+  #   - uses: actions/checkout@v4.0.0
+  #   - run: sudo chown -R circleci:circleci /usr/local/bin
+  #   - name: restore_cache
+  #     uses: actions/cache@v3.3.1
+  #     with:
+  #       key: deps9-{{ .Branch }}-{{ checksum "Pipfile.lock" }}
+  #       path: venv
+  #   - run: make setup
+  #   - run: |
+  #       git config --local user.email "sysadmin@binary.com"
+  #       git config --local user.name "gh-pages deploy bot"
+  #       make gh-pages
+  # release:
+  #   if: github.ref == 'refs/heads/master'
+  #   needs: test
+  #   runs-on: ubuntu-latest
+  #   container:
+  #     image: python:${{ env.python-version }}
+  #     env:
+  #       PIPENV_VENV_IN_PROJECT: true
+  #   steps:
+  #   - uses: actions/checkout@v4.0.0
+  #   - name: setup pypi
+  #     run: |-
+  #       echo "[pypi]" >> ~/.pypirc
+  #       echo "username=__token__" >> ~/.pypirc
+  #       echo "password=$PYPI_TOKEN" >> ~/.pypirc
+  #   - name: release
+  #     run: |
+  #       python3 -m pip install --upgrade twine
+  #       make build
+  #       python3 -m twine upload --repository pypi dist/*
+  #       echo "deployed to pypi"
