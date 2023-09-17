@@ -38,15 +38,17 @@ jobs:
     - uses: actions/checkout@v4.0.0
     # - run: sudo chown -R circleci:circleci /usr/local/bin
     - uses: actions/setup-python@v4
+      id: cache-deps
       with:
         python-version: ${{ matrix.python-version }}
-        # cache: 'pipenv'
+        cache: 'pipenv'
     # - name: restore_cache
     #   uses: actions/cache@v3.3.1
     #   with:
     #     key: deps9-{{ .Branch }}-{{ checksum "Pipfile.lock" }}
     #     path: venv
-    - run: make setup
+    - if: steps.cache-deps.outputs.cache-hit != 'true'
+      run: make setup
     - run: make test
     - run: make coverage
   # docs-build-deploy:
