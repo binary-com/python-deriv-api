@@ -11,11 +11,12 @@ concurrency:
 jobs:
   test:
     runs-on: ubuntu-latest
-    container:
-      image: python:${{ matrix.python-version }}
-      env:
-        # environment variables for primary container
-        PIPENV_VENV_IN_PROJECT: true
+    # container:
+    #   image: python:${{ matrix.python-version }}
+    #   env:
+    #     # environment variables for primary container
+    env:
+      PIPENV_VENV_IN_PROJECT: true
     strategy:
       matrix:
         python-version:
@@ -36,12 +37,16 @@ jobs:
     steps:
     - uses: actions/checkout@v4.0.0
     # - run: sudo chown -R circleci:circleci /usr/local/bin
+    - uses: actions/setup-python@v4
+      with:
+        python-version: ${{ matrix.python-version }}
     - name: restore_cache
       uses: actions/cache@v3.3.1
       with:
         key: deps9-{{ .Branch }}-{{ checksum "Pipfile.lock" }}
         path: venv
-    - run: make setup
+    - if: steps.cache-dependencies.outputs.cache-hit != 'true'
+      run: make setup
     - run: make test
     - run: make coverage
   # docs-build-deploy:
