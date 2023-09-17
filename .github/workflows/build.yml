@@ -40,14 +40,13 @@ jobs:
     - uses: actions/setup-python@v4
       with:
         python-version: ${{ matrix.python-version }}
-        cache: 'pipenv'
+        # cache: 'pipenv'
     # - name: restore_cache
     #   uses: actions/cache@v3.3.1
     #   with:
     #     key: deps9-{{ .Branch }}-{{ checksum "Pipfile.lock" }}
     #     path: venv
-    - if: steps.cache-dependencies.outputs.cache-hit != 'true'
-      run: make setup
+    - run: make setup
     - run: make test
     - run: make coverage
   # docs-build-deploy:
