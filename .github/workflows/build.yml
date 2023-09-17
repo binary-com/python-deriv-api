@@ -31,52 +31,44 @@ jobs:
     steps:
     - uses: actions/checkout@v4.0.0
     - uses: actions/setup-python@v4
-      id: cache-deps
       with:
         python-version: ${{ matrix.python-version }}
         cache: 'pipenv'
     - run: make setup
     - run: make test
     - run: make coverage
-  # docs-build-deploy:
-  #   if: github.ref == 'refs/heads/master'
-  #   runs-on: ubuntu-latest
-  #   container:
-  #     image: python:${{ env.python-version }}
-  #     env:
-  #       PIPENV_VENV_IN_PROJECT: true
-  #   needs: release
-  #   steps:
-  #   - uses: actions/checkout@v4.0.0
-  #   - run: sudo chown -R circleci:circleci /usr/local/bin
-  #   - name: restore_cache
-  #     uses: actions/cache@v3.3.1
-  #     with:
-  #       key: deps9-{{ .Branch }}-{{ checksum "Pipfile.lock" }}
-  #       path: venv
-  #   - run: make setup
-  #   - run: |
-  #       git config --local user.email "sysadmin@binary.com"
-  #       git config --local user.name "gh-pages deploy bot"
-  #       make gh-pages
-  # release:
-  #   if: github.ref == 'refs/heads/master'
-  #   needs: test
-  #   runs-on: ubuntu-latest
-  #   container:
-  #     image: python:${{ env.python-version }}
-  #     env:
-  #       PIPENV_VENV_IN_PROJECT: true
-  #   steps:
-  #   - uses: actions/checkout@v4.0.0
-  #   - name: setup pypi
-  #     run: |-
-  #       echo "[pypi]" >> ~/.pypirc
-  #       echo "username=__token__" >> ~/.pypirc
-  #       echo "password=$PYPI_TOKEN" >> ~/.pypirc
-  #   - name: release
-  #     run: |
-  #       python3 -m pip install --upgrade twine
-  #       make build
-  #       python3 -m twine upload --repository pypi dist/*
-  #       echo "deployed to pypi"
+  release:
+    # if: github.ref == 'refs/heads/master'
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4.0.0
+    - uses: actions/setup-python@v4
+      with:
+        python-version: "3.9.6"
+    - name: setup pypi
+      run: |
+        echo "[pypi]" >> ~/.pypirc
+        echo "username=__token__" >> ~/.pypirc
+        echo "password=$PYPI_TOKEN" >> ~/.pypirc
+    - name: release
+      run: |
+        python3 -m pip install --upgrade twine
+        make build
+        python3 -m twine upload --repository pypi dist/*
+        echo "deployed to pypi"
+  docs-build-deploy:
+    # if: github.ref == 'refs/heads/master'
+    needs: release
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4.0.0
+    - uses: actions/setup-python@v4
+      with:
+        python-version: "3.9.6"
+        cache: 'pipenv'
+    - run: make setup
+    - run: |
+        git config --local user.email "sysadmin@binary.com"
+        git config --local user.name "gh-pages deploy bot"
+        make gh-pages
