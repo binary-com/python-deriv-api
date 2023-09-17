@@ -11,12 +11,6 @@ concurrency:
 jobs:
   test:
     runs-on: ubuntu-20.04
-    # container:
-    #   image: python:${{ matrix.python-version }}
-    #   env:
-    #     # environment variables for primary container
-    # env:
-    #   PIPENV_VENV_IN_PROJECT: true
     strategy:
       matrix:
         python-version:
