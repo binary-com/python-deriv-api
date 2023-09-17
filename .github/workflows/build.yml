@@ -41,7 +41,6 @@ jobs:
       id: cache-deps
       with:
         python-version: ${{ matrix.python-version }}
-        cache: 'pipenv'
     - name: check dir
       run: ls -al
     - name: restore_cache
