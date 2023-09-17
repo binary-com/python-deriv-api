@@ -7,7 +7,7 @@ jobs:
   update_schema:
     runs-on: ubuntu-20.04
     steps:
-    - uses: actions/checkout@v4.0.0
+    - uses: actions/checkout@v4
     - uses: ./.github/actions/ssh-agent
       with:
         write_github_ssh_key: ${{ secrets.WRITE_GITHUB_SSH_KEY }}
