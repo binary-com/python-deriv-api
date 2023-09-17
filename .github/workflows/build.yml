@@ -42,12 +42,14 @@ jobs:
       with:
         python-version: ${{ matrix.python-version }}
     - name: check dir
-      run: ls -al
+      run: |
+        pwd
+        ls -al
     - name: restore_cache
       uses: actions/cache@v3.3.1
       with:
         key: deps9-{{ .Branch }}-{{ checksum "Pipfile.lock" }}
-        path: .local/share/virtualenvs
+        path: /home/runner/.local/share/virtualenvs
     - run: make setup
     - run: make test
     - run: make coverage
