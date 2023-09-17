@@ -38,7 +38,7 @@ jobs:
     - run: make test
     - run: make coverage
   release:
-    # if: github.ref == 'refs/heads/master'
+    if: github.ref == 'refs/heads/master'
     needs: test
     runs-on: ubuntu-20.04
     steps:
@@ -50,7 +50,7 @@ jobs:
       run: |
         echo "[pypi]" >> ~/.pypirc
         echo "username=__token__" >> ~/.pypirc
-        echo "password=$PYPI_TOKEN" >> ~/.pypirc
+        echo "password=${{ secrets.PYPI_TOKEN }}" >> ~/.pypirc
     - name: release
       run: |
         python3 -m pip install --upgrade twine
@@ -59,10 +59,13 @@ jobs:
         echo "deployed to pypi"
   docs-build-deploy:
     # if: github.ref == 'refs/heads/master'
-    needs: release
+    # needs: release
     runs-on: ubuntu-20.04
     steps:
     - uses: actions/checkout@v4.0.0
+    - uses: ./.github/actions/ssh-agent
+      with:
+      read_github_ssh_key: ${{ secrets.WRITE_GITHUB_SSH_KEY }}
     - uses: actions/setup-python@v4
       with:
         python-version: "3.9.6"

@@ -1,0 +1,59 @@
+name: SSH agent setup
+description: "Sets up ssh agent, add read ssh key and write ssh key"
+inputs:
+  read_github_ssh_key:
+    description: "ssh key to read other repos"
+    required: false
+  write_github_ssh_key:
+    description: "ssh key to write other repos"
+    required: false
+runs:
+  using: composite
+  steps:
+    - name: set env
+      shell: bash -e {0}
+      working-directory: /tmp
+      run: |
+        eval $(ssh-agent)
+        echo SSH_AUTH_SOCK=$SSH_AUTH_SOCK | sudo tee -a $GITHUB_ENV
+        echo SSH_AGENT_PID=$SSH_AGENT_PID | sudo tee -a $GITHUB_ENV
+    - name: create .ssh directory
+      shell: bash -e {0}
+      working-directory: /tmp
+      run: |
+        mkdir ~/.ssh
+        chmod 700 ~/.ssh
+    - name: setup read ssh key file
+      shell: bash -e {0}
+      working-directory: /tmp
+      if: inputs.read_github_ssh_key != ''
+      run: |
+        echo "${{ inputs.read_github_ssh_key }}" >> ~/.ssh/github.com.rsa
+        chmod 600 ~/.ssh/github.com.rsa
+        ssh-add ~/.ssh/github.com.rsa
+
+        cat << EOF >> ~/.ssh/config
+        Host github.com
+          HostName github.com
+          IdentitiesOnly yes
+          IdentityFile HOME/.ssh/github.com.rsa
+        EOF
+        sed -i "s@HOME@$HOME/@" ~/.ssh/config
+        chmod 600 ~/.ssh/config
+    - name: setup write ssh key file
+      shell: bash -e {0}
+      working-directory: /tmp
+      if: inputs.write_github_ssh_key != ''
+      run: |
+        echo "${{ inputs.write_github_ssh_key }}" >> ~/.ssh/write.github.com.rsa
+        chmod 600 ~/.ssh/write.github.com.rsa
+        ssh-add ~/.ssh/write.github.com.rsa
+
+        cat << EOF >> ~/.ssh/config
+        Host push.github.com
+          HostName github.com
+          IdentitiesOnly yes
+          IdentityFile HOME/.ssh/write.github.com.rsa
+        EOF
+        sed -i "s@HOME@$HOME/@" ~/.ssh/config
+        chmod 600 ~/.ssh/config
