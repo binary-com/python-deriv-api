@@ -38,7 +38,7 @@ jobs:
     - run: make test
     - run: make coverage
   release:
-    if: github.ref == 'refs/heads/master'
+    # if: github.ref == 'refs/heads/master'
     needs: test
     runs-on: ubuntu-20.04
     steps:
