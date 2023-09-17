@@ -36,20 +36,11 @@ jobs:
         - 3.10.10
     steps:
     - uses: actions/checkout@v4.0.0
-    # - run: sudo chown -R circleci:circleci /usr/local/bin
     - uses: actions/setup-python@v4
       id: cache-deps
       with:
         python-version: ${{ matrix.python-version }}
-    - name: check dir
-      run: |
-        pwd
-        ls -al
-    - name: restore_cache
-      uses: actions/cache@v3.3.1
-      with:
-        key: deps9-{{ .Branch }}-{{ checksum "Pipfile.lock" }}
-        path: /home/runner/.local/share/virtualenvs
+        cache: 'pipenv'
     - run: make setup
     - run: make test
     - run: make coverage
