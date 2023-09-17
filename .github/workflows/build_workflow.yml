@@ -1,5 +1,5 @@
-name: Build
-run-name: Build
+name: Build workflow
+run-name: Build workflow
 on:
   push:
     branches:
