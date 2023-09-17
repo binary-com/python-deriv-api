@@ -38,7 +38,7 @@ jobs:
     - run: make test
     - run: make coverage
   release:
-    # if: github.ref == 'refs/heads/master'
+    if: github.ref == 'refs/heads/master'
     needs: test
     runs-on: ubuntu-20.04
     steps:
@@ -58,8 +58,8 @@ jobs:
         python3 -m twine upload --repository pypi dist/*
         echo "deployed to pypi"
   docs-build-deploy:
-    # if: github.ref == 'refs/heads/master'
-    # needs: release
+    if: github.ref == 'refs/heads/master'
+    needs: release
     runs-on: ubuntu-20.04
     steps:
     - uses: actions/checkout@v4.0.0

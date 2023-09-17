@@ -3,6 +3,7 @@ run-name: Update schema flow
 on:
   schedule:
   - cron: '0 0 * * *'
+pull_request:
 jobs:
   update_schema:
     runs-on: ubuntu-20.04
