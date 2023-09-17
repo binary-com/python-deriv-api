@@ -47,8 +47,11 @@ jobs:
     #   with:
     #     key: deps9-{{ .Branch }}-{{ checksum "Pipfile.lock" }}
     #     path: venv
+    - name: install pipenv
+      run: pip3 install pipenv
     - if: steps.cache-deps.outputs.cache-hit != 'true'
-      run: make setup
+      name: instal env 
+      run: pipenv install --dev
     - run: make test
     - run: make coverage
   # docs-build-deploy:
