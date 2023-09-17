@@ -1,6 +1,7 @@
 name: Update schema flow
 run-name: Update schema flow
 on:
+  workflow_dispatch:
   schedule:
   - cron: '0 0 * * *'
 jobs:
