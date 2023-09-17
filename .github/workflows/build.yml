@@ -35,7 +35,7 @@ jobs:
         - 3.10.10
     steps:
     - uses: actions/checkout@v4.0.0
-    - run: sudo chown -R circleci:circleci /usr/local/bin
+    # - run: sudo chown -R circleci:circleci /usr/local/bin
     - name: restore_cache
       uses: actions/cache@v3.3.1
       with:
