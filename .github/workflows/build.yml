@@ -15,8 +15,8 @@ jobs:
     #   image: python:${{ matrix.python-version }}
     #   env:
     #     # environment variables for primary container
-    env:
-      PIPENV_VENV_IN_PROJECT: true
+    # env:
+    #   PIPENV_VENV_IN_PROJECT: true
     strategy:
       matrix:
         python-version:
