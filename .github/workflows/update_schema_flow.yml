@@ -1,0 +1,40 @@
+name: Update schema flow
+run-name: Update schema flow
+on:
+  workflow_dispatch:
+  schedule:
+  - cron: '0 0 * * *'
+jobs:
+  update_schema:
+    runs-on: ubuntu-20.04
+    steps:
+    - uses: actions/checkout@v4
+    - uses: ./.github/actions/ssh-agent
+      with:
+        write_github_ssh_key: ${{ secrets.WRITE_GITHUB_SSH_KEY }}
+    - uses: actions/setup-python@v4
+      with:
+        python-version: "3.9.6"
+    - name: config git
+      run: |
+        git config --global user.email "nobody@deriv.com"
+        git config --global user.name "Nobody"
+    - name: update schema
+      run: |
+        git clone https://github.com/binary-com/deriv-developers-portal.git /tmp/deriv-developers-portal
+        curl -L https://cpanmin.us | perl - --sudo App::cpanminus
+        sudo cpanm -n Dir::Self File::Basename JSON::MaybeXS Log::Any Path::Tiny Template Syntax::Keyword::Try
+        BINARYCOM_API_SCHEMA_PATH=/tmp/deriv-developers-portal/config/v3 perl scripts/regen-py.pl
+        if [[ $(git diff --shortstat) == ' 2 files changed, 2 insertions(+), 2 deletions(-)' ]]
+        then
+          echo 'Schema no change'
+          exit 0
+        fi
+        echo "Schama updated"
+        pip3 install bump
+        NEXT_VER=$(bump)
+        sed -i '/# Changelog/{s/$/\n\n## NEXTVER\n\nSync API/}' CHANGELOG.md
+        sed -i "s/NEXTVER/$NEXT_VER/g" CHANGELOG.md
+        git add .
+        git commit -m 'update schema automatically'
+        git push origin HEAD:master

@@ -1,0 +1,80 @@
+name: Build
+run-name: Build
+on:
+  workflow_dispatch:
+  push:
+    branches:
+    - master
+  pull_request:
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  test:
+    runs-on: ubuntu-20.04
+    strategy:
+      matrix:
+        python-version:
+        - 3.9.6
+        - 3.9.8
+        - 3.9.9
+        - 3.9.10
+        - 3.9.11
+        - 3.9.12
+        - 3.9.13
+        - 3.9.16
+        - 3.10.0
+        - 3.10.1
+        - 3.10.2
+        - 3.10.3
+        - 3.10.4
+        - 3.10.10
+    steps:
+    - uses: actions/checkout@v4
+    - uses: actions/setup-python@v4
+      with:
+        python-version: ${{ matrix.python-version }}
+        cache: 'pipenv'
+    - run: make setup
+    - run: make test
+    - run: make coverage
+  release:
+    if: github.ref == 'refs/heads/master'
+    needs: test
+    runs-on: ubuntu-20.04
+    env:
+     PYPI_TOKEN: ${{ secrets.PYPI_TOKEN }}
+    steps:
+    - uses: actions/checkout@v4
+    - uses: actions/setup-python@v4
+      with:
+        python-version: "3.9.6"
+    - name: setup pypi
+      run: |
+        echo "[pypi]" >> ~/.pypirc
+        echo "username=__token__" >> ~/.pypirc
+        echo "password=$PYPI_TOKEN" >> ~/.pypirc
+    - name: release
+      run: |
+        python3 -m pip install --upgrade twine
+        make build
+        python3 -m twine upload --repository pypi dist/*
+        echo "deployed to pypi"
+  docs-build-deploy:
+    if: github.ref == 'refs/heads/master'
+    needs: release
+    runs-on: ubuntu-20.04
+    steps:
+    - uses: actions/checkout@v4
+    - uses: ./.github/actions/ssh-agent
+      with:
+       write_github_ssh_key: ${{ secrets.WRITE_GITHUB_SSH_KEY }}
+    - uses: actions/setup-python@v4
+      with:
+        python-version: "3.9.6"
+        cache: 'pipenv'
+    - run: make setup
+    - run: |
+        git config --local user.email "sysadmin@binary.com"
+        git config --local user.name "gh-pages deploy bot"
+        make gh-pages
