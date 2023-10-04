@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.1.7
+
+Sync API
+
 ## 0.1.6
 
 Sync API
