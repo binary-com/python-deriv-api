@@ -26,9 +26,11 @@ runs:
     - name: setup read ssh key file
       shell: bash -e {0}
       working-directory: /tmp
+      env:
+        READ_SSH_KEY: ${{ inputs.read_github_ssh_key }}
       if: inputs.read_github_ssh_key != ''
       run: |
-        echo "${{ inputs.read_github_ssh_key }}" >> ~/.ssh/github.com.rsa
+        echo "$READ_SSH_KEY" >> ~/.ssh/github.com.rsa
         chmod 600 ~/.ssh/github.com.rsa
         ssh-add ~/.ssh/github.com.rsa
 
@@ -43,9 +45,11 @@ runs:
     - name: setup write ssh key file
       shell: bash -e {0}
       working-directory: /tmp
+      env:
+        WRITE_SSH_KEY: ${{ inputs.write_github_ssh_key }}
       if: inputs.write_github_ssh_key != ''
       run: |
-        echo "${{ inputs.write_github_ssh_key }}" >> ~/.ssh/write.github.com.rsa
+        echo "$WRITE_SSH_KEY" >> ~/.ssh/write.github.com.rsa
         chmod 600 ~/.ssh/write.github.com.rsa
         ssh-add ~/.ssh/write.github.com.rsa
 
