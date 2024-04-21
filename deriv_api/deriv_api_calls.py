@@ -7006,7 +7006,9 @@ def parse_args(all_args):
         ptype = config[param].get('type')
         if ptype and ptype == 'string':
             parsed_args[param] = f'{value}'
-        elif ptype and (ptype == 'numeric' or ptype == 'boolean'):
+        elif ptype and ptype == 'numeric':
+            parsed_args[param] = float(value)
+        elif ptype and ptype == 'boolean':
             parsed_args[param] = int(float(value))
             
     return parsed_args
